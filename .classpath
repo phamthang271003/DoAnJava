@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry excluding="Restaurant/View/MainFrame/|Restaurant/View/Form/" kind="src" path="src"/>
+	<classpathentry kind="src" path="src/Restaurant/View/Form"/>
+	<classpathentry kind="src" path="src/Restaurant/View/MainFrame"/>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>
