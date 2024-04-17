@@ -19,8 +19,7 @@ public class Menu_StaffWarehouse implements ActionListener{
     public Menu_StaffWarehouse(Table_lngredientInfo Table_lngredientInfo) {
         this.Table_lngredientInfo = Table_lngredientInfo;
     }
-    
-    
+ 
     @Override
     public void actionPerformed(ActionEvent e) {
       String button = e.getActionCommand();
