@@ -2,11 +2,19 @@ package Restaurant.View.Form.Main;
 
 import Restaurant.View.Component.Login.PanelCover;
 import Restaurant.View.Component.Login.PanelLoginAndRegister;
+import Restaurant.View.MainFrame.Main_Manager;
+import Restaurant.View.MainFrame.Main_Staff;
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLaf;
+import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
+import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
+import javax.swing.UIManager;
 import net.miginfocom.swing.MigLayout;
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
@@ -27,7 +35,8 @@ public class Main extends javax.swing.JFrame {
         initComponents();
         init();
     }
-
+    
+  
     private void init() {
         layout = new MigLayout("fill, insets 0");
         cover = new PanelCover();
