@@ -147,23 +147,16 @@ public class MyDrawerBuilderStaff extends SimpleDrawerBuilder {
                     if (index[0] == 1) {
                         if (index[1] == 0) {
                             FormStaff.showForm(new TableFood());
-                            //  FormStaff.showForm(new Table_CustomersInfo());
                         } else if (index[1] == 1) {
 
                         } else if (index[1] == 2) {
 
                         }
                     }
-                    if (index[0] == 2) {
-                        if (index[1] == 0) {
-                            // FormStaff.showForm(new Table_CustomersInfo());
-                            FormStaff.showForm(new Table());
+                    String[] floors = {"Tang 1", "Tang 2", "Tang 3", "Tang 4"};
 
-                        } else if (index[1] == 1) {
-
-                        } else if (index[1] == 2) {
-
-                        }
+                    if (index[0] == 2 && index[1] >= 0 && index[1] < floors.length) {
+                        FormStaff.showForm(new Table(floors[index[1]]));
                     }
 
                 }

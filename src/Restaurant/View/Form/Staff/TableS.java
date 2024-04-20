@@ -4,9 +4,14 @@
  */
 package Restaurant.View.Form.Staff;
 
+import Restaurant.Controller.Event.Menu_Staff;
 import Restaurant.Model.ModelTable;
+import Restaurant.View.Swing.Dashboard.Button;
+import Restaurant.View.Swing.Dashboard.PanelRound;
+import java.awt.Color;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
 /**
@@ -14,36 +19,89 @@ import javax.swing.SwingUtilities;
  * @author quangthang
  */
 public class TableS extends javax.swing.JPanel {
+
     private final ModelTable table;
-    /**
-     * Creates new form TableS
-     */
+    private final Menu_Staff menuStaff;
+
+    public static final Color COLOR_AVAILABLE = Color.decode("#355C7D");
+    public static final Color COLOR_RESERVED = Color.decode("#FFE000");
+    public static final Color COLOR_CANCELLED = Color.decode("#c94b4b");
+    public static final Color COLOR_DEFAULT = Color.decode("#E9E4F0");
+
     public TableS(ModelTable table) {
-         this.table = table;
-        initComponents(); 
-         init();
+        this.table = table;
+        this.menuStaff = new Menu_Staff(this);
+        initComponents();
+        init();
     }
- 
-       public void init() {
-    // Wait for the label to be displayed and its size to be computed
-    SwingUtilities.invokeLater(() -> {
-        ImageIcon icon = new ImageIcon(TableS.class.getResource("/Icons/Staff/IconTable.png"));
-        Image image = icon.getImage();
 
-        // Get the size of the label
-        int labelWidth = img.getWidth();
-        int labelHeight = img.getHeight();
+    public void init() {
+        SwingUtilities.invokeLater(() -> {
+            ImageIcon icon = new ImageIcon(TableS.class.getResource("/Icons/Staff/IconTable.png"));
+            Image image = icon.getImage();
+            int labelWidth = img.getWidth();
+            int labelHeight = img.getHeight();
+            Image scaledImage = image.getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
+            img.setIcon(new ImageIcon(scaledImage));
 
-        // Scale the image to fit the label while preserving aspect ratio
-        Image scaledImage = image.getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
+        });
+        lbTitle.setText("Mã bàn: " + table.getID_Table() + " - " + table.getTableName());
+        lbValue.setText(table.getStatus());
+        btnDatBan.addActionListener(menuStaff);
+        btnGoiMon.addActionListener(menuStaff);
+    }
 
-        // Set the scaled image to the label
-        img.setIcon(new ImageIcon(scaledImage));
-       
-    });
-            lbTitle.setText("Mã bàn: "+table.getID_Table()+" - "+table.getTableName());
-            lbValue.setText(table.getStatus());
-}
+    public ModelTable getTable() {
+        return table;
+    }
+
+    public Button getBtnDatBan() {
+        return btnDatBan;
+    }
+
+    public JLabel getImg() {
+        return img;
+    }
+
+    public void setBtnGoiMon(Button btnGoiMon) {
+        this.btnGoiMon = btnGoiMon;
+    }
+
+    public Button getBtnGoiMon() {
+        return btnGoiMon;
+    }
+
+    public JLabel getLbTitle() {
+        return lbTitle;
+    }
+
+    public void setBtnDatBan(Button btnDatBan) {
+        this.btnDatBan = btnDatBan;
+    }
+
+    public void setImg(JLabel img) {
+        this.img = img;
+    }
+
+    public void setLbTitle(JLabel lbTitle) {
+        this.lbTitle = lbTitle;
+    }
+
+    public void setLbValue(JLabel lbValue) {
+        this.lbValue = lbValue;
+    }
+
+    public void setPanelRound1(PanelRound panelRound1) {
+        this.panelRound1 = panelRound1;
+    }
+
+    public JLabel getLbValue() {
+        return lbValue;
+    }
+
+    public PanelRound getPanelRound1() {
+        return panelRound1;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -58,7 +116,8 @@ public class TableS extends javax.swing.JPanel {
         img = new javax.swing.JLabel();
         lbValue = new javax.swing.JLabel();
         lbTitle = new javax.swing.JLabel();
-        button1 = new Restaurant.View.Swing.Dashboard.Button();
+        btnDatBan = new Restaurant.View.Swing.Dashboard.Button();
+        btnGoiMon = new Restaurant.View.Swing.Dashboard.Button();
 
         img.setBackground(new java.awt.Color(233, 228, 240));
         img.setOpaque(true);
@@ -73,13 +132,21 @@ public class TableS extends javax.swing.JPanel {
         lbTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbTitle.setText("Title");
 
-        button1.setBackground(new java.awt.Color(108, 91, 123));
-        button1.setForeground(new java.awt.Color(255, 255, 255));
-        button1.setText("Đặt bàn");
-        button1.setFocusable(false);
-        button1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        button1.setMaximumSize(new java.awt.Dimension(70, 29));
-        button1.setMinimumSize(new java.awt.Dimension(70, 29));
+        btnDatBan.setBackground(new java.awt.Color(108, 91, 123));
+        btnDatBan.setForeground(new java.awt.Color(255, 255, 255));
+        btnDatBan.setText("Đặt Trước");
+        btnDatBan.setFocusable(false);
+        btnDatBan.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        btnDatBan.setMaximumSize(new java.awt.Dimension(70, 29));
+        btnDatBan.setMinimumSize(new java.awt.Dimension(70, 29));
+
+        btnGoiMon.setBackground(new java.awt.Color(108, 91, 123));
+        btnGoiMon.setForeground(new java.awt.Color(255, 255, 255));
+        btnGoiMon.setText("Gọi món");
+        btnGoiMon.setFocusable(false);
+        btnGoiMon.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        btnGoiMon.setMaximumSize(new java.awt.Dimension(70, 29));
+        btnGoiMon.setMinimumSize(new java.awt.Dimension(70, 29));
 
         javax.swing.GroupLayout panelRound1Layout = new javax.swing.GroupLayout(panelRound1);
         panelRound1.setLayout(panelRound1Layout);
@@ -88,17 +155,21 @@ public class TableS extends javax.swing.JPanel {
             .addGroup(panelRound1Layout.createSequentialGroup()
                 .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelRound1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(img, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelRound1Layout.createSequentialGroup()
-                        .addGap(75, 75, 75)
-                        .addComponent(lbValue, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelRound1Layout.createSequentialGroup()
-                        .addGap(65, 65, 65)
-                        .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelRound1Layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addComponent(lbTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelRound1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(img, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelRound1Layout.createSequentialGroup()
+                                .addGap(75, 75, 75)
+                                .addComponent(lbValue, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(lbTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(panelRound1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnDatBan, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnGoiMon, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelRound1Layout.setVerticalGroup(
@@ -111,7 +182,9 @@ public class TableS extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbValue)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(button1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnDatBan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnGoiMon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -119,27 +192,24 @@ public class TableS extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(panelRound1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelRound1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 323, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(panelRound1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelRound1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private Restaurant.View.Swing.Dashboard.Button button1;
+    private Restaurant.View.Swing.Dashboard.Button btnDatBan;
+    private Restaurant.View.Swing.Dashboard.Button btnGoiMon;
     private javax.swing.JLabel img;
     private javax.swing.JLabel lbTitle;
     private javax.swing.JLabel lbValue;

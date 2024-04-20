@@ -18,21 +18,23 @@ public class Table extends SimpleFormStaff {
 
     private ServiceStaff serStaff;
     private ArrayList<ModelTable> list;
+    private String floor;
 
     /**
      * Creates new form Table
      */
-    public Table() {
+    public Table(String floor) {
         initComponents();
+        this.floor = floor;
 
-        serStaff = new ServiceStaff(); // Khởi tạo ServiceStaff
+        serStaff = new ServiceStaff();
         initMenuTable();
-
     }
 
     public void initMenuTable() {
         try {
-            list = serStaff.listMenu();
+            list = serStaff.listTable(floor);
+            System.out.println("Number of tables: " + list.size()); 
             for (ModelTable data : list) {
                 jPanel1.add(new TableS(data));
             }
@@ -52,7 +54,7 @@ public class Table extends SimpleFormStaff {
 
         jPanel1 = new javax.swing.JPanel();
 
-        jPanel1.setLayout(new java.awt.GridLayout(12, 4));
+        jPanel1.setLayout(new java.awt.GridLayout(3, 4));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

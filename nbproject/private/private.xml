@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>src/Restaurant/View/Form/Staff/TableS.java</url>
+            <bookmark id="1">
+                <name/>
+                <line>70</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/D:/Các%20Môn%20HK6/java/DoAnJava/src/Restaurant/Controller/Event/Menu_Staff.java</file>
+            <file>file:/D:/Các%20Môn%20HK6/java/DoAnJava/src/Restaurant/View/Dialog/MS_ConfirmReserve.java</file>
+            <file>file:/D:/Các%20Môn%20HK6/java/DoAnJava/src/Restaurant/View/Form/Staff/TableS.java</file>
+        </group>
     </open-files>
 </project-private>
