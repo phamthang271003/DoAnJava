@@ -2,6 +2,7 @@ package Restaurant.View.Dialog;
 
 import Restaurant.Controller.Service.ServiceStaff;
 import Restaurant.Model.ModelTable;
+import Restaurant.View.Form.Staff.TableS;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.GradientPaint;
@@ -23,6 +24,7 @@ public class MS_CancelReserve extends javax.swing.JDialog {
     private boolean show = true;
     private Frame frame;
     private ServiceStaff service;
+    private TableS tableS;
 
     public MS_CancelReserve(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -54,7 +56,8 @@ public class MS_CancelReserve extends javax.swing.JDialog {
         animator.setAcceleration(0.5f);
     }
 
-    public void CancelReserve(ModelTable table) {
+    public void CancelReserve(ModelTable table, TableS tableS) {
+        this.tableS = tableS;
         setLocationRelativeTo(frame);
         lbMessage.setText("Mã Bàn: " + table.getID_Table() + " - Tên Bàn: " + table.getTableName());
         animator.start();
@@ -63,12 +66,22 @@ public class MS_CancelReserve extends javax.swing.JDialog {
             public void actionPerformed(ActionEvent e) {
                 try {
                     service.CancelTableReserve(table.getID_Table());
+                    tableS.updateTableStatus("Con trong", tableS.COLOR_DEFAULT, "Đặt trước", new Color(108, 91, 123));
                 } catch (SQLException ex) {
                     Logger.getLogger(MS_CancelReserve.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                closeMenu();
             }
 
         });
+        cmdCancel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                closeMenu();
+            }
+
+        });
+        show = true;
         setVisible(true);
     }
 
@@ -175,11 +188,11 @@ public class MS_CancelReserve extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmdOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdOKActionPerformed
-        closeMenu();
+
     }//GEN-LAST:event_cmdOKActionPerformed
 
     private void cmdCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCancelActionPerformed
-        closeMenu();
+
     }//GEN-LAST:event_cmdCancelActionPerformed
 
     private void closeMenu() {

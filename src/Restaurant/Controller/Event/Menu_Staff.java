@@ -31,30 +31,22 @@ public class Menu_Staff implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == tableS.getBtnDatBan()) {   
-             //book.ConfirmReserve(tableS.getTable());
              handleReservation();
         
         } else if (e.getSource() == tableS.getBtnGoiMon()) {
-            // Xử lý khi nút "Gọi món" được nhấn
+    
         }
 
     }
   private void handleReservation() {
         String status = tableS.getTable().getStatus();
         if (status.equals("Con trong")) {
-            book.ConfirmReserve(tableS.getTable());
-            updateTableStatus("Da dat truoc", tableS.COLOR_RESERVED, "Hủy đặt trước", tableS.COLOR_CANCELLED);
+            book.ConfirmReserve(tableS.getTable(),tableS);
         } else if (status.equals("Da dat truoc")) {
-            cancel.CancelReserve(tableS.getTable());
-            updateTableStatus("Con trong", tableS.COLOR_DEFAULT, "Đặt trước", new Color(108, 91, 123));
+            cancel.CancelReserve(tableS.getTable(),tableS);
+             //book.ConfirmReserve(tableS.getTable(),tableS);
         }
     }
 
-    private void updateTableStatus(String statusText, Color statusColor, String buttonText, Color buttonColor) {
-        tableS.getLbValue().setText(statusText);
-        tableS.getImg().setBackground(statusColor);
-        tableS.getBtnDatBan().setText(buttonText);
-        tableS.getBtnDatBan().setBackground(buttonColor);
-        tableS.getTable().setStatus(statusText);
-    }
+
 }

@@ -47,10 +47,38 @@ public class TableS extends javax.swing.JPanel {
         });
         lbTitle.setText("Mã bàn: " + table.getID_Table() + " - " + table.getTableName());
         lbValue.setText(table.getStatus());
+        
+        switch (table.getStatus()) {
+            case "Con trong" -> {
+                img.setBackground(Color.decode("#E9E4F0"));
+                btnDatBan.setBackground(new Color(108, 91, 123));
+                btnDatBan.setText("Đặt trước");
+            }
+//            case "Dang dung bua" -> {
+//                img.setBackground(Color.decode("#605C3C"));
+//                cmdAdj.setText("GỌI MÓN");
+//            
+//            }
+            case "Da dat truoc" -> {
+                img.setBackground(Color.decode("#FFE000"));
+                btnDatBan.setText("Hủy đặt trước");
+                btnDatBan.setBackground(Color.decode("#c94b4b"));    
+            }
+            default -> {
+            }
+        }
+        
+        
         btnDatBan.addActionListener(menuStaff);
         btnGoiMon.addActionListener(menuStaff);
     }
-
+    public void updateTableStatus(String statusText, Color statusColor, String buttonText, Color buttonColor) {
+       lbValue.setText(statusText);
+        img.setBackground(statusColor);
+        btnDatBan.setText(buttonText);
+        btnDatBan.setBackground(buttonColor);
+        table.setStatus(statusText);
+    }
     public ModelTable getTable() {
         return table;
     }
@@ -134,7 +162,7 @@ public class TableS extends javax.swing.JPanel {
 
         btnDatBan.setBackground(new java.awt.Color(108, 91, 123));
         btnDatBan.setForeground(new java.awt.Color(255, 255, 255));
-        btnDatBan.setText("Đặt Trước");
+        btnDatBan.setText("Đặt trước");
         btnDatBan.setFocusable(false);
         btnDatBan.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         btnDatBan.setMaximumSize(new java.awt.Dimension(70, 29));

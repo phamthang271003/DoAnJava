@@ -1,4 +1,3 @@
-
 package Restaurant.View.Dialog;
 
 import Restaurant.Controller.Service.ServiceStaff;
@@ -20,7 +19,6 @@ import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
 
-
 public class MS_ConfirmReserve extends javax.swing.JDialog {
 
     private final Animator animator;
@@ -28,6 +26,7 @@ public class MS_ConfirmReserve extends javax.swing.JDialog {
     private boolean show = true;
     private Frame frame;
     private ServiceStaff service;
+   
 
     public MS_ConfirmReserve(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -57,27 +56,49 @@ public class MS_ConfirmReserve extends javax.swing.JDialog {
         animator = new Animator(200, target);
         animator.setResolution(0);
         animator.setAcceleration(0.5f);
-      
+            
+ 
     }
 
-    public void ConfirmReserve(ModelTable table) {
+    public void ConfirmReserve(ModelTable table ,TableS tableS) {
+         this.tableS = tableS;
         setLocationRelativeTo(frame);
         lbMessage.setText("Mã Bàn: " + table.getID_Table() + " - Tên Bàn: " + table.getTableName());
         animator.start();
-          cmdOK.addActionListener(new ActionListener() {
+        cmdOK.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    service.setTableReserve(table.getID_Table());
+                   service.setTableReserve(table.getID_Table());
+                   tableS.updateTableStatus("Da dat truoc", tableS.COLOR_RESERVED, "Hủy đặt trước", tableS.COLOR_CANCELLED);
+                      closeMenu();
+                   
                 } catch (SQLException ex) {
                     Logger.getLogger(MS_ConfirmReserve.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                closeMenu();
+             
             }
 
         });
+        cmdCancel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                closeMenu();
+          
+            }
+
+        });
+         show = true;
         setVisible(true);
     }
+
+//    private void updateTableStatus(String statusText, Color statusColor, String buttonText, Color buttonColor) {
+//        tableS.getLbValue().setText(statusText);
+//        tableS.getImg().setBackground(statusColor);
+//        tableS.getBtnDatBan().setText(buttonText);
+//        tableS.getBtnDatBan().setBackground(buttonColor);
+//        tableS.getTable().setStatus(statusText);
+//    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -225,47 +246,47 @@ public class MS_ConfirmReserve extends javax.swing.JDialog {
     }//GEN-LAST:event_txtTenKhachActionPerformed
 
     private void cmdOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdOKActionPerformed
-    
-   
+
+
     }//GEN-LAST:event_cmdOKActionPerformed
 
     private void cmdCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCancelActionPerformed
-       closeMenu();
+       // closeMenu();
     }//GEN-LAST:event_cmdCancelActionPerformed
 
     public void closeMenu() {
-    if (animator.isRunning()) {
-        animator.stop();
+        if (animator.isRunning()) {
+            animator.stop();
+        }
+        show = false;
+        animator.start();
     }
-    show = false;
-    animator.start();
-}
 
     public ButtonOutLine getCmdCancel() {
-    return cmdCancel;
-}
+        return cmdCancel;
+    }
 
     public ButtonOutLine getCmdOK() {
-    return cmdOK;
-}
+        return cmdOK;
+    }
 
     public void setCmdCancel(ButtonOutLine cmdCancel) {
-    this.cmdCancel = cmdCancel;
-}
+        this.cmdCancel = cmdCancel;
+    }
 
     public void setCmdOK(ButtonOutLine cmdOK) {
-    this.cmdOK = cmdOK;
-}
+        this.cmdOK = cmdOK;
+    }
 
     public void paintComponent(Graphics g) {
-    Graphics2D g2 = (Graphics2D) g;
-    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-    GradientPaint gp = new GradientPaint(0, 0, Color.decode("#516395"), 0, getHeight(), Color.decode("#614385"));
-    g2.setPaint(gp);
-    g2.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
-    g2.fillRect(0, 0, getWidth(), getHeight());
-    super.paintComponents(g);
-}
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        GradientPaint gp = new GradientPaint(0, 0, Color.decode("#516395"), 0, getHeight(), Color.decode("#614385"));
+        g2.setPaint(gp);
+        g2.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
+        g2.fillRect(0, 0, getWidth(), getHeight());
+        super.paintComponents(g);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Restaurant.View.Swing.Login.ButtonOutLine cmdCancel;
