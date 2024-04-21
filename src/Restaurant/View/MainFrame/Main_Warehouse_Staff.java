@@ -48,14 +48,14 @@ public class Main_Warehouse_Staff extends JFrame {
         // applyComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
     }
 
-//    public static void main(String[] args) {
-//        FlatRobotoFont.install();
-//        FlatLaf.registerCustomDefaultsSource("Restaurant.Themes");
-//        UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY, Font.PLAIN, 13));
-//        //FlatMacLightLaf.setup();
-//        FlatDarkLaf.setup();
-//        EventQueue.invokeLater(() -> new Main_Warehouse_Staff().setVisible(true));
-//
-//    }
+    public static void main(String[] args) {
+        FlatRobotoFont.install();
+        FlatLaf.registerCustomDefaultsSource("Restaurant.Themes");
+        UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY, Font.PLAIN, 13));
+        //FlatMacLightLaf.setup();
+        FlatDarkLaf.setup();
+        EventQueue.invokeLater(() -> new Main_Warehouse_Staff().setVisible(true));
+
+    }
 
 }

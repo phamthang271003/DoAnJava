@@ -12,56 +12,12 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
+            <file>file:/D:/Các%20Môn%20HK6/java/DoAnJava/src/Restaurant/View/MainFrame/Main_Staff.java</file>
+            <file>file:/D:/Các%20Môn%20HK6/java/DoAnJava/src/Restaurant/Controller/Event/SignIn_SignUp.java</file>
+            <file>file:/D:/Các%20Môn%20HK6/java/DoAnJava/src/Restaurant/Controller/Service/ServiceSignInUp.java</file>
             <file>file:/D:/Các%20Môn%20HK6/java/DoAnJava/src/Restaurant/View/Form/Main/Main.java</file>
-=======
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/View/Form/WarehouseStaff/Table_ReceiptInfo.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/View/Component/WarehouseStaff/MyDrawerBuilder.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/View/Form/Manager/Table_receipt.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/View/Component/Login/PanelCover.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/View/Swing/Dashboard/ButtonOutLine.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/Model/ModelUser.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/View/Swing/Dashboard/UndoRedo.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/View/Component/Dashboard/SearchOptinEvent.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/View/Form/Staff/DashboardFormStaff.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/View/Form/WarehouseStaff/TableGradientCell.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/View/Form/WarehouseStaff/Table_DeliverBillyInfo.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/View/Form/WarehouseStaff/Table_lngredientInfo.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/View/Component/Staff/MainFormStaff.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/Controller/Event/Menu_StaffWarehouse.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/View/Component/WarehouseStaff/Menu.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/View/MainFrame/Main_Warehouse_Staff.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/View/Form/Staff/Table.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/View/Component/Staff/MenuStaff.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/View/Component/Staff/SimpleFormStaff.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/View/Swing/Dashboard/PanelRound.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/Controller/Connection/DatabaseConnection.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/Controller/Service/ServiceSignInUp.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/View/Component/Staff/MyDrawerBuilderStaff.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/Controller/Service/ServiceStaff.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/View/Form/Manager/TableGradientCell.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/View/Swing/Dashboard/MyTextField.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/View/Component/Dashboard/TextFieldSearchOption.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/View/Component/WarehouseStaff/MainForm.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/View/Component/Login/PanelLoginAndRegister.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/Controller/Service/ResultSet.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/View/Swing/Dashboard/DateCalculator.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/View/Component/Manager/MyDrawerBuilderManager.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/View/Form/WarehouseStaff/Table_WarehouseInfo.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/View/Component/Manager/FormManager.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/View/Component/Staff/FormStaff.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/Model/Modelngredient.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/Controller/Event/SignIn_SignUp.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/View/Component/WarehouseStaff/SimpleForm.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/View/Component/Dashboard/Background.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/View/Swing/Dashboard/Button.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/View/MainFrame/Main_Staff.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/View/Swing/Dashboard/SliderTransition.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/View/Component/Dashboard/UWPButton.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/View/Form/Manager/DashboardFormManager.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/View/Form/Main/Main.java</file>
-            <file>file:/C:/JAVA-Project/DoAnJava/src/Restaurant/View/MainFrame/Main_Manager.java</file>
->>>>>>> 5aedcaed9afc780572963978b32216d18d8a1009
+            <file>file:/D:/Các%20Môn%20HK6/java/DoAnJava/src/Restaurant/View/Component/Staff/MyDrawerBuilderStaff.java</file>
+            <file>file:/D:/Các%20Môn%20HK6/java/DoAnJava/src/Restaurant/View/Swing/Dashboard/PanelSlider.java</file>
         </group>
     </open-files>
 </project-private>

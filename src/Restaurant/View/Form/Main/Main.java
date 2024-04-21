@@ -148,13 +148,11 @@ public class Main extends javax.swing.JFrame {
         FlatDarkLaf.setup();
         EventQueue.invokeLater(() -> {
             Main mainFrame = new Main();
-            Main_Manager managerFrame = new Main_Manager();
-            Main_Staff staffFrame = new Main_Staff();
-            Main_Warehouse_Staff warehouseStaffFrame = new Main_Warehouse_Staff();
 
-            //mainFrame.setVisible(true);
+
+            mainFrame.setVisible(true);
             //managerFrame.setVisible(true);
-            staffFrame.setVisible(true);
+            //staffFrame.setVisible(true);
             //warehouseStaffFrame.setVisible(true);
         });
     }

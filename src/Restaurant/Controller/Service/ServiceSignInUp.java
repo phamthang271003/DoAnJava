@@ -5,14 +5,10 @@
 package Restaurant.Controller.Service;
 
 import Restaurant.Controller.Connection.DatabaseConnection;
-import Restaurant.View.Swing.Login.MyPasswordField;
-import Restaurant.View.Swing.Login.MyTextField;
-import com.microsoft.sqlserver.jdbc.ISQLServerResultSet;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
 
 /**
  *

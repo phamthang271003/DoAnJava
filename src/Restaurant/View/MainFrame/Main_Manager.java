@@ -18,6 +18,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
+
 import raven.popup.GlassPanePopup;
 
 /**
@@ -43,12 +44,12 @@ public class Main_Manager extends JFrame{
        
         // applyComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
     }
-//    public static void main(String[] args) {
-//       FlatRobotoFont.install();
-//        FlatLaf.registerCustomDefaultsSource("Restaurant.Themes");
-//        UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY, Font.PLAIN, 13));
-//        //FlatMacLightLaf.setup();
-//        FlatDarkLaf.setup();
-//        EventQueue.invokeLater(() -> new Main_Manager().setVisible(true));
-//    }
+    public static void main(String[] args) {
+       FlatRobotoFont.install();
+        FlatLaf.registerCustomDefaultsSource("Restaurant.Themes");
+        UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY, Font.PLAIN, 13));
+        //FlatMacLightLaf.setup();
+        FlatDarkLaf.setup();
+        EventQueue.invokeLater(() -> new Main_Manager().setVisible(true));
+    }
 }
