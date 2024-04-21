@@ -4,10 +4,14 @@
  */
 package Restaurant.View.Component.Staff;
 
+import Restaurant.Controller.Event.SignIn_SignUp;
+import Restaurant.Controller.Service.ServiceSignInUp;
+import Restaurant.View.Component.Login.PanelLoginAndRegister;
 import Restaurant.View.Form.Staff.DashboardFormStaff;
 import Restaurant.View.Form.Staff.Table;
 import Restaurant.View.Form.Staff.TableFood;
 import Restaurant.View.Form.Staff.Table_CustomersInfo;
+import Restaurant.View.MainFrame.Main_Staff;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
@@ -37,6 +41,8 @@ import raven.swing.AvatarIcon;
 public class MyDrawerBuilderStaff extends SimpleDrawerBuilder {
 
     private final ThemesChange themesChange;
+    private ServiceSignInUp service;
+    
 
     public MyDrawerBuilderStaff() {
         themesChange = new ThemesChange();
@@ -49,12 +55,16 @@ public class MyDrawerBuilderStaff extends SimpleDrawerBuilder {
 
     @Override
     public SimpleHeaderData getSimpleHeaderData() {
+         
+        service=new ServiceSignInUp();
+        String email=service.Email;
+        String emailName=service.EmailName;
         AvatarIcon icon = new AvatarIcon(getClass().getResource("/Icons/Warehouse/profile.png"), 60, 60, 999);
         icon.setBorder(2);
         return new SimpleHeaderData()
                 .setIcon(icon)
-                .setTitle("Pham Thang")
-                .setDescription("PhamTranQuangThang03@gmail.com")
+                .setTitle(emailName)
+                .setDescription(email)
                 .setHeaderStyle(new SimpleHeaderStyle() {
 
                     @Override

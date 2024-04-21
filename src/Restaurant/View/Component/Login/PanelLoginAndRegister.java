@@ -1,6 +1,8 @@
 package Restaurant.View.Component.Login;
 
 
+import Restaurant.Controller.Event.SignIn_SignUp;
+import Restaurant.Controller.Service.ServiceSignInUp;
 import Restaurant.View.Swing.Login.Button;
 import Restaurant.View.Swing.Login.MyPasswordField;
 import Restaurant.View.Swing.Login.MyTextField;
@@ -14,6 +16,35 @@ import net.miginfocom.swing.MigLayout;
 
 public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
 
+    private MyTextField txtEmail;
+    private MyPasswordField txtPass;
+    
+    private MyTextField txtSUEmail;
+    private MyPasswordField txtSUPass;
+    private MyPasswordField txtSURePass;
+    
+    // Các phương thức getter cho txtEmail và txtPassword
+    public MyTextField getTxtEmail() {
+        return txtEmail;
+    }
+    
+    public MyPasswordField getTxtPassword() {
+        return txtPass;
+    }
+    
+     public MyTextField getTxtSUEmail() {
+        return txtSUEmail;
+    }
+    
+    public MyPasswordField getTxtSUPassword() {
+        return txtSUPass;
+    }
+     
+    public MyPasswordField getTxtSURePassword()
+    {
+        return txtSURePass;
+    }
+    
     public PanelLoginAndRegister() {
         initComponents();
         initRegister();
@@ -29,26 +60,34 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         //label.setForeground(new Color(7, 164, 121));
         label.setForeground(Color.black);
         register.add(label);
-        MyTextField txtUser = new MyTextField();
-        txtUser.setPrefixIcon(new ImageIcon(getClass().getResource("/Icons/Login/user.png")));
-        txtUser.setBackground(Color.WHITE);
-        txtUser.setHint("Name");
-        register.add(txtUser, "w 60%");
-        MyTextField txtEmail = new MyTextField();
-        txtEmail.setPrefixIcon(new ImageIcon(getClass().getResource("/Icons/Login/mail.png")));
-        txtEmail.setHint("Email");
-        txtEmail.setBackground(Color.WHITE);
-        register.add(txtEmail, "w 60%");
-        MyPasswordField txtPass = new MyPasswordField();
-        txtPass.setPrefixIcon(new ImageIcon(getClass().getResource("/Icons/Login/pass.png")));
-        txtPass.setHint("Password");
-        txtPass.setBackground(Color.WHITE);
-        register.add(txtPass, "w 60%");
+//        MyTextField txtUser = new MyTextField();
+//        txtUser.setPrefixIcon(new ImageIcon(getClass().getResource("/Icons/Login/user.png")));
+//        txtUser.setBackground(Color.WHITE);
+//        txtUser.setHint("Name");
+//        register.add(txtUser, "w 60%");
+        txtSUEmail = new MyTextField();
+        txtSUEmail.setPrefixIcon(new ImageIcon(getClass().getResource("/Icons/Login/mail.png")));
+        txtSUEmail.setHint("Email");
+        txtSUEmail.setBackground(Color.WHITE);
+        register.add(txtSUEmail, "w 60%");
+        txtSUPass = new MyPasswordField();
+        txtSUPass.setPrefixIcon(new ImageIcon(getClass().getResource("/Icons/Login/pass.png")));
+        txtSUPass.setHint("Password");
+        txtSUPass.setBackground(Color.WHITE);
+        register.add(txtSUPass, "w 60%");
+        txtSURePass = new MyPasswordField();
+        txtSURePass.setPrefixIcon(new ImageIcon(getClass().getResource("/Icons/Login/pass.png")));
+        txtSURePass.setHint("Re-enter Password");
+        txtSURePass.setBackground(Color.WHITE);
+        register.add(txtSURePass, "w 60%");
         Button cmd = new Button();
         //cmd.setBackground(new Color(7, 164, 121));
         cmd.setBackground(new Color(0, 0, 0));
         cmd.setForeground(new Color(250, 250, 250));
         cmd.setText("SIGN UP");
+        ServiceSignInUp service=new ServiceSignInUp();
+        SignIn_SignUp SignIn=new SignIn_SignUp(this,service);
+        cmd.addActionListener(SignIn);
         register.add(cmd, "w 40%, h 40");
     }
 
@@ -60,12 +99,12 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         //label.setForeground(new Color(7, 164, 121));
         label.setForeground(Color.black);
         login.add(label);
-        MyTextField txtEmail = new MyTextField();
+        txtEmail = new MyTextField();
         txtEmail.setPrefixIcon(new ImageIcon(getClass().getResource("/Icons/Login/mail.png")));
         txtEmail.setHint("Email");
         txtEmail.setBackground(Color.WHITE);
         login.add(txtEmail, "w 60%");
-        MyPasswordField txtPass = new MyPasswordField();
+        txtPass = new MyPasswordField();
         txtPass.setPrefixIcon(new ImageIcon(getClass().getResource("/Icons/Login/pass.png")));
         txtPass.setHint("Password");
         txtPass.setBackground(Color.WHITE);
@@ -80,7 +119,11 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         //cmd.setBackground(new Color(7, 164, 121));
         cmd.setBackground(new Color(0, 0, 0));
         cmd.setForeground(new Color(250, 250, 250));
+        
         cmd.setText("SIGN IN");
+        ServiceSignInUp service=new ServiceSignInUp();
+        SignIn_SignUp SignIn=new SignIn_SignUp(this,service);
+        cmd.addActionListener(SignIn);
         login.add(cmd, "w 40%, h 40");
     }
 

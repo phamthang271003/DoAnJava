@@ -36,7 +36,8 @@ public class Main extends javax.swing.JFrame {
         initComponents();
         init();
     }
-
+    
+  
     private void init() {
         layout = new MigLayout("fill, insets 0");
         cover = new PanelCover();
