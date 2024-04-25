@@ -6,9 +6,12 @@ package Restaurant.View.Form.Staff;
 
 import Restaurant.Controller.Service.ServiceStaff;
 import Restaurant.Model.ModelTable;
+import Restaurant.View.Component.Dashboard.SearchOptinEvent;
+import Restaurant.View.Component.Dashboard.SearchOption;
 import Restaurant.View.Component.Staff.SimpleFormStaff;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -17,7 +20,7 @@ import java.util.ArrayList;
 public class Table extends SimpleFormStaff {
 
     private ServiceStaff serStaff;
-    private ArrayList<ModelTable> list;
+    private ArrayList<ModelTable> allTables;
     private String floor;
 
     /**
@@ -26,21 +29,42 @@ public class Table extends SimpleFormStaff {
     public Table(String floor) {
         initComponents();
         this.floor = floor;
-
         serStaff = new ServiceStaff();
+         initSearchMenu();
         initMenuTable();
     }
 
+    private void initSearchMenu() {
+        txt.addEventOptionSelected(new SearchOptinEvent() {
+            @Override
+            public void optionSelected(SearchOption option, int index) {
+                txt.setHint("Search by " + option.getName() + "...");
+            }
+        });
+        txt.addOption(new SearchOption("Name", new ImageIcon(getClass().getResource("/Icons/Search/user.png"))));
+        txt.addOption(new SearchOption("Tel", new ImageIcon(getClass().getResource("/Icons/Search/tel.png"))));
+        txt.addOption(new SearchOption("Email", new ImageIcon(getClass().getResource("/Icons/Search/email.png"))));
+        txt.addOption(new SearchOption("Address", new ImageIcon(getClass().getResource("/Icons/Search/address.png"))));
+    }
+//Khởi tạo danh sách bàn theo tầng
+
     public void initMenuTable() {
         try {
-            list = serStaff.listTable(floor);
-            System.out.println("Number of tables: " + list.size()); 
-            for (ModelTable data : list) {
-                jPanel1.add(new TableS(data));
-            }
+            //Lấy danh sách bàn theo tầng từ truy vấn và gán vào biến allTables 
+            allTables = serStaff.listTable(floor);
+            displayTables(allTables); //Hiển thị danh sách bàn
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+    }
+// Hiển thị danh sách bàn lên giao diện
+    private void displayTables(ArrayList<ModelTable> tables) {
+        jPanel1.removeAll(); // Xóa tất cả các bàn đã hiển thị trước đó
+        for (ModelTable table : tables) {
+            jPanel1.add(new TableS(table)); // Thêm các bàn mới vào panel
+        }
+        jPanel1.revalidate(); // Cập nhật giao diện để hiển thị lại các bàn mới
+        jPanel1.repaint();
     }
 
     /**
@@ -53,8 +77,15 @@ public class Table extends SimpleFormStaff {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        txt = new Restaurant.View.Component.Dashboard.TextFieldSearchOption();
 
         jPanel1.setLayout(new java.awt.GridLayout(3, 4));
+
+        txt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -64,18 +95,50 @@ public class Table extends SimpleFormStaff {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1290, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txt, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(67, 67, 67))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE)
+                .addComponent(txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 629, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtKeyReleased
+//        if (txt.isSelected()) {
+//            int option = txt.getSelectedIndex();
+//            String text = "%" + txt.getText().trim() + "%";
+//            if (option == 0) {
+//                try {
+//                    ArrayList<ModelTable> searchedTables = serStaff.listTable(floor);
+//                    jPanel1.removeAll();
+//                    for (ModelTable table : searchedTables) {
+//                        // kiểm tra xem tên của bàn có chứa chuỗi con được nhập từ ô tìm kiếm không
+//                        if (table.getTableName().toLowerCase().contains(txt.getText().toLowerCase().trim())) {
+//                            jPanel1.add(new TableS(table)); // Thêm bàn vào panel nếu tên bàn chứa từ khóa tìm kiếm
+//                        }
+//                    }
+//                    jPanel1.revalidate();
+//                    jPanel1.repaint();
+//                } catch (SQLException ex) {
+//                    ex.printStackTrace();
+//                }
+//            }
+//        } else {
+//            // Nếu không có tìm kiếm, hiển thị lại tất cả các bàn
+//            initMenuTable();
+//        }
+    }//GEN-LAST:event_txtKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
+    private Restaurant.View.Component.Dashboard.TextFieldSearchOption txt;
     // End of variables declaration//GEN-END:variables
 }

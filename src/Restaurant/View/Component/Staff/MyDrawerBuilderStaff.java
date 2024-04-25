@@ -4,14 +4,11 @@
  */
 package Restaurant.View.Component.Staff;
 
-import Restaurant.Controller.Event.SignIn_SignUp;
 import Restaurant.Controller.Service.ServiceSignInUp;
-import Restaurant.View.Component.Login.PanelLoginAndRegister;
 import Restaurant.View.Form.Staff.DashboardFormStaff;
 import Restaurant.View.Form.Staff.Table;
 import Restaurant.View.Form.Staff.TableFood;
 import Restaurant.View.Form.Staff.Table_CustomersInfo;
-import Restaurant.View.MainFrame.Main_Staff;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
@@ -163,8 +160,9 @@ public class MyDrawerBuilderStaff extends SimpleDrawerBuilder {
 
                         }
                     }
+                    //Tạo mảng floors chứa 4 tầng
                     String[] floors = {"Tang 1", "Tang 2", "Tang 3", "Tang 4"};
-
+                     //Nếu vị trí được chọn trên menu là 2 và các meu con nằm ở vị trí từ 0 -> 3 thì showform table theo tầng
                     if (index[0] == 2 && index[1] >= 0 && index[1] < floors.length) {
                         FormStaff.showForm(new Table(floors[index[1]]));
                     }

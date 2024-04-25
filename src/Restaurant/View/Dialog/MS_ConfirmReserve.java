@@ -44,20 +44,16 @@ public class MS_ConfirmReserve extends javax.swing.JDialog {
                     setOpacity(1f - fraction);
                 }
             }
-
             @Override
             public void end() {
                 if (show == false) {
                     setVisible(false);
                 }
             }
-
         };
         animator = new Animator(200, target);
         animator.setResolution(0);
-        animator.setAcceleration(0.5f);
-            
- 
+        animator.setAcceleration(0.5f);    
     }
 
     public void ConfirmReserve(ModelTable table ,TableS tableS) {
@@ -65,48 +61,39 @@ public class MS_ConfirmReserve extends javax.swing.JDialog {
         setLocationRelativeTo(frame);
         lbMessage.setText("Mã Bàn: " + table.getID_Table() + " - Tên Bàn: " + table.getTableName());
         animator.start();
-        cmdOK.addActionListener(new ActionListener() {
+        btnXacNhan.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+                    //Thực hiện cập nhật trạng thái vào cơ sỡ dữ liệu từ truy vấn
                    service.setTableReserve(table.getID_Table());
+                   //Thực hiện cập nhật giao diện bàn khi đặt bàn
                    tableS.updateTableStatus("Da dat truoc", tableS.COLOR_RESERVED, "Hủy đặt trước", tableS.COLOR_CANCELLED);
                       closeMenu();
                    
                 } catch (SQLException ex) {
                     Logger.getLogger(MS_ConfirmReserve.class.getName()).log(Level.SEVERE, null, ex);
-                }
-             
+                } 
             }
-
         });
-        cmdCancel.addActionListener(new ActionListener() {
+        btnHuy.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                closeMenu();
-          
+                closeMenu();     
             }
-
         });
+        //Hiển thị lại form xác nhận các lần tiếp theo sau khi nhấn lần đầu
          show = true;
         setVisible(true);
     }
-
-//    private void updateTableStatus(String statusText, Color statusColor, String buttonText, Color buttonColor) {
-//        tableS.getLbValue().setText(statusText);
-//        tableS.getImg().setBackground(statusColor);
-//        tableS.getBtnDatBan().setText(buttonText);
-//        tableS.getBtnDatBan().setBackground(buttonColor);
-//        tableS.getTable().setStatus(statusText);
-//    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         panelRound2 = new Restaurant.View.Swing.Dashboard.PanelRound();
-        cmdOK = new Restaurant.View.Swing.Login.ButtonOutLine();
-        cmdCancel = new Restaurant.View.Swing.Login.ButtonOutLine();
+        btnXacNhan = new Restaurant.View.Swing.Login.ButtonOutLine();
+        btnHuy = new Restaurant.View.Swing.Login.ButtonOutLine();
         lbTitle = new javax.swing.JLabel();
         lbIcon = new javax.swing.JLabel();
         lbMessage = new javax.swing.JLabel();
@@ -119,24 +106,24 @@ public class MS_ConfirmReserve extends javax.swing.JDialog {
         setBackground(new java.awt.Color(215, 215, 215));
         setUndecorated(true);
 
-        cmdOK.setBackground(new java.awt.Color(17, 153, 142));
-        cmdOK.setForeground(new java.awt.Color(108, 91, 123));
-        cmdOK.setText("Xác nhận");
-        cmdOK.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cmdOK.addActionListener(new java.awt.event.ActionListener() {
+        btnXacNhan.setBackground(new java.awt.Color(17, 153, 142));
+        btnXacNhan.setForeground(new java.awt.Color(108, 91, 123));
+        btnXacNhan.setText("Xác nhận");
+        btnXacNhan.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnXacNhan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmdOKActionPerformed(evt);
+                btnXacNhanActionPerformed(evt);
             }
         });
 
-        cmdCancel.setBackground(new java.awt.Color(237, 33, 58));
-        cmdCancel.setForeground(new java.awt.Color(108, 91, 123));
-        cmdCancel.setText("Hủy");
-        cmdCancel.setActionCommand("Hủy");
-        cmdCancel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cmdCancel.addActionListener(new java.awt.event.ActionListener() {
+        btnHuy.setBackground(new java.awt.Color(237, 33, 58));
+        btnHuy.setForeground(new java.awt.Color(108, 91, 123));
+        btnHuy.setText("Hủy");
+        btnHuy.setActionCommand("Hủy");
+        btnHuy.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnHuy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmdCancelActionPerformed(evt);
+                btnHuyActionPerformed(evt);
             }
         });
 
@@ -177,9 +164,9 @@ public class MS_ConfirmReserve extends javax.swing.JDialog {
                 .addGap(26, 26, 26))
             .addGroup(panelRound2Layout.createSequentialGroup()
                 .addGap(64, 64, 64)
-                .addComponent(cmdOK, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnXacNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(90, 90, 90)
-                .addComponent(cmdCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(panelRound2Layout.createSequentialGroup()
                 .addGap(42, 42, 42)
@@ -215,8 +202,8 @@ public class MS_ConfirmReserve extends javax.swing.JDialog {
                     .addComponent(txtSDT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addGroup(panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmdOK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmdCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnXacNhan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21))
             .addGroup(panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panelRound2Layout.createSequentialGroup()
@@ -245,14 +232,14 @@ public class MS_ConfirmReserve extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTenKhachActionPerformed
 
-    private void cmdOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdOKActionPerformed
+    private void btnXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanActionPerformed
 
 
-    }//GEN-LAST:event_cmdOKActionPerformed
+    }//GEN-LAST:event_btnXacNhanActionPerformed
 
-    private void cmdCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCancelActionPerformed
+    private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
        // closeMenu();
-    }//GEN-LAST:event_cmdCancelActionPerformed
+    }//GEN-LAST:event_btnHuyActionPerformed
 
     public void closeMenu() {
         if (animator.isRunning()) {
@@ -263,19 +250,19 @@ public class MS_ConfirmReserve extends javax.swing.JDialog {
     }
 
     public ButtonOutLine getCmdCancel() {
-        return cmdCancel;
+        return btnHuy;
     }
 
     public ButtonOutLine getCmdOK() {
-        return cmdOK;
+        return btnXacNhan;
     }
 
     public void setCmdCancel(ButtonOutLine cmdCancel) {
-        this.cmdCancel = cmdCancel;
+        this.btnHuy = cmdCancel;
     }
 
     public void setCmdOK(ButtonOutLine cmdOK) {
-        this.cmdOK = cmdOK;
+        this.btnXacNhan = cmdOK;
     }
 
     public void paintComponent(Graphics g) {
@@ -289,8 +276,8 @@ public class MS_ConfirmReserve extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private Restaurant.View.Swing.Login.ButtonOutLine cmdCancel;
-    private Restaurant.View.Swing.Login.ButtonOutLine cmdOK;
+    private Restaurant.View.Swing.Login.ButtonOutLine btnHuy;
+    private Restaurant.View.Swing.Login.ButtonOutLine btnXacNhan;
     private javax.swing.JLabel lbIcon;
     private javax.swing.JLabel lbMessage;
     private javax.swing.JLabel lbMessage1;

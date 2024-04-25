@@ -53,9 +53,9 @@
               </Group>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
-                  <Component id="cmdOK" min="-2" pref="84" max="-2" attributes="0"/>
+                  <Component id="btnXacNhan" min="-2" pref="84" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
-                  <Component id="cmdCancel" min="-2" pref="84" max="-2" attributes="0"/>
+                  <Component id="btnHuy" min="-2" pref="84" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="0" attributes="0">
@@ -101,8 +101,8 @@
                   </Group>
                   <EmptySpace pref="58" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="cmdOK" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cmdCancel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnXacNhan" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnHuy" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
               </Group>
@@ -117,7 +117,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="Restaurant.View.Swing.Login.ButtonOutLine" name="cmdOK">
+        <Component class="Restaurant.View.Swing.Login.ButtonOutLine" name="btnXacNhan">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="8e" green="99" red="11" type="rgb"/>
@@ -131,10 +131,10 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdOKActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXacNhanActionPerformed"/>
           </Events>
         </Component>
-        <Component class="Restaurant.View.Swing.Login.ButtonOutLine" name="cmdCancel">
+        <Component class="Restaurant.View.Swing.Login.ButtonOutLine" name="btnHuy">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="3a" green="21" red="ed" type="rgb"/>
@@ -149,7 +149,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdCancelActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHuyActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lbTitle">

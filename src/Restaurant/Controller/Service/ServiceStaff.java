@@ -25,6 +25,7 @@ public class ServiceStaff {
         con = DatabaseConnection.getInstance().getConnection();
     }
 //Lấy danh sách bàn theo tầng
+
     public ArrayList<ModelTable> listTable(String floor) throws SQLException {
         ArrayList<ModelTable> list = new ArrayList<>();
         String sql = "SELECT ID_Table, TableName, Location, Status FROM [Table] WHERE Location = ? ";
@@ -62,37 +63,37 @@ public class ServiceStaff {
         p.execute();
         p.close();
     }
-        //Tìm hóa đơn có trạng thái Chưa thanh toán  dựa vào trạng mã Bàn
-//    public ModelHoaDon FindHoaDonbyID_Ban(ModelBan table) throws SQLException {
-//        ModelHoaDon hoadon = null;
-//        String sql = "SELECT ID_HoaDon,ID_KH,ID_Ban,to_char(NgayHD,'dd-mm-yyyy') AS Ngay,TienMonAn,Code_Voucher,TienGiam,Tongtien,Trangthai FROM HoaDon "
-//                + "WHERE ID_Ban=? AND Trangthai='Chua thanh toan'";
-//        PreparedStatement p = con.prepareStatement(sql);
-//        p.setInt(1, table.getID());
-//        ResultSet r = p.executeQuery();
-//        while (r.next()) {
-//            int idHoaDon = r.getInt(1);
-//            int idKH = r.getInt(2);
-//            int idBan = r.getInt(3);
-//            String ngayHD = r.getString(4);
-//            int tienMonAn = r.getInt(5);
-//            String code_voucher = r.getString(6);
-//            int tienGiam = r.getInt(7);
-//            int tongtien = r.getInt(8);
-//            String trangthai = r.getString(9);
-//            hoadon = new ModelHoaDon(idHoaDon, idKH, idBan, ngayHD, tienMonAn, code_voucher, tienGiam, tongtien, trangthai);
-//        }
-//        r.close();
-//        p.close();
-//        return hoadon;
-//    }
-//
-//    //Cập nhật trạng thái Hóa đơn thành Đã thanh toán khi Nhân viên xác nhận thanh toán
-//    public void UpdateHoaDonStatus(int idHD) throws SQLException {
-//        String sql = "UPDATE HoaDon SET TrangThai = 'Da thanh toan' WHERE ID_HoaDon=?";
-//        PreparedStatement p = con.prepareStatement(sql);
-//        p.setInt(1, idHD);
-//        p.execute();
-//        p.close();
-//    }
+
+    //Tìm kiếm theo tên bàn 
+   public ArrayList<ModelTable> searchTable(String where, Object... searchParams) throws SQLException {
+    ArrayList<ModelTable> resultList = new ArrayList<>();
+    String sql = "SELECT * FROM [Table] " + where;
+    
+    try (PreparedStatement statement = con.prepareStatement(sql)) {
+        // Bind parameters
+        for (int i = 0; i < searchParams.length; i++) {
+            statement.setObject(i + 1, searchParams[i]);
+        }
+        
+        // Execute query
+        try (ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                int ID_Table = resultSet.getInt("ID_Table");
+                String TableName = resultSet.getString("TableName");
+                String Location = resultSet.getString("Location");
+                String Status = resultSet.getString("Status");
+                ModelTable table = new ModelTable(ID_Table, TableName, Location, Status);
+                resultList.add(table);
+            }
+        }
+    } catch (SQLException ex) {
+        // Handle SQL exception
+        ex.printStackTrace(); // You may want to log the exception instead
+        throw ex;
+    }
+    
+    return resultList;
+}
+
+
 }

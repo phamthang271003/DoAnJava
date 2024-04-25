@@ -8,7 +8,6 @@ import Restaurant.View.Dialog.MS_CancelReserve;
 import Restaurant.View.Dialog.MS_ConfirmReserve;
 import Restaurant.View.Form.Staff.TableS;
 import Restaurant.View.MainFrame.Main_Staff;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -44,7 +43,6 @@ public class Menu_Staff implements ActionListener {
             book.ConfirmReserve(tableS.getTable(),tableS);
         } else if (status.equals("Da dat truoc")) {
             cancel.CancelReserve(tableS.getTable(),tableS);
-             //book.ConfirmReserve(tableS.getTable(),tableS);
         }
     }
 

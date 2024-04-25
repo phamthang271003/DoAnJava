@@ -12,13 +12,14 @@ import java.awt.Color;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 /**
  *
  * @author quangthang
  */
-public class TableS extends javax.swing.JPanel {
+public class TableS extends JPanel  {
 
     private final ModelTable table;
     private final Menu_Staff menuStaff;
@@ -36,6 +37,7 @@ public class TableS extends javax.swing.JPanel {
     }
 
     public void init() {
+        //gán hình ảnh bàn vừa với jlabel
         SwingUtilities.invokeLater(() -> {
             ImageIcon icon = new ImageIcon(TableS.class.getResource("/Icons/Staff/IconTable.png"));
             Image image = icon.getImage();
@@ -45,40 +47,46 @@ public class TableS extends javax.swing.JPanel {
             img.setIcon(new ImageIcon(scaledImage));
 
         });
+        // gán giá trị cho bàn
         lbTitle.setText("Mã bàn: " + table.getID_Table() + " - " + table.getTableName());
         lbValue.setText(table.getStatus());
-        
+
+        //khởi tạo các bàn trống hay đã đặt
         switch (table.getStatus()) {
-            case "Con trong" -> {
-                img.setBackground(Color.decode("#E9E4F0"));
+            case "Con trong":
+                img.setBackground(COLOR_DEFAULT);
                 btnDatBan.setBackground(new Color(108, 91, 123));
                 btnDatBan.setText("Đặt trước");
-            }
+                break;
+
 //            case "Dang dung bua" -> {
 //                img.setBackground(Color.decode("#605C3C"));
-//                cmdAdj.setText("GỌI MÓN");
+            //             btnGoiMon.setText("GỌI MÓN");
 //            
 //            }
-            case "Da dat truoc" -> {
-                img.setBackground(Color.decode("#FFE000"));
+            case "Da dat truoc":
+                img.setBackground(COLOR_RESERVED);
                 btnDatBan.setText("Hủy đặt trước");
-                btnDatBan.setBackground(Color.decode("#c94b4b"));    
-            }
-            default -> {
-            }
+                btnDatBan.setBackground(COLOR_CANCELLED);
+                break;
+            default:
+                break;
         }
-        
-        
+        // gán sự kiên cho nút Đặt món và gọi món
         btnDatBan.addActionListener(menuStaff);
         btnGoiMon.addActionListener(menuStaff);
     }
+//Cập nhật trạng thái bàn
+
     public void updateTableStatus(String statusText, Color statusColor, String buttonText, Color buttonColor) {
-       lbValue.setText(statusText);
+        lbValue.setText(statusText);
         img.setBackground(statusColor);
         btnDatBan.setText(buttonText);
         btnDatBan.setBackground(buttonColor);
         table.setStatus(statusText);
     }
+//Tạo các getter,setter của thuộc tính để lớp controller có thể lấy được giá trị của thuộc tính
+
     public ModelTable getTable() {
         return table;
     }
@@ -183,22 +191,19 @@ public class TableS extends javax.swing.JPanel {
             .addGroup(panelRound1Layout.createSequentialGroup()
                 .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelRound1Layout.createSequentialGroup()
-                        .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelRound1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(img, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelRound1Layout.createSequentialGroup()
-                                .addGap(75, 75, 75)
-                                .addComponent(lbValue, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(lbTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(btnDatBan, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnGoiMon, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(img, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lbTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(panelRound1Layout.createSequentialGroup()
+                        .addGap(75, 75, 75)
+                        .addComponent(lbValue, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(panelRound1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnDatBan, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnGoiMon, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelRound1Layout.setVerticalGroup(
             panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

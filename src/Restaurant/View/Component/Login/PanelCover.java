@@ -12,7 +12,6 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 import net.miginfocom.swing.MigLayout;
 
 public class PanelCover extends javax.swing.JPanel {
@@ -90,7 +89,7 @@ public class PanelCover extends javax.swing.JPanel {
     protected void paintComponent(Graphics grphcs) {
         Graphics2D g2 = (Graphics2D) grphcs;
         //GradientPaint gra = new GradientPaint(0, 0, new Color(35, 166, 97), 0, getHeight(), new Color(22, 116, 66));
-        GradientPaint gra = new GradientPaint(0, 0, Color.decode("#1C1C1C"), 0, getHeight(), Color.decode("#1C1C1C"));
+        GradientPaint gra = new GradientPaint(0, 0, Color.decode("#000000"), 0, getHeight(), Color.decode("#666666"));
         g2.setPaint(gra);
         g2.fillRect(0, 0, getWidth(), getHeight());
         super.paintComponent(grphcs);

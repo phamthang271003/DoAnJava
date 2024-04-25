@@ -2,9 +2,6 @@ package Restaurant.View.Form.Main;
 
 import Restaurant.View.Component.Login.PanelCover;
 import Restaurant.View.Component.Login.PanelLoginAndRegister;
-import Restaurant.View.MainFrame.Main_Manager;
-import Restaurant.View.MainFrame.Main_Staff;
-import Restaurant.View.MainFrame.Main_Warehouse_Staff;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
@@ -36,8 +33,6 @@ public class Main extends javax.swing.JFrame {
         initComponents();
         init();
     }
-    
-  
     private void init() {
         layout = new MigLayout("fill, insets 0");
         cover = new PanelCover();
@@ -148,12 +143,7 @@ public class Main extends javax.swing.JFrame {
         FlatDarkLaf.setup();
         EventQueue.invokeLater(() -> {
             Main mainFrame = new Main();
-
-
             mainFrame.setVisible(true);
-            //managerFrame.setVisible(true);
-            //staffFrame.setVisible(true);
-            //warehouseStaffFrame.setVisible(true);
         });
     }
 
