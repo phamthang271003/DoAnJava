@@ -1,5 +1,7 @@
 package Restaurant.View.Form.Main;
 
+import Restaurant.Controller.Event.SignIn_SignUp;
+import Restaurant.Controller.Service.ServiceSignInUp;
 import Restaurant.View.Component.Login.PanelCover;
 import Restaurant.View.Component.Login.PanelLoginAndRegister;
 import com.formdev.flatlaf.FlatDarkLaf;
@@ -28,15 +30,20 @@ public class Main extends javax.swing.JFrame {
     private final double addSize = 30;
     private final double coverSize = 40;
     private final double loginSize = 60;
-
+;
+     
+    
+    
     public Main() {
         initComponents();
         init();
+        
     }
     private void init() {
         layout = new MigLayout("fill, insets 0");
         cover = new PanelCover();
         loginAndRegister = new PanelLoginAndRegister();
+        
         TimingTarget target = new TimingTargetAdapter() {
             @Override
             public void timingEvent(float fraction) {
@@ -142,8 +149,10 @@ public class Main extends javax.swing.JFrame {
         //FlatMacLightLaf.setup();
         FlatDarkLaf.setup();
         EventQueue.invokeLater(() -> {
+            
             Main mainFrame = new Main();
             mainFrame.setVisible(true);
+            
         });
     }
 

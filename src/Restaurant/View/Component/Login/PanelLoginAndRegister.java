@@ -2,6 +2,7 @@ package Restaurant.View.Component.Login;
 
 import Restaurant.Controller.Event.SignIn_SignUp;
 import Restaurant.Controller.Service.ServiceSignInUp;
+import Restaurant.View.Form.Main.Main;
 import Restaurant.View.Swing.Login.Button;
 import Restaurant.View.Swing.Login.MyPasswordField;
 import Restaurant.View.Swing.Login.MyTextField;
@@ -83,6 +84,7 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         cmd.setBackground(new Color(0, 0, 0));
         cmd.setForeground(new Color(250, 250, 250));
         cmd.setText("SIGN UP");
+       
         ServiceSignInUp service = new ServiceSignInUp();
         SignIn_SignUp SignIn = new SignIn_SignUp(this, service);
         cmd.addActionListener(SignIn);
@@ -124,6 +126,7 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         cmd.setForeground(new Color(250, 250, 250));
 
         cmd.setText("SIGN IN");
+        
         ServiceSignInUp service = new ServiceSignInUp();
         SignIn_SignUp SignIn = new SignIn_SignUp(this, service);
         cmd.addActionListener(SignIn);

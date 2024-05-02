@@ -5,7 +5,9 @@
 package Restaurant.Controller.Event;
 
 import Restaurant.Controller.Service.ServiceSignInUp;
+import Restaurant.View.Component.Login.PanelCover;
 import Restaurant.View.Component.Login.PanelLoginAndRegister;
+import Restaurant.View.Form.Main.Main;
 import Restaurant.View.MainFrame.Main_Manager;
 import Restaurant.View.MainFrame.Main_Staff;
 import Restaurant.View.MainFrame.Main_Warehouse_Staff;
@@ -21,13 +23,16 @@ import javax.swing.JOptionPane;
  */
 public class SignIn_SignUp implements ActionListener {
 
+ 
     private PanelLoginAndRegister panel;
     private ServiceSignInUp service;
+    
 
     // Constructor mặc định
     public SignIn_SignUp(PanelLoginAndRegister panel, ServiceSignInUp service) {
         this.panel = panel;
         this.service = service;
+       
     }
 
     @Override
@@ -54,10 +59,8 @@ public class SignIn_SignUp implements ActionListener {
                 if (checkRole == 1) {
                     Main_Staff staff = new Main_Staff();
                     JOptionPane.showMessageDialog(panel, "Đăng nhập thành công ! Chào mừng bạn nhân viên");
-                    staff.setVisible(true);
-                    
-             
-
+                    staff.setVisible(true);   
+                    panel.getTopLevelAncestor().setVisible(false);
                 } else if (checkRole == 2) {
                     JOptionPane.showMessageDialog(panel, "Đăng nhập thành công ! Chào mừng bạn nhân viên quản lý kho");
                     Main_Warehouse_Staff WHStaff = new Main_Warehouse_Staff();

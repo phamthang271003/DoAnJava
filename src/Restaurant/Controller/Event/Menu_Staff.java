@@ -33,7 +33,7 @@ public class Menu_Staff implements ActionListener {
              handleReservation();
         
         } else if (e.getSource() == tableS.getBtnGoiMon()) {
-    
+                System.out.printf("Mã bàn:  "+ tableS.getTable().getID_Table());
         }
 
     }
