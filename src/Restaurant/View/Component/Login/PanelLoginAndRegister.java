@@ -1,8 +1,8 @@
 package Restaurant.View.Component.Login;
 
-
 import Restaurant.Controller.Event.SignIn_SignUp;
 import Restaurant.Controller.Service.ServiceSignInUp;
+import Restaurant.View.Form.Main.Main;
 import Restaurant.View.Swing.Login.Button;
 import Restaurant.View.Swing.Login.MyPasswordField;
 import Restaurant.View.Swing.Login.MyTextField;
@@ -18,33 +18,32 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
 
     private MyTextField txtEmail;
     private MyPasswordField txtPass;
-    
+
     private MyTextField txtSUEmail;
     private MyPasswordField txtSUPass;
     private MyPasswordField txtSURePass;
-    
+
     // Các phương thức getter cho txtEmail và txtPassword
     public MyTextField getTxtEmail() {
         return txtEmail;
     }
-    
+
     public MyPasswordField getTxtPassword() {
         return txtPass;
     }
-    
-     public MyTextField getTxtSUEmail() {
+
+    public MyTextField getTxtSUEmail() {
         return txtSUEmail;
     }
-    
+
     public MyPasswordField getTxtSUPassword() {
         return txtSUPass;
     }
-     
-    public MyPasswordField getTxtSURePassword()
-    {
+
+    public MyPasswordField getTxtSURePassword() {
         return txtSURePass;
     }
-    
+
     public PanelLoginAndRegister() {
         initComponents();
         initRegister();
@@ -85,26 +84,34 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         cmd.setBackground(new Color(0, 0, 0));
         cmd.setForeground(new Color(250, 250, 250));
         cmd.setText("SIGN UP");
-        ServiceSignInUp service=new ServiceSignInUp();
-        SignIn_SignUp SignIn=new SignIn_SignUp(this,service);
+       
+        ServiceSignInUp service = new ServiceSignInUp();
+        SignIn_SignUp SignIn = new SignIn_SignUp(this, service);
         cmd.addActionListener(SignIn);
         register.add(cmd, "w 40%, h 40");
+
+        register.setBackground( Color.decode("#DCDCDC")); 
     }
 
     private void initLogin() {
+        login.setBackground(Color.decode("#DCDCDC")); 
         login.setLayout(new MigLayout("wrap", "push[center]push", "push[]25[]10[]10[]25[]push"));
-        
+
         JLabel label = new JLabel("Sign In");
         label.setFont(new Font("sansserif", 1, 30));
         //label.setForeground(new Color(7, 164, 121));
         label.setForeground(Color.black);
         login.add(label);
         txtEmail = new MyTextField();
+        //txtEmail.setText("PhamThang03@gmail.com");
+         txtEmail.setText("NguyenDien03@gmail.com");
+        
         txtEmail.setPrefixIcon(new ImageIcon(getClass().getResource("/Icons/Login/mail.png")));
         txtEmail.setHint("Email");
         txtEmail.setBackground(Color.WHITE);
         login.add(txtEmail, "w 60%");
         txtPass = new MyPasswordField();
+        txtPass.setText("123");
         txtPass.setPrefixIcon(new ImageIcon(getClass().getResource("/Icons/Login/pass.png")));
         txtPass.setHint("Password");
         txtPass.setBackground(Color.WHITE);
@@ -119,10 +126,11 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         //cmd.setBackground(new Color(7, 164, 121));
         cmd.setBackground(new Color(0, 0, 0));
         cmd.setForeground(new Color(250, 250, 250));
-        
+
         cmd.setText("SIGN IN");
-        ServiceSignInUp service=new ServiceSignInUp();
-        SignIn_SignUp SignIn=new SignIn_SignUp(this,service);
+        
+        ServiceSignInUp service = new ServiceSignInUp();
+        SignIn_SignUp SignIn = new SignIn_SignUp(this, service);
         cmd.addActionListener(SignIn);
         login.add(cmd, "w 40%, h 40");
     }

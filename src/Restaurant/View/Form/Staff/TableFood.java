@@ -4,11 +4,18 @@
  */
 package Restaurant.View.Form.Staff;
 
+import Restaurant.Controller.Service.ServiceStaffWarehouse;
+import Restaurant.Model.Modelngredient;
+import Restaurant.View.Component.Dashboard.SearchOptinEvent;
+import Restaurant.View.Component.Dashboard.SearchOption;
 import Restaurant.View.Component.Staff.SimpleFormStaff;
-import java.awt.Image;
+import com.formdev.flatlaf.FlatClientProperties;
+import javax.swing.table.DefaultTableModel;
 
+import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -16,35 +23,58 @@ import javax.swing.SwingUtilities;
  */
 public class TableFood extends SimpleFormStaff {
 
+    private ServiceStaffWarehouse service;
+    private ArrayList<Modelngredient> list;
+    DecimalFormat df;
+
     /**
      * Creates new form Table
      */
     public TableFood() {
         initComponents();
-        init();
+        service = new ServiceStaffWarehouse();
+        df = new DecimalFormat("#,###");
+        initTable();
+        //Search
+        txt.addEventOptionSelected(new SearchOptinEvent() {
+            @Override
+            public void optionSelected(SearchOption option, int index) {
+                txt.setHint("Search by " + option.getName() + "...");
+            }
+        });
+        txt.addOption(new SearchOption("Name", new ImageIcon(getClass().getResource("/Icons/Search/user.png"))));
+        txt.addOption(new SearchOption("Tel", new ImageIcon(getClass().getResource("/Icons/Search/tel.png"))));
+        txt.addOption(new SearchOption("Email", new ImageIcon(getClass().getResource("/Icons/Search/email.png"))));
+        txt.addOption(new SearchOption("Address", new ImageIcon(getClass().getResource("/Icons/Search/address.png"))));
+
+        //Table
+        table.setDefaultRenderer(Object.class, new TableGradientCell());
+        jPanel1.putClientProperty(FlatClientProperties.STYLE, ""
+                + "border:1,1,1,1,$TableHeader.bottomSeparatorColor,,10");
+        table.getTableHeader().putClientProperty(FlatClientProperties.STYLE, ""
+                + "hoverBackground:null;"
+                + "pressedBackground:null;"
+                + "separatorColor:$TableHeader.background");
+        scroll.putClientProperty(FlatClientProperties.STYLE, ""
+                + "border:3,0,3,0,$Table.background,10,10");
+        scroll.getVerticalScrollBar().putClientProperty(FlatClientProperties.STYLE, ""
+                + "hoverTrackColor:null");
+        //testData();
     }
 
-   public void init() {
-    // Wait for the label to be displayed and its size to be computed
-    SwingUtilities.invokeLater(() -> {
-        ImageIcon icon = new ImageIcon(TableFood.class.getResource("/Icons/Staff/IconTable.png"));
-        Image image = icon.getImage();
-
-        // Get the size of the label
-        int labelWidth = img.getWidth();
-        int labelHeight = img.getHeight();
-
-        // Scale the image to fit the label while preserving aspect ratio
-        Image scaledImage = image.getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
-
-        // Set the scaled image to the label
-        img.setIcon(new ImageIcon(scaledImage));
-    });
-}
 
 
-
- 
+        public void initTable() {
+//                 DefaultTableModel model = (DefaultTableModel) table.getModel();
+//            try {
+//                list = service.MenuIngr();
+//                for (Modelngredient data : list) {
+//                    model.addRow(new Object[]{data.getiD_Ingr(), data.getNameIngre(), df.format(data.getPrice()) + "đ", data.getUnit()});
+//                }
+//            } catch (SQLException ex) {
+//                ex.printStackTrace();
+//            }
+        }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -55,107 +85,94 @@ public class TableFood extends SimpleFormStaff {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelRound1 = new Restaurant.View.Swing.Dashboard.PanelRound();
-        img = new javax.swing.JLabel();
-        lbValue = new javax.swing.JLabel();
-        lbTitle = new javax.swing.JLabel();
-        button1 = new Restaurant.View.Swing.Dashboard.Button();
-        myTextField1 = new Restaurant.View.Swing.Dashboard.MyTextField();
-        buttonOutLine1 = new Restaurant.View.Swing.Dashboard.ButtonOutLine();
-        buttonOutLine2 = new Restaurant.View.Swing.Dashboard.ButtonOutLine();
+        jPanel1 = new javax.swing.JPanel();
+        scroll = new javax.swing.JScrollPane();
+        table = new javax.swing.JTable();
+        uWPButton1 = new Restaurant.View.Component.Dashboard.UWPButton();
+        uWPButton2 = new Restaurant.View.Component.Dashboard.UWPButton();
+        uWPButton3 = new Restaurant.View.Component.Dashboard.UWPButton();
+        txt = new Restaurant.View.Component.Dashboard.TextFieldSearchOption();
 
-        img.setBackground(new java.awt.Color(233, 228, 240));
-        img.setOpaque(true);
+        jPanel1.setLayout(new java.awt.BorderLayout());
 
-        lbValue.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lbValue.setForeground(new java.awt.Color(108, 91, 123));
-        lbValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbValue.setText("Value");
+        table.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-        lbTitle.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        lbTitle.setForeground(new java.awt.Color(108, 91, 123));
-        lbTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbTitle.setText("Title");
+            },
+            new String [] {
+                "Ma NL", "Tên nguyên liệu", "Đơn giá", "Đơn vị tính"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
 
-        button1.setBackground(new java.awt.Color(108, 91, 123));
-        button1.setForeground(new java.awt.Color(255, 255, 255));
-        button1.setText("Đặt bàn");
-        button1.setFocusable(false);
-        button1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        button1.setMaximumSize(new java.awt.Dimension(70, 29));
-        button1.setMinimumSize(new java.awt.Dimension(70, 29));
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        table.setRowHeight(40);
+        scroll.setViewportView(table);
 
-        buttonOutLine1.setText("-");
+        uWPButton1.setText("uWPButton1");
 
-        buttonOutLine2.setText("+");
+        uWPButton2.setText("uWPButton2");
 
-        javax.swing.GroupLayout panelRound1Layout = new javax.swing.GroupLayout(panelRound1);
-        panelRound1.setLayout(panelRound1Layout);
-        panelRound1Layout.setHorizontalGroup(
-            panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelRound1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelRound1Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(lbTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lbValue, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelRound1Layout.createSequentialGroup()
-                                .addComponent(buttonOutLine1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(myTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(31, 31, 31)
-                        .addComponent(buttonOutLine2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(img, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelRound1Layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panelRound1Layout.setVerticalGroup(
-            panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(img, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbTitle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbValue)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(myTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonOutLine1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonOutLine2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        uWPButton3.setText("uWPButton3");
+
+        txt.setText("textFieldSearchOption1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(panelRound1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(uWPButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(uWPButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(uWPButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(1212, 1212, 1212)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 84, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 822, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelRound1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(uWPButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(uWPButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(uWPButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(155, 155, 155)
+                .addComponent(scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private Restaurant.View.Swing.Dashboard.Button button1;
-    private Restaurant.View.Swing.Dashboard.ButtonOutLine buttonOutLine1;
-    private Restaurant.View.Swing.Dashboard.ButtonOutLine buttonOutLine2;
-    private javax.swing.JLabel img;
-    private javax.swing.JLabel lbTitle;
-    private javax.swing.JLabel lbValue;
-    private Restaurant.View.Swing.Dashboard.MyTextField myTextField1;
-    private Restaurant.View.Swing.Dashboard.PanelRound panelRound1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane scroll;
+    private javax.swing.JTable table;
+    private Restaurant.View.Component.Dashboard.TextFieldSearchOption txt;
+    private Restaurant.View.Component.Dashboard.UWPButton uWPButton1;
+    private Restaurant.View.Component.Dashboard.UWPButton uWPButton2;
+    private Restaurant.View.Component.Dashboard.UWPButton uWPButton3;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,11 +4,14 @@
  */
 package Restaurant.View.Form.Staff;
 
+import Restaurant.Controller.Service.ServiceStaff;
+import Restaurant.Model.ModelTable;
+import Restaurant.View.Component.Dashboard.SearchOptinEvent;
+import Restaurant.View.Component.Dashboard.SearchOption;
 import Restaurant.View.Component.Staff.SimpleFormStaff;
-import java.awt.Image;
-
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -16,35 +19,53 @@ import javax.swing.SwingUtilities;
  */
 public class Table extends SimpleFormStaff {
 
+    private ServiceStaff serStaff;
+    private ArrayList<ModelTable> allTables;
+    private String floor;
+
     /**
      * Creates new form Table
      */
-    public Table() {
+    public Table(String floor) {
         initComponents();
-        init();
+        this.floor = floor;
+        serStaff = new ServiceStaff();
+         initSearchMenu();
+        initMenuTable();
     }
 
-   public void init() {
-    // Wait for the label to be displayed and its size to be computed
-    SwingUtilities.invokeLater(() -> {
-        ImageIcon icon = new ImageIcon(Table.class.getResource("/Icons/Staff/IconTable.png"));
-        Image image = icon.getImage();
+    private void initSearchMenu() {
+        txt.addEventOptionSelected(new SearchOptinEvent() {
+            @Override
+            public void optionSelected(SearchOption option, int index) {
+                txt.setHint("Search by " + option.getName() + "...");
+            }
+        });
+        txt.addOption(new SearchOption("Name", new ImageIcon(getClass().getResource("/Icons/Search/user.png"))));
+        txt.addOption(new SearchOption("Tel", new ImageIcon(getClass().getResource("/Icons/Search/tel.png"))));
+        txt.addOption(new SearchOption("Email", new ImageIcon(getClass().getResource("/Icons/Search/email.png"))));
+        txt.addOption(new SearchOption("Address", new ImageIcon(getClass().getResource("/Icons/Search/address.png"))));
+    }
+//Khởi tạo danh sách bàn theo tầng
 
-        // Get the size of the label
-        int labelWidth = img.getWidth();
-        int labelHeight = img.getHeight();
-
-        // Scale the image to fit the label while preserving aspect ratio
-        Image scaledImage = image.getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
-
-        // Set the scaled image to the label
-        img.setIcon(new ImageIcon(scaledImage));
-    });
-}
-
-
-
- 
+    public void initMenuTable() {
+        try {
+            //Lấy danh sách bàn theo tầng từ truy vấn và gán vào biến allTables 
+            allTables = serStaff.listTable(floor);
+            displayTables(allTables); //Hiển thị danh sách bàn
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+// Hiển thị danh sách bàn lên giao diện
+    private void displayTables(ArrayList<ModelTable> tables) {
+        jPanel1.removeAll(); // Xóa tất cả các bàn đã hiển thị trước đó
+        for (ModelTable table : tables) {
+            jPanel1.add(new TableS(table)); // Thêm các bàn mới vào panel
+        }
+        jPanel1.revalidate(); // Cập nhật giao diện để hiển thị lại các bàn mới
+        jPanel1.repaint();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -55,84 +76,69 @@ public class Table extends SimpleFormStaff {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelRound1 = new Restaurant.View.Swing.Dashboard.PanelRound();
-        img = new javax.swing.JLabel();
-        lbValue = new javax.swing.JLabel();
-        lbTitle = new javax.swing.JLabel();
-        button1 = new Restaurant.View.Swing.Dashboard.Button();
+        jPanel1 = new javax.swing.JPanel();
+        txt = new Restaurant.View.Component.Dashboard.TextFieldSearchOption();
 
-        img.setBackground(new java.awt.Color(233, 228, 240));
-        img.setOpaque(true);
+        jPanel1.setLayout(new java.awt.GridLayout(3, 4));
 
-        lbValue.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lbValue.setForeground(new java.awt.Color(108, 91, 123));
-        lbValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbValue.setText("Value");
-
-        lbTitle.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        lbTitle.setForeground(new java.awt.Color(108, 91, 123));
-        lbTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbTitle.setText("Title");
-
-        button1.setBackground(new java.awt.Color(108, 91, 123));
-        button1.setForeground(new java.awt.Color(255, 255, 255));
-        button1.setText("Đặt bàn");
-        button1.setFocusable(false);
-        button1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        button1.setMaximumSize(new java.awt.Dimension(70, 29));
-        button1.setMinimumSize(new java.awt.Dimension(70, 29));
-
-        javax.swing.GroupLayout panelRound1Layout = new javax.swing.GroupLayout(panelRound1);
-        panelRound1.setLayout(panelRound1Layout);
-        panelRound1Layout.setHorizontalGroup(
-            panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(img, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(panelRound1Layout.createSequentialGroup()
-                .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelRound1Layout.createSequentialGroup()
-                        .addGap(98, 98, 98)
-                        .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lbTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lbValue, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(panelRound1Layout.createSequentialGroup()
-                        .addGap(88, 88, 88)
-                        .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(102, Short.MAX_VALUE))
-        );
-        panelRound1Layout.setVerticalGroup(
-            panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(img, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbTitle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbValue)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(button1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        txt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelRound1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1290, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txt, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(67, 67, 67))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelRound1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 629, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtKeyReleased
+//        if (txt.isSelected()) {
+//            int option = txt.getSelectedIndex();
+//            String text = "%" + txt.getText().trim() + "%";
+//            if (option == 0) {
+//                try {
+//                    ArrayList<ModelTable> searchedTables = serStaff.listTable(floor);
+//                    jPanel1.removeAll();
+//                    for (ModelTable table : searchedTables) {
+//                        // kiểm tra xem tên của bàn có chứa chuỗi con được nhập từ ô tìm kiếm không
+//                        if (table.getTableName().toLowerCase().contains(txt.getText().toLowerCase().trim())) {
+//                            jPanel1.add(new TableS(table)); // Thêm bàn vào panel nếu tên bàn chứa từ khóa tìm kiếm
+//                        }
+//                    }
+//                    jPanel1.revalidate();
+//                    jPanel1.repaint();
+//                } catch (SQLException ex) {
+//                    ex.printStackTrace();
+//                }
+//            }
+//        } else {
+//            // Nếu không có tìm kiếm, hiển thị lại tất cả các bàn
+//            initMenuTable();
+//        }
+    }//GEN-LAST:event_txtKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private Restaurant.View.Swing.Dashboard.Button button1;
-    private javax.swing.JLabel img;
-    private javax.swing.JLabel lbTitle;
-    private javax.swing.JLabel lbValue;
-    private Restaurant.View.Swing.Dashboard.PanelRound panelRound1;
+    private javax.swing.JPanel jPanel1;
+    private Restaurant.View.Component.Dashboard.TextFieldSearchOption txt;
     // End of variables declaration//GEN-END:variables
 }

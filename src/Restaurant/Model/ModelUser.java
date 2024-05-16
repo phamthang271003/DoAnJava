@@ -13,6 +13,9 @@ public class ModelUser {
     private String Email;
     private String Password;
     private String Role;
+
+    public ModelUser() {
+    }
     
     public ModelUser(int ID_User,String Email,String Password,String Role)
     {
