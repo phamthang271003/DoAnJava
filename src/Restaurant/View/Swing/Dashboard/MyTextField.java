@@ -1,4 +1,3 @@
-
 package Restaurant.View.Swing.Dashboard;
 
 import java.awt.Color;

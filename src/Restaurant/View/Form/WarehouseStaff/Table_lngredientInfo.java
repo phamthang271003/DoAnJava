@@ -9,14 +9,15 @@ import Restaurant.Controller.Service.ServiceStaffWarehouse;
 import Restaurant.Model.Modelngredient;
 import Restaurant.View.Component.Dashboard.SearchOptinEvent;
 import Restaurant.View.Component.Dashboard.SearchOption;
+import Restaurant.View.Component.Dashboard.UWPButton;
 import Restaurant.View.Component.WarehouseStaff.SimpleForm;
 import com.formdev.flatlaf.FlatClientProperties;
 import javax.swing.table.DefaultTableModel;
-
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JTable;
 
 /**
  *
@@ -27,16 +28,19 @@ public class Table_lngredientInfo extends SimpleForm {
     private ServiceStaffWarehouse service;
     private ArrayList<Modelngredient> list;
     DecimalFormat df;
+    private Menu_StaffWarehouse menu_StaffWarehouse;
 
     /**
      * Creates new form Table
      */
     public Table_lngredientInfo() {
         initComponents();
-          initialize();
+        initialize();
         service = new ServiceStaffWarehouse();
         df = new DecimalFormat("#,###");
         initTable();
+        getNumberFood();
+        getNumberInStock();
         //Search
         txt.addEventOptionSelected(new SearchOptinEvent() {
             @Override
@@ -61,26 +65,75 @@ public class Table_lngredientInfo extends SimpleForm {
                 + "border:3,0,3,0,$Table.background,10,10");
         scroll.getVerticalScrollBar().putClientProperty(FlatClientProperties.STYLE, ""
                 + "hoverTrackColor:null");
-       // testData();
+        // testData();
     }
 
+    public void setBtnSua(UWPButton btnSua) {
+        this.btnSua = btnSua;
+    }
 
-        public void initTable() {
-                 DefaultTableModel model = (DefaultTableModel) table.getModel();
-            try {
-                list = service.MenuIngr();
-                for (Modelngredient data : list) {
-                    model.addRow(new Object[]{data.getiD_Ingr(), data.getNameIngre(), df.format(data.getPrice()) + "đ", data.getUnit()});
-                }
-            } catch (SQLException ex) {
-                ex.printStackTrace();
+    public void setBtnThem(UWPButton btnThem) {
+        this.btnThem = btnThem;
+    }
+
+    public UWPButton getBtnSua() {
+        return btnSua;
+    }
+
+    public UWPButton getBtnThem() {
+        return btnThem;
+    }
+
+    public void setBtnXoa(UWPButton btnXoa) {
+        this.btnXoa = btnXoa;
+    }
+
+    public UWPButton getBtnXoa() {
+        return btnXoa;
+    }
+
+    public JTable getTable() {
+        return table;
+    }
+
+    public void setTable(JTable table) {
+        this.table = table;
+    }
+
+    public void initTable() {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        try {
+            list = service.MenuIngr();
+            for (Modelngredient data : list) {
+                model.addRow(new Object[]{data.getiD_Ingr(), data.getNameIngre(), df.format(data.getPrice()) + "đ", data.getUnit(), data.getQuantityInStock()});
             }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
+    }
 
-private void initialize() {
-    Menu_StaffWarehouse menu_StaffWarehouse = new Menu_StaffWarehouse(this);
-    btnThem.addActionListener(menu_StaffWarehouse);
-}
+    public void getNumberFood() {
+        try {
+            txtTongNL.setText(service.getNumberFood_inBusiness() + " Món");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void getNumberInStock() {
+        try {
+            txtSlTon.setText(service.getCountIngredient_QuantityInStock() + "");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void initialize() {
+        menu_StaffWarehouse = new Menu_StaffWarehouse(this);
+        btnThem.addActionListener(menu_StaffWarehouse);
+        btnXoa.addActionListener(menu_StaffWarehouse);
+        btnSua.addActionListener(menu_StaffWarehouse);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -98,6 +151,10 @@ private void initialize() {
         btnXoa = new Restaurant.View.Component.Dashboard.UWPButton();
         btnSua = new Restaurant.View.Component.Dashboard.UWPButton();
         txt = new Restaurant.View.Component.Dashboard.TextFieldSearchOption();
+        jLabel1 = new javax.swing.JLabel();
+        txtTongNL = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        txtSlTon = new javax.swing.JTextField();
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
@@ -107,11 +164,11 @@ private void initialize() {
 
             },
             new String [] {
-                "Ma NL", "Tên nguyên liệu", "Đơn giá", "Đơn vị tính"
+                "Ma NL", "Tên nguyên liệu", "Đơn giá", "Đơn vị tính", "Số lượng tồn"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -128,6 +185,10 @@ private void initialize() {
         btnSua.setText("Sửa");
 
         txt.setText("textFieldSearchOption1");
+
+        jLabel1.setText("Tổng số món ăn đang kinh doanh");
+
+        jLabel2.setText("Số lượng nguyên liệu tồn kho");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -154,18 +215,33 @@ private void initialize() {
                                 .addComponent(scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 1290, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtTongNL, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(txtSlTon, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtTongNL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtSlTon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(btnThem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnXoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -177,12 +253,14 @@ private void initialize() {
     private Restaurant.View.Component.Dashboard.UWPButton btnSua;
     private Restaurant.View.Component.Dashboard.UWPButton btnThem;
     private Restaurant.View.Component.Dashboard.UWPButton btnXoa;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane scroll;
     private javax.swing.JTable table;
     private Restaurant.View.Component.Dashboard.TextFieldSearchOption txt;
+    private javax.swing.JTextField txtSlTon;
+    private javax.swing.JTextField txtTongNL;
     // End of variables declaration//GEN-END:variables
-
-
 
 }

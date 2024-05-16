@@ -5,12 +5,16 @@
 package Restaurant.Controller.Service;
 
 import Restaurant.Controller.Connection.DatabaseConnection;
+import Restaurant.Model.ModelEmployee;
 import Restaurant.Model.ModelTable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -24,8 +28,10 @@ public class ServiceStaff {
         DatabaseConnection.getInstance().connectToDatabase();
         con = DatabaseConnection.getInstance().getConnection();
     }
-//Lấy danh sách bàn theo tầng
 
+    
+
+//Lấy danh sách bàn theo tầng
     public ArrayList<ModelTable> listTable(String floor) throws SQLException {
         ArrayList<ModelTable> list = new ArrayList<>();
         String sql = "SELECT ID_Table, TableName, Location, Status FROM [Table] WHERE Location = ? ";
@@ -65,35 +71,34 @@ public class ServiceStaff {
     }
 
     //Tìm kiếm theo tên bàn 
-   public ArrayList<ModelTable> searchTable(String where, Object... searchParams) throws SQLException {
-    ArrayList<ModelTable> resultList = new ArrayList<>();
-    String sql = "SELECT * FROM [Table] " + where;
-    
-    try (PreparedStatement statement = con.prepareStatement(sql)) {
-        // Bind parameters
-        for (int i = 0; i < searchParams.length; i++) {
-            statement.setObject(i + 1, searchParams[i]);
-        }
-        
-        // Execute query
-        try (ResultSet resultSet = statement.executeQuery()) {
-            while (resultSet.next()) {
-                int ID_Table = resultSet.getInt("ID_Table");
-                String TableName = resultSet.getString("TableName");
-                String Location = resultSet.getString("Location");
-                String Status = resultSet.getString("Status");
-                ModelTable table = new ModelTable(ID_Table, TableName, Location, Status);
-                resultList.add(table);
-            }
-        }
-    } catch (SQLException ex) {
-        // Handle SQL exception
-        ex.printStackTrace(); // You may want to log the exception instead
-        throw ex;
-    }
-    
-    return resultList;
-}
+    public ArrayList<ModelTable> searchTable(String where, Object... searchParams) throws SQLException {
+        ArrayList<ModelTable> resultList = new ArrayList<>();
+        String sql = "SELECT * FROM [Table] " + where;
 
+        try (PreparedStatement statement = con.prepareStatement(sql)) {
+            // Bind parameters
+            for (int i = 0; i < searchParams.length; i++) {
+                statement.setObject(i + 1, searchParams[i]);
+            }
+
+            // Execute query
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    int ID_Table = resultSet.getInt("ID_Table");
+                    String TableName = resultSet.getString("TableName");
+                    String Location = resultSet.getString("Location");
+                    String Status = resultSet.getString("Status");
+                    ModelTable table = new ModelTable(ID_Table, TableName, Location, Status);
+                    resultList.add(table);
+                }
+            }
+        } catch (SQLException ex) {
+            // Handle SQL exception
+            ex.printStackTrace(); // You may want to log the exception instead
+            throw ex;
+        }
+
+        return resultList;
+    }
 
 }

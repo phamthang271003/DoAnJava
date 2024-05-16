@@ -5,6 +5,7 @@
 package Restaurant.Controller.Service;
 
 import Restaurant.Controller.Connection.DatabaseConnection;
+import Restaurant.View.Form.Staff.TableFood;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -18,6 +19,9 @@ public class ServiceSignInUp {
     
     private final Connection con;
 
+    private TableFood tb;
+    
+    public static String ID_Client;
     public static String Email;
     public static String EmailName;
     
@@ -104,8 +108,7 @@ public class ServiceSignInUp {
     
     public boolean checkLogin(String Email,String Password,String EmailName)
     {
-        
-        String sql="SELECT * FROM [User] WHERE Email = ? AND Password = ?";
+String sql="SELECT * FROM [User] WHERE Email = ? AND Password = ?";
         try (PreparedStatement statement = con.prepareStatement(sql)) {
             statement.setString(1, Email);
             statement.setString(2, Password);
@@ -115,6 +118,7 @@ public class ServiceSignInUp {
                 if (resultSet.next()) {
                     this.EmailName=EmailName;
                     this.Email=Email;
+                    this.ID_Client=resultSet.getString("ID_User");
                     return true;
                 }
             }
