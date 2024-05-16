@@ -4,16 +4,21 @@
  */
 package Restaurant.View.Component.Staff;
 
+import Restaurant.Controller.Event.Menu_Staff;
 import Restaurant.Controller.Service.ServiceSignInUp;
 import Restaurant.View.Form.Staff.DashboardFormStaff;
 import Restaurant.View.Form.Staff.Table;
 import Restaurant.View.Form.Staff.TableFood;
+import Restaurant.View.Form.Staff.TableS;
 import Restaurant.View.Form.Staff.Table_CustomersInfo;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.Color;
 import java.awt.Component;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -37,11 +42,15 @@ import raven.swing.AvatarIcon;
  */
 public class MyDrawerBuilderStaff extends SimpleDrawerBuilder {
 
+    private final TableFood tb = null;
+    private final Menu_Staff menuStaff ;
     private final ThemesChange themesChange;
     private ServiceSignInUp service;
+    private final TableS tableS = null;
 
     public MyDrawerBuilderStaff() {
         themesChange = new ThemesChange();
+       this.menuStaff=new Menu_Staff(tableS,tb);
     }
 
     @Override
@@ -141,7 +150,11 @@ public class MyDrawerBuilderStaff extends SimpleDrawerBuilder {
                         FormStaff.showForm(new DashboardFormStaff());
                     }
                     if (index[0] == 1) {
-                 FormStaff.showForm(new TableFood());
+                        try {
+                            FormStaff.showForm(new TableFood(menuStaff));
+                        } catch (SQLException ex) {
+                            Logger.getLogger(MyDrawerBuilderStaff.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
                     if (index[0] == 3) {
                         FormStaff.showForm(new Table_CustomersInfo());
