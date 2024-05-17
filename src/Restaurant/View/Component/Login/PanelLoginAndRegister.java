@@ -104,7 +104,7 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         login.add(label);
         txtEmail = new MyTextField();
         //txtEmail.setText("PhamThang03@gmail.com");
-         txtEmail.setText("NguyenDien03@gmail.com");
+         txtEmail.setText("dien@gmail.com");
         
         txtEmail.setPrefixIcon(new ImageIcon(getClass().getResource("/Icons/Login/mail.png")));
         txtEmail.setHint("Email");

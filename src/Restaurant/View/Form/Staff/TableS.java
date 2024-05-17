@@ -5,6 +5,7 @@
 package Restaurant.View.Form.Staff;
 
 import Restaurant.Controller.Event.Menu_Staff;
+import Restaurant.Controller.Service.ServiceStaff;
 import Restaurant.Model.ModelTable;
 import Restaurant.View.Swing.Dashboard.Button;
 import Restaurant.View.Swing.Dashboard.PanelRound;
@@ -21,6 +22,8 @@ import javax.swing.SwingUtilities;
  */
 public class TableS extends JPanel  {
 
+    
+    private final TableFood tb = null;
     private final ModelTable table;
     private final Menu_Staff menuStaff;
 
@@ -31,7 +34,7 @@ public class TableS extends JPanel  {
 
     public TableS(ModelTable table) {
         this.table = table;
-        this.menuStaff = new Menu_Staff(this);
+        this.menuStaff = new Menu_Staff(this,tb);
         initComponents();
         init();
     }
@@ -75,6 +78,7 @@ public class TableS extends JPanel  {
         // gán sự kiên cho nút Đặt món và gọi món
         btnDatBan.addActionListener(menuStaff);
         btnGoiMon.addActionListener(menuStaff);
+        
     }
 //Cập nhật trạng thái bàn
 

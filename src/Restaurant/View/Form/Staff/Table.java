@@ -19,6 +19,7 @@ import javax.swing.ImageIcon;
  */
 public class Table extends SimpleFormStaff {
 
+    private final TableFood tb=null;
     private ServiceStaff serStaff;
     private ArrayList<ModelTable> allTables;
     private String floor;
