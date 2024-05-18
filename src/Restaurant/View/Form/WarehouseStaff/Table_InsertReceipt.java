@@ -146,7 +146,6 @@ public class Table_InsertReceipt extends SimpleForm {
             ex.printStackTrace();
         }
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -353,10 +352,10 @@ public class Table_InsertReceipt extends SimpleForm {
         String ngayNK = String.format("%02d-%02d-%04d", selectedDate.getDay(), selectedDate.getMonth(), selectedDate.getYear());
 
         // Convert ngayNK String to Date object
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
         Date ngayNKDate = null;
         try {
-            ngayNKDate = dateFormat.parse(ngayNK);
+            ngayNKDate = simpleDateFormat.parse(ngayNK);
         } catch (ParseException ex) {
             ex.printStackTrace();
         }
@@ -365,9 +364,9 @@ public class Table_InsertReceipt extends SimpleForm {
             serviceWarehouse.InsertPNK_CTNK(pnk, list);
         } catch (SQLException ex) {
             ex.printStackTrace();
-            //Logger.getLogger(InsertPNK_Form.class.getName()).log(Level.SEVERE, null, ex);
         }
         FormWareHouseStaff.showForm((receiptInfo));
+        receiptInfo.refreshData();
     }//GEN-LAST:event_btnThemPNKActionPerformed
 
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed

@@ -106,7 +106,6 @@ public class Table_Receipt extends SimpleForm {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         try {
             list = service.MenuReceipt();
-
             for (ModelReceipt data : list) {
                 model.addRow(new Object[]{data.getID_Rec(), data.getID_Emp(), dateFormat.format(data.getInputDay()), df.format(data.getTotalPrice()) + "đ"});
             }
@@ -114,6 +113,19 @@ public class Table_Receipt extends SimpleForm {
             ex.printStackTrace();
         }
     }
+public void refreshData() {
+    DefaultTableModel model = (DefaultTableModel) table.getModel();
+    model.setRowCount(0); 
+    try {
+        list = service.MenuReceipt();
+        for (ModelReceipt data : list) {
+            model.addRow(new Object[]{data.getID_Rec(), data.getID_Emp(), dateFormat.format(data.getInputDay()), df.format(data.getTotalPrice()) + "đ"});
+        }
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+    }
+    getTotalPrice(); // Refresh total price as well
+}
 
     public UWPButton getBtnChiTietPNK() {
         return btnChiTietPNK;

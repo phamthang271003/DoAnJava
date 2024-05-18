@@ -22,7 +22,7 @@ import raven.drawer.component.menu.SimpleMenuOption;
 import raven.drawer.component.menu.SimpleMenuStyle;
 import raven.drawer.component.menu.data.Item;
 import raven.drawer.component.menu.data.MenuItem;
-import Restaurant.View.Form.WarehouseStaff.Table_DeliverBillyInfo;
+import Restaurant.View.Form.WarehouseStaff.Table_Delivery;
 import Restaurant.View.Form.WarehouseStaff.Table_Receipt;
 import Restaurant.View.Form.WarehouseStaff.Table_WarehouseInfo;
 import Restaurant.View.Form.WarehouseStaff.Table_lngredientInfo;
@@ -191,8 +191,8 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
                             ModelUser modelUser = new ModelUser();
                             FormWareHouseStaff.showForm(new Table_Receipt(modelUser));
                         } else if (index[1] == 1) {
-                            // FormManager.showForm(new ReadForm());
-                            FormWareHouseStaff.showForm(new Table_DeliverBillyInfo());
+                             ModelUser modelUser = new ModelUser();
+                            FormWareHouseStaff.showForm(new Table_Delivery(modelUser));
                         } else if (index[1] == 2) {
 
                         }

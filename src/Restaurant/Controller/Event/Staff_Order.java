@@ -6,18 +6,10 @@ package Restaurant.Controller.Event;
 
 import Restaurant.Controller.Service.ServiceSignInUp;
 import Restaurant.Controller.Service.ServiceStaff;
-import Restaurant.View.Component.Staff.FormStaff;
-import static Restaurant.View.Component.Staff.FormStaff.showForm;
-import Restaurant.View.Form.Staff.DashboardFormStaff;
-import Restaurant.View.Form.Staff.Table;
 import Restaurant.View.Form.Staff.TableFood;
-import Restaurant.View.Form.Staff.Table_CustomersInfo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -68,7 +60,7 @@ public class Staff_Order implements ActionListener {
                String ID_Food=foods[0];
                String FoodName=foods[1];
                foods[2] = foods[2].substring(0, foods[2].length() - 1);
-               String[] split=foods[2].split("\\.");
+                String[] split=foods[2].split(",");
                int Price=Integer.parseInt(split[0]+split[1]) ;
                String Status=foods[4];
                if(Status.equals("Het hang"))
