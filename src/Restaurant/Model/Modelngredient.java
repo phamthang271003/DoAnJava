@@ -14,15 +14,25 @@ public class Modelngredient {
     private String nameIngre;
     private int price;
     private String unit;
+    private int quantityInStock;
 
     public Modelngredient() {
     }
 
-    public Modelngredient(int iD_Ingr, String nameIngre, int price, String unit) {
+    public Modelngredient(int iD_Ingr, String nameIngre, int price, String unit,int quantityInStock ) {
         this.iD_Ingr = iD_Ingr;
         this.nameIngre = nameIngre;
         this.price = price;
         this.unit = unit;
+        this.quantityInStock = quantityInStock;
+    }
+
+    public void setQuantityInStock(int quantityInStock) {
+        this.quantityInStock = quantityInStock;
+    }
+
+    public int getQuantityInStock() {
+        return quantityInStock;
     }
 
     public int getiD_Ingr() {

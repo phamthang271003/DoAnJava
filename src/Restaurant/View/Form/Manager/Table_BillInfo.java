@@ -5,7 +5,7 @@
 package Restaurant.View.Form.Manager;
 
 
-import Restaurant.Controller.Service.ServiceStaff;
+import Restaurant.Controller.Service.ServiceStaffWarehouse;
 import Restaurant.Model.Modelngredient;
 import Restaurant.View.Component.Dashboard.SearchOptinEvent;
 import Restaurant.View.Component.Dashboard.SearchOption;
@@ -24,7 +24,7 @@ import javax.swing.ImageIcon;
  */
 public class Table_BillInfo extends SimpleFormManager {
 
-    private ServiceStaff service;
+    private ServiceStaffWarehouse service;
     private ArrayList<Modelngredient> list;
     DecimalFormat df;
 
@@ -33,7 +33,7 @@ public class Table_BillInfo extends SimpleFormManager {
      */
     public Table_BillInfo() {
         initComponents();
-        service = new ServiceStaff();
+        service = new ServiceStaffWarehouse();
         df = new DecimalFormat("#,###");
         initTable();
         //Search

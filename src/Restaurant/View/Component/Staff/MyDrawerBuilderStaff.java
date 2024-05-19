@@ -4,15 +4,21 @@
  */
 package Restaurant.View.Component.Staff;
 
+import Restaurant.Controller.Event.Menu_Staff;
+import Restaurant.Controller.Service.ServiceSignInUp;
 import Restaurant.View.Form.Staff.DashboardFormStaff;
 import Restaurant.View.Form.Staff.Table;
 import Restaurant.View.Form.Staff.TableFood;
+import Restaurant.View.Form.Staff.TableS;
 import Restaurant.View.Form.Staff.Table_CustomersInfo;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.Color;
 import java.awt.Component;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -36,10 +42,15 @@ import raven.swing.AvatarIcon;
  */
 public class MyDrawerBuilderStaff extends SimpleDrawerBuilder {
 
+    private final TableFood tb = null;
+    private final Menu_Staff menuStaff ;
     private final ThemesChange themesChange;
+    private ServiceSignInUp service;
+    private final TableS tableS = null;
 
     public MyDrawerBuilderStaff() {
         themesChange = new ThemesChange();
+       this.menuStaff=new Menu_Staff(tableS,tb);
     }
 
     @Override
@@ -49,12 +60,16 @@ public class MyDrawerBuilderStaff extends SimpleDrawerBuilder {
 
     @Override
     public SimpleHeaderData getSimpleHeaderData() {
+
+        service = new ServiceSignInUp();
+        String email = service.Email;
+        String emailName = service.EmailName;
         AvatarIcon icon = new AvatarIcon(getClass().getResource("/Icons/Warehouse/profile.png"), 60, 60, 999);
         icon.setBorder(2);
         return new SimpleHeaderData()
                 .setIcon(icon)
-                .setTitle("Pham Thang")
-                .setDescription("PhamTranQuangThang03@gmail.com")
+                .setTitle(emailName)
+                .setDescription(email)
                 .setHeaderStyle(new SimpleHeaderStyle() {
 
                     @Override
@@ -83,11 +98,7 @@ public class MyDrawerBuilderStaff extends SimpleDrawerBuilder {
             new Item.Label("MAIN STAFF"),
             new Item("Dashboard", "dashboard.svg"),
             new Item.Label("WEB APP"),
-            new Item("Menu", "email.svg")
-            .subMenu("Tầng 1")
-            .subMenu("Tầng 2")
-            .subMenu("Tầng 3")
-            .subMenu("Tầng 4"),
+            new Item("Gọi món", "email.svg"),
             new Item("Quản lý bàn  ", "email.svg")
             .subMenu("Tầng 1")
             .subMenu("Tầng 2")
@@ -138,32 +149,32 @@ public class MyDrawerBuilderStaff extends SimpleDrawerBuilder {
                     if (index[0] == 0) {
                         FormStaff.showForm(new DashboardFormStaff());
                     }
-
+                    if (index[0] == 1) {
+                        try {
+                            FormStaff.showForm(new TableFood(menuStaff));
+                        } catch (SQLException ex) {
+                            Logger.getLogger(MyDrawerBuilderStaff.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
                     if (index[0] == 3) {
                         FormStaff.showForm(new Table_CustomersInfo());
                     }
                 } else if (index.length == 2) {
 
                     if (index[0] == 1) {
-                        if (index[1] == 0) {
-                            FormStaff.showForm(new TableFood());
-                            //  FormStaff.showForm(new Table_CustomersInfo());
-                        } else if (index[1] == 1) {
-
-                        } else if (index[1] == 2) {
-
-                        }
+//                        if (index[1] == 0) {
+//                            FormStaff.showForm(new TableFood());
+//                        } else if (index[1] == 1) {
+//
+//                        } else if (index[1] == 2) {
+//
+//                        }
                     }
-                    if (index[0] == 2) {
-                        if (index[1] == 0) {
-                            // FormStaff.showForm(new Table_CustomersInfo());
-                            FormStaff.showForm(new Table());
-
-                        } else if (index[1] == 1) {
-
-                        } else if (index[1] == 2) {
-
-                        }
+                    //Tạo mảng floors chứa 4 tầng
+                    String[] floors = {"Tang 1", "Tang 2", "Tang 3", "Tang 4"};
+                    //Nếu vị trí được chọn trên menu là 2 và các meu con nằm ở vị trí từ 0 -> 3 thì showform table theo tầng
+                    if (index[0] == 2 && index[1] >= 0 && index[1] < floors.length) {
+                        FormStaff.showForm(new Table(floors[index[1]]));
                     }
 
                 }

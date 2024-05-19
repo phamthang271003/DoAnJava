@@ -126,8 +126,12 @@ public class PanelSlider extends JLayeredPane {
                 public void end() {
                     if (sliderTransition.closeAfterAnimation()) {
                         setVisible(false);
-                        oldImage.flush();
-                        newImage.flush();
+                        if (oldImage != null) {
+                            oldImage.flush();
+                        }
+                        if (newImage != null) {
+                            newImage.flush();
+                        }
                     }
                     component.setVisible(true);
                 }
