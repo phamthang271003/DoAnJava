@@ -152,7 +152,7 @@ public void refreshData() {
 
     public void getTotalPrice() {
         try {
-            int totalPrice = service.getTotalPriceReceipt();
+            int totalPrice = service.getTotalPriceReceiptCurrentDate();
             txtTongTien.setText(df.format(totalPrice) + "đ"); // Corrected line
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -215,7 +215,7 @@ public void refreshData() {
 
         txt.setText("textFieldSearchOption1");
 
-        jLabel1.setText("Tổng tiền nhập kho");
+        jLabel1.setText("Tổng tiền nhập kho hôm nay");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

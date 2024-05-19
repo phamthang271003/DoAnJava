@@ -181,7 +181,6 @@ public class ServiceStaffWarehouse {
         return sl;
     }
 //Tính tổng tiền nhập kho
-
     public int getTotalPriceReceipt() throws SQLException {
         int totalPrice = 0;
         String sql = "SELECT SUM(TotalPrice) FROM [receipt]";
@@ -192,7 +191,19 @@ public class ServiceStaffWarehouse {
         }
         return totalPrice;
     }
-
+//Tính tổng tiền nhập kho ngày hiện tại
+    public int getTotalPriceReceiptCurrentDate() throws SQLException {
+        int totalPrice = 0;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String sql = "SELECT SUM(TotalPrice) FROM [receipt] WHERE InputDay = ?";   
+        PreparedStatement p = con.prepareStatement(sql);
+         p.setString(1, simpleDateFormat.format(new Date()));
+        ResultSet r = p.executeQuery();
+        while (r.next()) {
+            totalPrice = r.getInt(1);
+        }
+        return totalPrice;
+    }
     //Lấy thông tin phiếu nhập kho
     public ArrayList<ModelReceipt> MenuReceipt() throws SQLException {
         ArrayList<ModelReceipt> list = new ArrayList<>();
@@ -216,6 +227,21 @@ public class ServiceStaffWarehouse {
         r.close();
         p.close();
         return list;
+    }
+     //Lấy số lượng phiếu xuất kho trong ngày hiện tại
+    public int getSLPXK() throws SQLException {
+      int sl = 0;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String sql = "SELECT COUNT(*) FROM DeliveryBill WHERE InputDay = ?";
+        PreparedStatement p = con.prepareStatement(sql);
+        p.setString(1, simpleDateFormat.format(new Date()));
+        ResultSet r = p.executeQuery();
+        while (r.next()) {
+            sl = r.getInt(1);
+        }
+        r.close();
+        p.close();
+        return sl;
     }
 //Lấy thông tin phiếu xuất kho
         public ArrayList<ModelDeliveryBill> MenuDelivery() throws SQLException {

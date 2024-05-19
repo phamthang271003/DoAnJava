@@ -136,7 +136,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="T&#x1ed5;ng ti&#x1ec1;n nh&#x1ead;p kho"/>
+        <Property name="text" type="java.lang.String" value="T&#x1ed5;ng ti&#x1ec1;n nh&#x1ead;p kho h&#xf4;m nay"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtTongTien">

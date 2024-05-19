@@ -73,7 +73,9 @@ public class Table_Delivery extends SimpleForm {
 
         df = new DecimalFormat("#,###");
         dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        getCountDeli();
         initTable();
+
         initialize();
         //Search
         txt.addEventOptionSelected(new SearchOptinEvent() {
@@ -142,7 +144,13 @@ public class Table_Delivery extends SimpleForm {
         this.btnThemPXK = btnThemPXK;
     }
 
-  
+    public void getCountDeli() {
+        try {
+            txtSLPhieuXuat.setText(service.getSLPXK() + "");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
 
     public void initialize() {
 
@@ -167,7 +175,7 @@ public class Table_Delivery extends SimpleForm {
         btnChiTietPXK = new Restaurant.View.Component.Dashboard.UWPButton();
         txt = new Restaurant.View.Component.Dashboard.TextFieldSearchOption();
         jLabel1 = new javax.swing.JLabel();
-        txtTongTien = new javax.swing.JTextField();
+        txtSLPhieuXuat = new javax.swing.JTextField();
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
@@ -234,9 +242,9 @@ public class Table_Delivery extends SimpleForm {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addComponent(txtTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(55, 55, 55)
+                .addComponent(txtSLPhieuXuat, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -245,9 +253,9 @@ public class Table_Delivery extends SimpleForm {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSLPhieuXuat, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -287,6 +295,6 @@ public class Table_Delivery extends SimpleForm {
     private javax.swing.JScrollPane scroll;
     private javax.swing.JTable table;
     private Restaurant.View.Component.Dashboard.TextFieldSearchOption txt;
-    private javax.swing.JTextField txtTongTien;
+    private javax.swing.JTextField txtSLPhieuXuat;
     // End of variables declaration//GEN-END:variables
 }
