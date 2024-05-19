@@ -5,18 +5,22 @@
 package Restaurant.View.Form.Manager;
 
 
+import Restaurant.Controller.Service.ServiceMenu;
 import Restaurant.Controller.Service.ServiceStaffWarehouse;
+import Restaurant.Model.ModelIDFood;
 import Restaurant.Model.Modelngredient;
 import Restaurant.View.Component.Dashboard.SearchOptinEvent;
 import Restaurant.View.Component.Dashboard.SearchOption;
 import Restaurant.View.Component.Manager.SimpleFormManager;
+import Restaurant.View.Dialog.FormMenu;
 import com.formdev.flatlaf.FlatClientProperties;
 import javax.swing.table.DefaultTableModel;
-
+import Restaurant.View.Dialog.EditMenu;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,16 +28,16 @@ import javax.swing.ImageIcon;
  */
 public class Table_menuInfo extends SimpleFormManager {
 
-    private ServiceStaffWarehouse service;
-    private ArrayList<Modelngredient> list;
+    private ServiceMenu service;
+    private ArrayList<ModelIDFood> list;
     DecimalFormat df;
 
     /**
      * Creates new form Table
      */
     public Table_menuInfo() {
-        initComponents();
-        service = new ServiceStaffWarehouse();
+         initComponents();
+        service = new ServiceMenu();
         df = new DecimalFormat("#,###");
         initTable();
         //Search
@@ -75,12 +79,14 @@ public class Table_menuInfo extends SimpleFormManager {
         public void initTable() {
                  DefaultTableModel model = (DefaultTableModel) table.getModel();
             try {
-                list = service.MenuIngr();
-                for (Modelngredient data : list) {
-                    model.addRow(new Object[]{data.getiD_Ingr(), data.getNameIngre(), df.format(data.getPrice()) + "đ", data.getUnit()});
-                }
-            } catch (SQLException ex) {
-                ex.printStackTrace();
+                list = service.listFood();
+                 for (ModelIDFood data : list) {
+            model.addRow(new Object[]{data.getID_Food(), data.getFoodName(), df.format(data.getFoodPrice()) + "đ", data.getNameCategory(), data.getStatus() });
+        }
+            } catch (SQLException ex)
+            {
+                
+               ex.printStackTrace();
             }
         }
 
@@ -109,11 +115,11 @@ public class Table_menuInfo extends SimpleFormManager {
 
             },
             new String [] {
-                "Ma NL", "Tên nguyên liệu", "Đơn giá", "Đơn vị tính"
+                "Mã món", "Tên món", "Giá", "Loại món", "Trạng thái"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -123,11 +129,26 @@ public class Table_menuInfo extends SimpleFormManager {
         table.setRowHeight(40);
         scroll.setViewportView(table);
 
-        uWPButton1.setText("uWPButton1");
+        uWPButton1.setText("Thêm");
+        uWPButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                uWPButton1ActionPerformed(evt);
+            }
+        });
 
-        uWPButton2.setText("uWPButton2");
+        uWPButton2.setText("Xóa");
+        uWPButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                uWPButton2ActionPerformed(evt);
+            }
+        });
 
-        uWPButton3.setText("uWPButton3");
+        uWPButton3.setText("Sửa");
+        uWPButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                uWPButton3ActionPerformed(evt);
+            }
+        });
 
         txt.setText("textFieldSearchOption1");
 
@@ -174,6 +195,66 @@ public class Table_menuInfo extends SimpleFormManager {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void uWPButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uWPButton3ActionPerformed
+        
+       // TODO add your handling code here:
+         // Lấy ra index của dòng được chọn
+    int selectedRow = table.getSelectedRow();
+    if (selectedRow != -1) { // Kiểm tra xem có dòng nào được chọn không
+        // Lấy ra thông tin của dòng được chọn
+        int ID_Food = (int) table.getValueAt(selectedRow, 0); // ID 
+        String FoodName = (String) table.getValueAt(selectedRow, 1); // Tên nhân viên
+        String FoodPrice = (String) table.getValueAt(selectedRow, 2); 
+        String Name = (String) table.getValueAt(selectedRow, 3); // Vị 
+        String Status = (String) table.getValueAt(selectedRow, 4); // Trạng thái
+
+        // Mở form sửa với thông tin của dòng được chọn
+        EditMenu editForm = new EditMenu(this);
+        editForm.setData(ID_Food, FoodName, FoodPrice, Name, Status);
+        editForm.setVisible(true);
+    } else {
+        // Hiển thị thông báo nếu không có dòng nào được chọn
+        JOptionPane.showMessageDialog(this, "Vui lòng chọn Món cần sửa !!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+    }
+    }//GEN-LAST:event_uWPButton3ActionPerformed
+
+    private void uWPButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uWPButton1ActionPerformed
+         FormMenu frm = new FormMenu(this);
+        frm.setVisible(true);
+        
+    }//GEN-LAST:event_uWPButton1ActionPerformed
+
+    private void uWPButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uWPButton2ActionPerformed
+                int selectedRow = table.getSelectedRow();
+            if (selectedRow != -1) { // Kiểm tra xem có dòng nào được chọn không
+                // Lấy ra ID của nhân viên cần xóa
+                int IDMenu = (int) table.getValueAt(selectedRow, 0); // 
+
+                // Thực hiện xóa nhân viên từ cơ sở dữ liệu
+                try {
+                    service.DeleteMenu(IDMenu); // Gọi pthuc xóa menu
+                    // Xóa dòng được chọn từ bảng
+                    DefaultTableModel model = (DefaultTableModel) table.getModel();
+                    model.removeRow(selectedRow);
+
+                    // Hiển thị thông báo xóa thành công
+                    JOptionPane.showMessageDialog(this, "Xóa món thanh cong!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                } catch (SQLException ex) {
+                    // Xử lý lỗi nếu có
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(this, "Lỗi xóa Món !", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                // Hiển thị thông báo nếu không có dòng nào được chọn
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn Món!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            }
+    }//GEN-LAST:event_uWPButton2ActionPerformed
+
+    public void refreshData() {
+    DefaultTableModel model = (DefaultTableModel) table.getModel();
+    model.setRowCount(0); // Xóa hết các dòng hiện tại trong bảng
+    initTable(); // Load lại dữ liệu mới
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;

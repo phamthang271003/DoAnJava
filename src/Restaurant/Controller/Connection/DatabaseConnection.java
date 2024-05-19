@@ -31,7 +31,7 @@ public class DatabaseConnection {
 //Thực hiện kết nối tới Database
 
     public void connectToDatabase() {
-        String strServer = "LAPTOP-5KVBJE6O";
+        String strServer = "MSI\\SQLEXPRESS";
         String strDatabase = "QLNH";
         String userName = "sa";
         String passWord = "123";

@@ -4,7 +4,8 @@
  */
 package Restaurant.View.Form.Manager;
 
-import Restaurant.Controller.Service.ServiceStaffWarehouse;
+import Restaurant.Controller.Service.ServiceClient;
+import Restaurant.Model.ModelClient;
 import Restaurant.Model.Modelngredient;
 import Restaurant.View.Component.Dashboard.SearchOptinEvent;
 import Restaurant.View.Component.Dashboard.SearchOption;
@@ -23,16 +24,17 @@ import javax.swing.ImageIcon;
  */
 public class Table_CustomerInfo extends SimpleFormManager {
 
-    private ServiceStaffWarehouse service;
-    private ArrayList<Modelngredient> list;
+    private ServiceClient service;
+    private ArrayList<ModelClient> list;
     DecimalFormat df;
+
 
     /**
      * Creates new form Table
      */
     public Table_CustomerInfo() {
         initComponents();
-        service = new ServiceStaffWarehouse();
+        service = new ServiceClient();
         df = new DecimalFormat("#,###");
         initTable();
         //Search
@@ -74,9 +76,9 @@ public class Table_CustomerInfo extends SimpleFormManager {
         public void initTable() {
                  DefaultTableModel model = (DefaultTableModel) table.getModel();
             try {
-                list = service.MenuIngr();
-                for (Modelngredient data : list) {
-                    model.addRow(new Object[]{data.getiD_Ingr(), data.getNameIngre(), df.format(data.getPrice()) + "đ", data.getUnit()});
+                list = service.listKH();
+                for (ModelClient data : list) {
+                    model.addRow(new Object[]{data.getID_Client(),data.getName(),data.getDateJoin(),data.getID_User()});
                 }
             } catch (SQLException ex) {
                 ex.printStackTrace();
@@ -108,7 +110,7 @@ public class Table_CustomerInfo extends SimpleFormManager {
 
             },
             new String [] {
-                "Ma NL", "Tên nguyên liệu", "Đơn giá", "Đơn vị tính"
+                "Mã khách", "Tên khách", "Ngày đặt", "Mã User"
             }
         ) {
             boolean[] canEdit = new boolean [] {
