@@ -139,7 +139,7 @@ public class Table_ReceiptInfo extends SimpleForm {
         lbDate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         lbTitle1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        lbTitle1.setForeground(new java.awt.Color(108, 91, 123));
+        lbTitle1.setForeground(new java.awt.Color(255, 255, 255));
         lbTitle1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbTitle1.setText("Chi tiết phiếu nhập kho");
 
@@ -171,7 +171,7 @@ public class Table_ReceiptInfo extends SimpleForm {
         );
 
         btnThemPNK.setBackground(new java.awt.Color(17, 153, 142));
-        btnThemPNK.setForeground(new java.awt.Color(108, 91, 123));
+        btnThemPNK.setForeground(new java.awt.Color(255, 255, 255));
         btnThemPNK.setText("Thêm PNK");
         btnThemPNK.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnThemPNK.addActionListener(new java.awt.event.ActionListener() {
@@ -181,7 +181,7 @@ public class Table_ReceiptInfo extends SimpleForm {
         });
 
         btnHuy.setBackground(new java.awt.Color(237, 33, 58));
-        btnHuy.setForeground(new java.awt.Color(108, 91, 123));
+        btnHuy.setForeground(new java.awt.Color(255, 255, 255));
         btnHuy.setText("Hủy");
         btnHuy.setActionCommand("Hủy");
         btnHuy.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N

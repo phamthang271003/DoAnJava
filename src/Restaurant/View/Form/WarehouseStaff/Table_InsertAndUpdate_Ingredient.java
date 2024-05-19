@@ -38,7 +38,6 @@ public class Table_InsertAndUpdate_Ingredient extends SimpleForm {
         txtTenNL.setText(data.getNameIngre());
         txtDonGia.setText(data.getPrice() + "");
         cboDVT.setSelectedItem(data.getUnit());
-        txtSoLuongTon.setText(data.getQuantityInStock() + "");
     }
 
     public void initID_NL() {
@@ -80,14 +79,12 @@ public class Table_InsertAndUpdate_Ingredient extends SimpleForm {
         txtTenNL = new Restaurant.View.Swing.Dashboard.MyTextField();
         txtDonGia = new Restaurant.View.Swing.Dashboard.MyTextField();
         cboDVT = new javax.swing.JComboBox<>();
-        txtSoLuongTon = new Restaurant.View.Swing.Dashboard.MyTextField();
         btnHuy = new Restaurant.View.Swing.Login.ButtonOutLine();
         btnXacNhan = new Restaurant.View.Swing.Login.ButtonOutLine();
         lbMessage3 = new javax.swing.JLabel();
         lbMessage4 = new javax.swing.JLabel();
         lbMessage1 = new javax.swing.JLabel();
         lbMessage2 = new javax.swing.JLabel();
-        lbMessage5 = new javax.swing.JLabel();
         lbTitle = new javax.swing.JLabel();
 
         setBackground(java.awt.Color.white);
@@ -106,7 +103,7 @@ public class Table_InsertAndUpdate_Ingredient extends SimpleForm {
         cboDVT.setFocusable(false);
 
         btnHuy.setBackground(new java.awt.Color(237, 33, 58));
-        btnHuy.setForeground(new java.awt.Color(108, 91, 123));
+        btnHuy.setForeground(new java.awt.Color(255, 255, 255));
         btnHuy.setText("Hủy");
         btnHuy.setActionCommand("Hủy");
         btnHuy.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -117,7 +114,7 @@ public class Table_InsertAndUpdate_Ingredient extends SimpleForm {
         });
 
         btnXacNhan.setBackground(new java.awt.Color(17, 153, 142));
-        btnXacNhan.setForeground(new java.awt.Color(108, 91, 123));
+        btnXacNhan.setForeground(new java.awt.Color(255, 255, 255));
         btnXacNhan.setText("Xác nhận");
         btnXacNhan.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnXacNhan.addActionListener(new java.awt.event.ActionListener() {
@@ -127,32 +124,27 @@ public class Table_InsertAndUpdate_Ingredient extends SimpleForm {
         });
 
         lbMessage3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        lbMessage3.setForeground(new java.awt.Color(108, 91, 123));
+        lbMessage3.setForeground(new java.awt.Color(255, 255, 255));
         lbMessage3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbMessage3.setText("Mã nguyên liệu");
 
         lbMessage4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        lbMessage4.setForeground(new java.awt.Color(108, 91, 123));
+        lbMessage4.setForeground(new java.awt.Color(255, 255, 255));
         lbMessage4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbMessage4.setText("Tên nguyên liệu");
 
         lbMessage1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        lbMessage1.setForeground(new java.awt.Color(108, 91, 123));
+        lbMessage1.setForeground(new java.awt.Color(255, 255, 255));
         lbMessage1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbMessage1.setText("Đơn giá");
 
         lbMessage2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        lbMessage2.setForeground(new java.awt.Color(108, 91, 123));
+        lbMessage2.setForeground(new java.awt.Color(255, 255, 255));
         lbMessage2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbMessage2.setText("Đơn vị tính");
 
-        lbMessage5.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        lbMessage5.setForeground(new java.awt.Color(108, 91, 123));
-        lbMessage5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbMessage5.setText("Số lượng tồn");
-
         lbTitle.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        lbTitle.setForeground(new java.awt.Color(108, 91, 123));
+        lbTitle.setForeground(new java.awt.Color(255, 255, 255));
         lbTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbTitle.setText("Thêm nguyên liệu");
 
@@ -166,15 +158,13 @@ public class Table_InsertAndUpdate_Ingredient extends SimpleForm {
                     .addComponent(lbMessage3, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbMessage4, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbMessage1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbMessage2, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbMessage5, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbMessage2, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(cboDVT, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtDonGia, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtTenNL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtMaNL, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtSoLuongTon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtMaNL, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(116, 116, 116))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,11 +199,7 @@ public class Table_InsertAndUpdate_Ingredient extends SimpleForm {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(lbMessage2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cboDVT))
-                .addGap(52, 52, 52)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(lbMessage5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtSoLuongTon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(50, 50, 50)
+                .addGap(140, 140, 140)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnXacNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -253,7 +239,6 @@ public class Table_InsertAndUpdate_Ingredient extends SimpleForm {
         data.setNameIngre(txtTenNL.getText().trim());
         data.setPrice(Integer.parseInt(txtDonGia.getText()));
         data.setUnit(cboDVT.getSelectedItem().toString());
-        data.setQuantityInStock(Integer.parseInt(txtSoLuongTon.getText()));
 
         try {
             if (insert) {
@@ -280,11 +265,9 @@ public class Table_InsertAndUpdate_Ingredient extends SimpleForm {
     private javax.swing.JLabel lbMessage2;
     private javax.swing.JLabel lbMessage3;
     private javax.swing.JLabel lbMessage4;
-    private javax.swing.JLabel lbMessage5;
     private javax.swing.JLabel lbTitle;
     private Restaurant.View.Swing.Dashboard.MyTextField txtDonGia;
     private Restaurant.View.Swing.Dashboard.MyTextField txtMaNL;
-    private Restaurant.View.Swing.Dashboard.MyTextField txtSoLuongTon;
     private Restaurant.View.Swing.Dashboard.MyTextField txtTenNL;
     // End of variables declaration//GEN-END:variables
 }

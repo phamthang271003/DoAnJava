@@ -24,7 +24,6 @@ import raven.drawer.component.menu.data.Item;
 import raven.drawer.component.menu.data.MenuItem;
 import Restaurant.View.Form.WarehouseStaff.Table_Delivery;
 import Restaurant.View.Form.WarehouseStaff.Table_Receipt;
-import Restaurant.View.Form.WarehouseStaff.Table_WarehouseInfo;
 import Restaurant.View.Form.WarehouseStaff.Table_lngredientInfo;
 import raven.swing.AvatarIcon;
 
@@ -87,7 +86,6 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
             new Item("Dashboard", "dashboard.svg"),
             new Item.Label("WEB APP"),
             new Item("Quản lý nguyên liệu", "chat.svg"),
-            new Item("Thông tin kho", "calendar.svg"),
             new Item("Quản lý kho", "email.svg")
             .subMenu("Nhập kho")
             .subMenu("Xuất kho"),
@@ -180,12 +178,10 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
                     if (index[0] == 1) {
                         FormWareHouseStaff.showForm(new Table_lngredientInfo());
                     }
-                    if (index[0] == 2) {
-                        FormWareHouseStaff.showForm(new Table_WarehouseInfo());
-                    }
+               
                 } else if (index.length == 2) {
 
-                    if (index[0] == 3) {
+                    if (index[0] == 2) {
                         if (index[1] == 0) {
                             // FormWareHouseStaff.showForm(new InboxForm());
                             ModelUser modelUser = new ModelUser();

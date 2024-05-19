@@ -215,6 +215,7 @@ public class Table_Delivery extends SimpleForm {
 
         txt.setText("textFieldSearchOption1");
 
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Số phiếu xuất kho hôm nay");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

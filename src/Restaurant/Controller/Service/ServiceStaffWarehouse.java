@@ -61,7 +61,27 @@ public class ServiceStaffWarehouse {
         p.close();
         return data;
     }
-
+    //Tìm kiếm nguyên liệu
+public ArrayList<Modelngredient> searchIngredients(String column, String value) throws SQLException {
+    ArrayList<Modelngredient> list = new ArrayList<>();
+    String sql = "SELECT * FROM [ingredient] WHERE " + column + " LIKE ? ORDER BY ID_Ingr";
+    PreparedStatement p = con.prepareStatement(sql);
+    p.setString(1, "%" + value + "%");
+    ResultSet r = p.executeQuery();
+    while (r.next()) {
+        int iD_Ingr = r.getInt(1);  //Mã nguyên liệu
+        String nameIngre = r.getString(2); //Tên nguyên liệu
+        int price = r.getInt(3); //Đơn giá nhập nguyên liệu
+        String unit = r.getString(4); //Đơn vị tính của nguyên liệu
+        float quantityInKitchen = r.getFloat(5);
+        float quantityInStock = r.getFloat(6);
+        Modelngredient data = new Modelngredient(iD_Ingr, nameIngre, price, unit, quantityInKitchen, quantityInStock);
+        list.add(data);
+    }
+    r.close();
+    p.close();
+    return list;
+}
     //Lấy toàn bộ danh sách nguyên liệu
     public ArrayList<Modelngredient> MenuIngr() throws SQLException {
         ArrayList<Modelngredient> list = new ArrayList<>();
@@ -73,8 +93,9 @@ public class ServiceStaffWarehouse {
             String nameIngre = r.getString(2); //Tên nguyên liệu
             int price = r.getInt(3); //Đơn giá nhập nguyên liệu
             String unit = r.getString(4); //Đơn vị tính của nguyên liệu
-            int quantityInstock = r.getInt(5);
-            Modelngredient data = new Modelngredient(iD_Ingr, nameIngre, price, unit, quantityInstock);
+            float quantityInKitchen = r.getFloat(5);
+            float quantityInstock = r.getFloat(6);
+            Modelngredient data = new Modelngredient(iD_Ingr, nameIngre, price, unit, quantityInKitchen, quantityInstock);
             list.add(data);
         }
         r.close();
@@ -94,8 +115,9 @@ public class ServiceStaffWarehouse {
             String tenNL = r.getString(2); //Tên nguyên liệu
             int donGia = r.getInt(3); //Đơn giá nhập nguyên liệu
             String dvt = r.getString(4); //Đơn vị tính của nguyên liệu
-            int slTon = r.getInt(5);
-            data = new Modelngredient(id, tenNL, donGia, dvt, slTon);
+            float slTonBep = r.getFloat(5);
+            float slTonKho = r.getFloat(6);
+            data = new Modelngredient(id, tenNL, donGia, dvt, slTonBep, slTonKho);
         }
         r.close();
         p.close();
@@ -118,41 +140,53 @@ public class ServiceStaffWarehouse {
 
     //Thêm một nguyên liệu mới
     public void InsertNL(Modelngredient data) throws SQLException {
-        String sql = "INSERT INTO ingredient(ID_Ingr,NameIngre,Price,unit,QuantityInStock) VALUES(?,?,?,?,?)";
+        String sql = "INSERT INTO ingredient(ID_Ingr,NameIngre,Price,unit) VALUES(?,?,?,?)";
         PreparedStatement p = con.prepareStatement(sql);
         p.setInt(1, data.getiD_Ingr());
         p.setString(2, data.getNameIngre());
         p.setInt(3, data.getPrice());
         p.setString(4, data.getUnit());
-        p.setInt(5, data.getQuantityInStock());
         p.execute();
         p.close();
     }
+//Xóa nguyên liệu
 
-    //Xóa một nguyên liệu
     public void DeleteNL(Modelngredient data) throws SQLException {
-        //Xóa nguyên liệu đó khỏi KHO
+        // Xóa nguyên liệu khỏi FoodIngredient
         String sql = "DELETE FROM FoodIngredient WHERE ID_Ingr = ?";
         PreparedStatement p = con.prepareStatement(sql);
         p.setInt(1, data.getiD_Ingr());
         p.execute();
-        //Xóa nguyên liệu đó khỏi bảng NGUYENLIEU
+
+        // Xóa nguyên liệu khỏi DeliveryBillInfo
+        sql = "DELETE FROM DeliveryBillInfo WHERE ID_Ingr = ?";
+        p = con.prepareStatement(sql);
+        p.setInt(1, data.getiD_Ingr());
+        p.execute();
+
+        // Xóa nguyên liệu khỏi receiptInfo
+        sql = "DELETE FROM receiptInfo WHERE ID_Ingr = ?";
+        p = con.prepareStatement(sql);
+        p.setInt(1, data.getiD_Ingr());
+        p.execute();
+
+        // Xóa nguyên liệu khỏi bảng ingredient
         sql = "DELETE FROM ingredient WHERE ID_Ingr = ?";
         p = con.prepareStatement(sql);
         p.setInt(1, data.getiD_Ingr());
         p.execute();
+
         p.close();
     }
 
     //Sửa một nguyên liệu
     public void UpdateNL(Modelngredient data) throws SQLException {
-        String sql = "UPDATE [ingredient] SET NameIngre = ?, Price = ?, unit = ?, QuantityInStock = ? WHERE ID_Ingr = ?";
+        String sql = "UPDATE [ingredient] SET NameIngre = ?, Price = ?, unit = ? WHERE ID_Ingr = ?";
         PreparedStatement p = con.prepareStatement(sql);
         p.setString(1, data.getNameIngre());
         p.setInt(2, data.getPrice());
         p.setString(3, data.getUnit());
-        p.setInt(4, data.getQuantityInStock());
-        p.setInt(5, data.getiD_Ingr());
+        p.setInt(4, data.getiD_Ingr());
         p.execute();
         p.close();
     }
@@ -181,6 +215,7 @@ public class ServiceStaffWarehouse {
         return sl;
     }
 //Tính tổng tiền nhập kho
+
     public int getTotalPriceReceipt() throws SQLException {
         int totalPrice = 0;
         String sql = "SELECT SUM(TotalPrice) FROM [receipt]";
@@ -192,18 +227,20 @@ public class ServiceStaffWarehouse {
         return totalPrice;
     }
 //Tính tổng tiền nhập kho ngày hiện tại
+
     public int getTotalPriceReceiptCurrentDate() throws SQLException {
         int totalPrice = 0;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String sql = "SELECT SUM(TotalPrice) FROM [receipt] WHERE InputDay = ?";   
+        String sql = "SELECT SUM(TotalPrice) FROM [receipt] WHERE InputDay = ?";
         PreparedStatement p = con.prepareStatement(sql);
-         p.setString(1, simpleDateFormat.format(new Date()));
+        p.setString(1, simpleDateFormat.format(new Date()));
         ResultSet r = p.executeQuery();
         while (r.next()) {
             totalPrice = r.getInt(1);
         }
         return totalPrice;
     }
+
     //Lấy thông tin phiếu nhập kho
     public ArrayList<ModelReceipt> MenuReceipt() throws SQLException {
         ArrayList<ModelReceipt> list = new ArrayList<>();
@@ -228,9 +265,10 @@ public class ServiceStaffWarehouse {
         p.close();
         return list;
     }
-     //Lấy số lượng phiếu xuất kho trong ngày hiện tại
+    //Lấy số lượng phiếu xuất kho trong ngày hiện tại
+
     public int getSLPXK() throws SQLException {
-      int sl = 0;
+        int sl = 0;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String sql = "SELECT COUNT(*) FROM DeliveryBill WHERE InputDay = ?";
         PreparedStatement p = con.prepareStatement(sql);
@@ -244,7 +282,8 @@ public class ServiceStaffWarehouse {
         return sl;
     }
 //Lấy thông tin phiếu xuất kho
-        public ArrayList<ModelDeliveryBill> MenuDelivery() throws SQLException {
+
+    public ArrayList<ModelDeliveryBill> MenuDelivery() throws SQLException {
         ArrayList<ModelDeliveryBill> list = new ArrayList<>();
         String sql = "SELECT * FROM [DeliveryBill] ORDER BY ID_Del";
         PreparedStatement p = con.prepareStatement(sql);
@@ -266,6 +305,7 @@ public class ServiceStaffWarehouse {
         p.close();
         return list;
     }
+
     //Lấy ID của Phiếu nhập kho tiếp theo được thêm
     public int getNextID_NK() throws SQLException {
         int nextID = 0;
@@ -279,7 +319,8 @@ public class ServiceStaffWarehouse {
         p.close();
         return nextID;
     }
-     //Lấy ID của Phiếu xuất  kho tiếp theo được thêm
+    //Lấy ID của Phiếu xuất  kho tiếp theo được thêm
+
     public int getNextID_XK() throws SQLException {
         int nextID = 0;
         String sql = "SELECT MAX(ID_Del)  FROM [DeliveryBill]";
@@ -293,7 +334,6 @@ public class ServiceStaffWarehouse {
         return nextID;
     }
 
-  
     //Thêm phiếu nhập kho và chi tiết Nhập kho
     public void InsertPNK_CTNK(ModelReceipt pnk, ArrayList<Modelngredient> list) throws SQLException {
         java.sql.Date sqlDate = new java.sql.Date(pnk.getInputDay().getTime());
@@ -313,14 +353,15 @@ public class ServiceStaffWarehouse {
                 PreparedStatement p_ct = con.prepareStatement(sql_ct);
                 p_ct.setInt(1, pnk.getID_Rec());
                 p_ct.setInt(2, data.getiD_Ingr());
-                p_ct.setInt(3, data.getQuantityInStock());
+                p_ct.setFloat(3, data.getQuantityInStock());
                 p_ct.execute();
                 p_ct.close();
             }
         }
         p.close();
     }
-  //Thêm phiếu  xuất kho và chi tiết xuất kho
+    //Thêm phiếu  xuất kho và chi tiết xuất kho
+
     public void InsertPXK_CTXK(ModelDeliveryBill pxk, ArrayList<Modelngredient> list) throws SQLException {
         java.sql.Date sqlDate = new java.sql.Date(pxk.getInputDay().getTime());
         // Insert phiếu nhập kho
@@ -339,13 +380,14 @@ public class ServiceStaffWarehouse {
                 PreparedStatement p_ct = con.prepareStatement(sql_ct);
                 p_ct.setInt(1, pxk.getID_Del());
                 p_ct.setInt(2, data.getiD_Ingr());
-                p_ct.setInt(3, data.getQuantityInStock());
+                p_ct.setFloat(3, data.getQuantityInStock());
                 p_ct.execute();
                 p_ct.close();
             }
         }
         p.close();
     }
+
     //Lấy thông tin của Phiếu nhập kho theo ID
     public ModelReceipt getPNKbyID(int id) throws SQLException, ParseException {
         ModelReceipt data = null;
@@ -369,7 +411,8 @@ public class ServiceStaffWarehouse {
         p.close();
         return data;
     }
-     //Lấy thông tin của Phiếu xuất kho theo ID
+    //Lấy thông tin của Phiếu xuất kho theo ID
+
     public ModelDeliveryBill getPXKbyID(int id) throws SQLException, ParseException {
         ModelDeliveryBill data = null;
         String sql = "SELECT ID_Del,ID_Emp,InputDay AS Ngay FROM DeliveryBill  WHERE ID_Del=?";
@@ -415,7 +458,8 @@ public class ServiceStaffWarehouse {
         p.close();
         return list;
     }
-     //Lấy danh sách chi tiết xuất kho theo mã xuất kho
+    //Lấy danh sách chi tiết xuất kho theo mã xuất kho
+
     public ArrayList<ModelDeliveryBillInfo> getCTXK(int idxk) throws SQLException {
         ArrayList<ModelDeliveryBillInfo> list = new ArrayList<>();
         String sql = "SELECT ID_Del,del.ID_Ingr, NameIngre, unit, Count FROM DeliveryBillInfo del "

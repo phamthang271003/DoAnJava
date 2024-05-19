@@ -112,29 +112,29 @@ public class Table extends SimpleFormStaff {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtKeyReleased
-//        if (txt.isSelected()) {
-//            int option = txt.getSelectedIndex();
-//            String text = "%" + txt.getText().trim() + "%";
-//            if (option == 0) {
-//                try {
-//                    ArrayList<ModelTable> searchedTables = serStaff.listTable(floor);
-//                    jPanel1.removeAll();
-//                    for (ModelTable table : searchedTables) {
-//                        // kiểm tra xem tên của bàn có chứa chuỗi con được nhập từ ô tìm kiếm không
-//                        if (table.getTableName().toLowerCase().contains(txt.getText().toLowerCase().trim())) {
-//                            jPanel1.add(new TableS(table)); // Thêm bàn vào panel nếu tên bàn chứa từ khóa tìm kiếm
-//                        }
-//                    }
-//                    jPanel1.revalidate();
-//                    jPanel1.repaint();
-//                } catch (SQLException ex) {
-//                    ex.printStackTrace();
-//                }
-//            }
-//        } else {
-//            // Nếu không có tìm kiếm, hiển thị lại tất cả các bàn
-//            initMenuTable();
-//        }
+        if (txt.isSelected()) {
+            int option = txt.getSelectedIndex();
+            String text = "%" + txt.getText().trim() + "%";
+            if (option == 0) {
+                try {
+                    ArrayList<ModelTable> searchedTables = serStaff.listTable(floor);
+                    jPanel1.removeAll();
+                    for (ModelTable table : searchedTables) {
+                        // kiểm tra xem tên của bàn có chứa chuỗi con được nhập từ ô tìm kiếm không
+                        if (table.getTableName().toLowerCase().contains(txt.getText().toLowerCase().trim())) {
+                            jPanel1.add(new TableS(table)); // Thêm bàn vào panel nếu tên bàn chứa từ khóa tìm kiếm
+                        }
+                    }
+                    jPanel1.revalidate();
+                    jPanel1.repaint();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        } else {
+            // Nếu không có tìm kiếm, hiển thị lại tất cả các bàn
+            initMenuTable();
+        }
     }//GEN-LAST:event_txtKeyReleased
 
 

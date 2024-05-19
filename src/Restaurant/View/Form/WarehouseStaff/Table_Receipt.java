@@ -215,6 +215,7 @@ public void refreshData() {
 
         txt.setText("textFieldSearchOption1");
 
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Tổng tiền nhập kho hôm nay");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

@@ -135,6 +135,9 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="S&#x1ed1; phi&#x1ebf;u xu&#x1ea5;t kho h&#xf4;m nay"/>
       </Properties>
     </Component>

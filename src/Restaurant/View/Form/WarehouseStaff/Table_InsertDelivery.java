@@ -195,11 +195,11 @@ public class Table_InsertDelivery extends SimpleForm {
         txt.setText("textFieldSearchOption1");
 
         lbDate.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        lbDate.setForeground(new java.awt.Color(108, 91, 123));
+        lbDate.setForeground(new java.awt.Color(255, 255, 255));
         lbDate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         lbMessage3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        lbMessage3.setForeground(new java.awt.Color(108, 91, 123));
+        lbMessage3.setForeground(new java.awt.Color(255, 255, 255));
         lbMessage3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbMessage3.setText("Mã xuất kho");
 
@@ -208,12 +208,12 @@ public class Table_InsertDelivery extends SimpleForm {
         txtMaXK.setOpaque(true);
 
         lbMessage4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        lbMessage4.setForeground(new java.awt.Color(108, 91, 123));
+        lbMessage4.setForeground(new java.awt.Color(255, 255, 255));
         lbMessage4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbMessage4.setText("Mã nhân viên");
 
         lbMessage1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        lbMessage1.setForeground(new java.awt.Color(108, 91, 123));
+        lbMessage1.setForeground(new java.awt.Color(255, 255, 255));
         lbMessage1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbMessage1.setText("Ngày xuất kho");
 
@@ -225,7 +225,7 @@ public class Table_InsertDelivery extends SimpleForm {
         });
 
         lbTitle1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        lbTitle1.setForeground(new java.awt.Color(108, 91, 123));
+        lbTitle1.setForeground(new java.awt.Color(255, 255, 255));
         lbTitle1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbTitle1.setText("Thêm phiếu xuất kho");
 
@@ -286,7 +286,7 @@ public class Table_InsertDelivery extends SimpleForm {
         );
 
         btnThemPXK.setBackground(new java.awt.Color(17, 153, 142));
-        btnThemPXK.setForeground(new java.awt.Color(108, 91, 123));
+        btnThemPXK.setForeground(new java.awt.Color(255, 255, 255));
         btnThemPXK.setText("Thêm PXK");
         btnThemPXK.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnThemPXK.addActionListener(new java.awt.event.ActionListener() {
@@ -296,7 +296,7 @@ public class Table_InsertDelivery extends SimpleForm {
         });
 
         btnHuy.setBackground(new java.awt.Color(237, 33, 58));
-        btnHuy.setForeground(new java.awt.Color(108, 91, 123));
+        btnHuy.setForeground(new java.awt.Color(255, 255, 255));
         btnHuy.setText("Hủy");
         btnHuy.setActionCommand("Hủy");
         btnHuy.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N

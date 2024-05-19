@@ -141,7 +141,7 @@ public class Table_DeliveryBillInfo extends SimpleForm {
         lbDate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         lbTitle1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        lbTitle1.setForeground(new java.awt.Color(108, 91, 123));
+        lbTitle1.setForeground(new java.awt.Color(255, 255, 255));
         lbTitle1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbTitle1.setText("Chi tiết phiếu xuất kho");
 
