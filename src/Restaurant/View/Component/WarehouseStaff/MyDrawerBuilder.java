@@ -1,5 +1,7 @@
 package Restaurant.View.Component.WarehouseStaff;
 
+import Restaurant.Controller.Service.ServiceSignInUp;
+import Restaurant.Model.ModelUser;
 import Restaurant.View.Form.WarehouseStaff.DashboardForm;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
@@ -20,11 +22,8 @@ import raven.drawer.component.menu.SimpleMenuOption;
 import raven.drawer.component.menu.SimpleMenuStyle;
 import raven.drawer.component.menu.data.Item;
 import raven.drawer.component.menu.data.MenuItem;
-//import Restaurant.View.Form.WarehouseStaff.DashboardForm;
-import Restaurant.View.Form.WarehouseStaff.InboxForm;
-import Restaurant.View.Form.WarehouseStaff.ReadForm;
-import Restaurant.View.Form.WarehouseStaff.Table_DeliverBillyInfo;
-import Restaurant.View.Form.WarehouseStaff.Table_ReceiptInfo;
+import Restaurant.View.Form.WarehouseStaff.Table_Delivery;
+import Restaurant.View.Form.WarehouseStaff.Table_Receipt;
 import Restaurant.View.Form.WarehouseStaff.Table_WarehouseInfo;
 import Restaurant.View.Form.WarehouseStaff.Table_lngredientInfo;
 import raven.swing.AvatarIcon;
@@ -35,7 +34,9 @@ import raven.swing.AvatarIcon;
  */
 public class MyDrawerBuilder extends SimpleDrawerBuilder {
 
+    private ServiceSignInUp service;
     private final ThemesChange themesChange;
+    private Table_Receipt table_ReceiptInfo;
 
     public MyDrawerBuilder() {
         themesChange = new ThemesChange();
@@ -48,12 +49,15 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
 
     @Override
     public SimpleHeaderData getSimpleHeaderData() {
+        service = new ServiceSignInUp();
+        String email = service.Email;
+        String emailName = service.EmailName;
         AvatarIcon icon = new AvatarIcon(getClass().getResource("/Icons/Warehouse/profile.png"), 60, 60, 999);
         icon.setBorder(2);
         return new SimpleHeaderData()
                 .setIcon(icon)
-                .setTitle("Pham Thang")
-                .setDescription("PhamThang03@gmail.com")
+                .setTitle(email)
+                .setDescription(emailName)
                 .setHeaderStyle(new SimpleHeaderStyle() {
 
                     @Override
@@ -83,57 +87,54 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
             new Item("Dashboard", "dashboard.svg"),
             new Item.Label("WEB APP"),
             new Item("Quản lý nguyên liệu", "chat.svg"),
-            
             new Item("Thông tin kho", "calendar.svg"),
-            
             new Item("Quản lý kho", "email.svg")
             .subMenu("Nhập kho")
             .subMenu("Xuất kho"),
-//            .subMenu(
-//            new Item("Group Read")
-//            .subMenu("Read 1")
-//            .subMenu("Read 2")
-//            .subMenu(
-//            new Item("Group Item")
-//            .subMenu("Item 1")
-//            .subMenu("Item 2")
-//            .subMenu("Item 3")
-//            .subMenu("Item 4")
-//            .subMenu("Item 5")
-//            .subMenu("Item 6")
-//            )
-//            .subMenu("Read 3")
-//            .subMenu("Read 4")
-//            .subMenu("Read 5")
-//            )
-//            .subMenu("Compost"),
-            
+            //            .subMenu(
+            //            new Item("Group Read")
+            //            .subMenu("Read 1")
+            //            .subMenu("Read 2")
+            //            .subMenu(
+            //            new Item("Group Item")
+            //            .subMenu("Item 1")
+            //            .subMenu("Item 2")
+            //            .subMenu("Item 3")
+            //            .subMenu("Item 4")
+            //            .subMenu("Item 5")
+            //            .subMenu("Item 6")
+            //            )
+            //            .subMenu("Read 3")
+            //            .subMenu("Read 4")
+            //            .subMenu("Read 5")
+            //            )
+            //            .subMenu("Compost"),
+
             new Item.Label("Thông tin cá nhân"),
             new Item("Tài khoản", "ui.svg"),
-//            .subMenu("Cropper")
-//            .subMenu("Owl Carousel")
-//            .subMenu("Sweet Alert"),
-            new Item("Đăng xuất", "forms.svg"),
-//            .subMenu("Basic Elements")
-//            .subMenu("Advanced Elements")
-//            .subMenu("SEditors")
-//            .subMenu("Wizard"),
-//            new Item.Label("OTHER"),
-//            new Item("Charts", "chart.svg")
-//            .subMenu("Apex")
-//            .subMenu("Flot")
-//            .subMenu("Sparkline"),
-//            new Item("Icons", "icon.svg")
-//            .subMenu("Feather Icons")
-//            .subMenu("Flag Icons")
-//            .subMenu("Mdi Icons"),
-//            new Item("Special Pages", "page.svg")
-//            .subMenu("Blank page")
-//            .subMenu("Faq")
-//            .subMenu("Invoice")
-//            .subMenu("Profile")
-//            .subMenu("Pricing")
-//            .subMenu("Timeline")
+            //            .subMenu("Cropper")
+            //            .subMenu("Owl Carousel")
+            //            .subMenu("Sweet Alert"),
+            new Item("Đăng xuất", "forms.svg"), //            .subMenu("Basic Elements")
+        //            .subMenu("Advanced Elements")
+        //            .subMenu("SEditors")
+        //            .subMenu("Wizard"),
+        //            new Item.Label("OTHER"),
+        //            new Item("Charts", "chart.svg")
+        //            .subMenu("Apex")
+        //            .subMenu("Flot")
+        //            .subMenu("Sparkline"),
+        //            new Item("Icons", "icon.svg")
+        //            .subMenu("Feather Icons")
+        //            .subMenu("Flag Icons")
+        //            .subMenu("Mdi Icons"),
+        //            new Item("Special Pages", "page.svg")
+        //            .subMenu("Blank page")
+        //            .subMenu("Faq")
+        //            .subMenu("Invoice")
+        //            .subMenu("Profile")
+        //            .subMenu("Pricing")
+        //            .subMenu("Timeline")
         };
 
         SimpleMenuOption simpleMenuOption = new SimpleMenuOption() {
@@ -176,7 +177,7 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
                     if (index[0] == 0) {
                         FormWareHouseStaff.showForm(new DashboardForm());
                     }
-                      if (index[0] == 1) {
+                    if (index[0] == 1) {
                         FormWareHouseStaff.showForm(new Table_lngredientInfo());
                     }
                     if (index[0] == 2) {
@@ -186,13 +187,14 @@ public class MyDrawerBuilder extends SimpleDrawerBuilder {
 
                     if (index[0] == 3) {
                         if (index[1] == 0) {
-                          // FormWareHouseStaff.showForm(new InboxForm());
-                           FormWareHouseStaff.showForm(new Table_ReceiptInfo());
+                            // FormWareHouseStaff.showForm(new InboxForm());
+                            ModelUser modelUser = new ModelUser();
+                            FormWareHouseStaff.showForm(new Table_Receipt(modelUser));
                         } else if (index[1] == 1) {
-                           // FormManager.showForm(new ReadForm());
-                             FormWareHouseStaff.showForm(new Table_DeliverBillyInfo());
+                             ModelUser modelUser = new ModelUser();
+                            FormWareHouseStaff.showForm(new Table_Delivery(modelUser));
                         } else if (index[1] == 2) {
-                          
+
                         }
                     }
 

@@ -4,6 +4,7 @@
  */
 package Restaurant.View.Component.Manager;
 
+import Restaurant.Controller.Service.ServiceSignInUp;
 import Restaurant.View.Form.Manager.DashboardFormManager;
 import Restaurant.View.Form.Manager.Table_BillInfo;
 import Restaurant.View.Form.Manager.Table_CustomerInfo;
@@ -40,6 +41,8 @@ public class MyDrawerBuilderManager extends SimpleDrawerBuilder {
 
     private final ThemesChange themesChange;
 
+    private ServiceSignInUp service;
+    
     public MyDrawerBuilderManager() {
         themesChange = new ThemesChange();
     }
@@ -51,12 +54,15 @@ public class MyDrawerBuilderManager extends SimpleDrawerBuilder {
 
     @Override
     public SimpleHeaderData getSimpleHeaderData() {
+        service=new ServiceSignInUp();
+        String email=service.Email;
+        String emailName=service.EmailName;
         AvatarIcon icon = new AvatarIcon(getClass().getResource("/Icons/Warehouse/profile.png"), 60, 60, 999);
         icon.setBorder(2);
         return new SimpleHeaderData()
                 .setIcon(icon)
-                .setTitle("Pham Thang")
-                .setDescription("PhamTranQuangThang03@gmail.com")
+                .setTitle(email)
+                .setDescription(emailName)
                 .setHeaderStyle(new SimpleHeaderStyle() {
 
                     @Override

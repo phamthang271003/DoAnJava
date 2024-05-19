@@ -4,7 +4,7 @@
  */
 package Restaurant.View.Form.WarehouseStaff;
 
-import Restaurant.Controller.Service.ServiceStaff;
+import Restaurant.Controller.Service.ServiceStaffWarehouse;
 import Restaurant.Model.Modelngredient;
 import Restaurant.View.Component.WarehouseStaff.SimpleForm;
 import Restaurant.View.Component.Dashboard.SearchOptinEvent;
@@ -23,7 +23,7 @@ import javax.swing.ImageIcon;
  */
 public class Table_WarehouseInfo extends SimpleForm {
 
-    private ServiceStaff service;
+    private ServiceStaffWarehouse service;
     private ArrayList<Modelngredient> list;
     DecimalFormat df;
 
@@ -32,7 +32,7 @@ public class Table_WarehouseInfo extends SimpleForm {
      */
     public Table_WarehouseInfo() {
         initComponents();
-        service = new ServiceStaff();
+        service = new ServiceStaffWarehouse();
         df = new DecimalFormat("#,###");
         initTable();
         //Search
