@@ -5,11 +5,12 @@
 package Restaurant.View.Form.Manager;
 
 
-import Restaurant.Controller.Service.ServiceStaffWarehouse;
-import Restaurant.Model.Modelngredient;
+import Restaurant.Controller.Service.ServiceBill;
+import Restaurant.Model.ModelBill;
 import Restaurant.View.Component.Dashboard.SearchOptinEvent;
 import Restaurant.View.Component.Dashboard.SearchOption;
 import Restaurant.View.Component.Manager.SimpleFormManager;
+import Restaurant.View.Dialog.FormBillInfo;
 import com.formdev.flatlaf.FlatClientProperties;
 import javax.swing.table.DefaultTableModel;
 
@@ -17,6 +18,7 @@ import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,8 +26,8 @@ import javax.swing.ImageIcon;
  */
 public class Table_BillInfo extends SimpleFormManager {
 
-    private ServiceStaffWarehouse service;
-    private ArrayList<Modelngredient> list;
+    private ServiceBill service;
+    private ArrayList<ModelBill> list;
     DecimalFormat df;
 
     /**
@@ -33,7 +35,7 @@ public class Table_BillInfo extends SimpleFormManager {
      */
     public Table_BillInfo() {
         initComponents();
-        service = new ServiceStaffWarehouse();
+        service = new ServiceBill();
         df = new DecimalFormat("#,###");
         initTable();
         //Search
@@ -60,24 +62,14 @@ public class Table_BillInfo extends SimpleFormManager {
                 + "border:3,0,3,0,$Table.background,10,10");
         scroll.getVerticalScrollBar().putClientProperty(FlatClientProperties.STYLE, ""
                 + "hoverTrackColor:null");
-        //testData();
     }
-
-//    private void testData() {
-//   
-//        model.addRow(new Object[]{1, "Thit ga", "40,000đ", "Kg"});
-//        model.addRow(new Object[]{2, "Thit heo", "50,000đ", "Kg"});
-//        model.addRow(new Object[]{3, "Thit bo", "80,000đ", "Kg"});
-//        model.addRow(new Object[]{4, "Tom", "100,000đ", "Kg"});
-//        model.addRow(new Object[]{5, "Ca hoi", "500,000đ", "Kg"});
-//    }
 
         public void initTable() {
                  DefaultTableModel model = (DefaultTableModel) table.getModel();
             try {
-                list = service.MenuIngr();
-                for (Modelngredient data : list) {
-                    model.addRow(new Object[]{data.getiD_Ingr(), data.getNameIngre(), df.format(data.getPrice()) + "đ", data.getUnit()});
+                list = service.listBill();
+                for (ModelBill data : list) {
+                    model.addRow(new Object[]{data.getID_Bill(), data.getTable() , data.getDateChekIn(), df.format(data.getTotalPrice()) + "đ", data.getStatus()});
                 }
             } catch (SQLException ex) {
                 ex.printStackTrace();
@@ -109,11 +101,11 @@ public class Table_BillInfo extends SimpleFormManager {
 
             },
             new String [] {
-                "Ma NL", "Tên nguyên liệu", "Đơn giá", "Đơn vị tính"
+                "ID", "Tên bàn", "Ngày đặt", "Tổng tiền", "Trạng thái"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -123,11 +115,26 @@ public class Table_BillInfo extends SimpleFormManager {
         table.setRowHeight(40);
         scroll.setViewportView(table);
 
-        uWPButton1.setText("uWPButton1");
+        uWPButton1.setText("Tất cả");
+        uWPButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                uWPButton1ActionPerformed(evt);
+            }
+        });
 
-        uWPButton2.setText("uWPButton2");
+        uWPButton2.setText("Hôm nay");
+        uWPButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                uWPButton2ActionPerformed(evt);
+            }
+        });
 
-        uWPButton3.setText("uWPButton3");
+        uWPButton3.setText("Xem chi tiết");
+        uWPButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                uWPButton3ActionPerformed(evt);
+            }
+        });
 
         txt.setText("textFieldSearchOption1");
 
@@ -174,6 +181,57 @@ public class Table_BillInfo extends SimpleFormManager {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void uWPButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uWPButton1ActionPerformed
+        
+         refreshData();
+    }//GEN-LAST:event_uWPButton1ActionPerformed
+
+    private void uWPButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uWPButton2ActionPerformed
+        try {
+            // Lọc dữ liệu và cập nhật bảng
+            ArrayList<ModelBill> receiptList = service.BillToDay();
+            if (receiptList != null && !receiptList.isEmpty()) {
+                
+                //JOptionPane.showMessageDialog(this, "Lọc thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                updateTable(receiptList);
+            } else {
+                // Nếu không có dữ liệu phù hợp, hiển thị thông báo
+                JOptionPane.showMessageDialog(this, "Không có dữ liệu được tìm thấy cho hôm nay!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (SQLException ex) {
+            // Xử lý lỗi nếu có
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Lỗi khi lọc dữ liệu!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_uWPButton2ActionPerformed
+
+    private void uWPButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uWPButton3ActionPerformed
+        int selectedRow = table.getSelectedRow();
+        if (selectedRow != -1) { // Kiểm tra xem có hàng nào được chọn không
+        int receiptID = (int) table.getValueAt(selectedRow, 0); // Lấy ID của hóa đơn được chọn      
+       // System.out.println(receiptID);
+        FormBillInfo newfrm = new FormBillInfo(receiptID);
+        newfrm.setVisible(true);
+        //JOptionPane.showMessageDialog(this,"" + receiptID);
+    } else {
+        JOptionPane.showMessageDialog(this, "Vui lòng chọn một hóa đơn để xem chi tiết.", "Thông báo", JOptionPane.WARNING_MESSAGE);
+    }
+    }//GEN-LAST:event_uWPButton3ActionPerformed
+
+    public void refreshData() {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0); // Xóa hết các dòng hiện tại trong bảng
+        initTable(); // Load lại dữ liệu mới
+    }
+   private void updateTable(ArrayList<ModelBill> receiptList) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0); // Xóa hết các dòng hiện tại trong bảng
+
+        for (ModelBill receipt : receiptList) {
+            // Thêm dòng mới vào bảng với dữ liệu từ mỗi ModelReceipt trong danh sách
+            model.addRow(new Object[]{receipt.getID_Bill(), receipt.getTable() , receipt.getDateChekIn()  , df.format(receipt.getTotalPrice()) + "đ", receipt.getStatus()});
+        }
+   }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
