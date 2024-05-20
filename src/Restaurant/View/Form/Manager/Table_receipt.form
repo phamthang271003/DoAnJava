@@ -23,8 +23,10 @@
                       <Component id="uWPButton1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="uWPButton2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
                       <Component id="uWPButton3" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                      <Component id="jMonthChooser1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="txt" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -50,14 +52,15 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="67" max="32767" attributes="0"/>
+              <EmptySpace pref="68" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="txt" alignment="1" min="-2" max="-2" attributes="0"/>
                   <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                       <Component id="uWPButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="uWPButton2" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="uWPButton3" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="txt" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="jMonthChooser1" alignment="1" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="scroll" min="-2" pref="550" max="-2" attributes="0"/>
@@ -101,23 +104,37 @@
     </Container>
     <Component class="Restaurant.View.Component.Dashboard.UWPButton" name="uWPButton1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="uWPButton1"/>
+        <Property name="text" type="java.lang.String" value="T&#x1ea5;t c&#x1ea3;"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="uWPButton1ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="Restaurant.View.Component.Dashboard.UWPButton" name="uWPButton2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="uWPButton2"/>
+        <Property name="text" type="java.lang.String" value="H&#xf4;m nay"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="uWPButton2ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="Restaurant.View.Component.Dashboard.UWPButton" name="uWPButton3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="uWPButton3"/>
+        <Property name="text" type="java.lang.String" value="Xem chi ti&#x1ebf;t"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="uWPButton3ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="Restaurant.View.Component.Dashboard.TextFieldSearchOption" name="txt">
       <Properties>
         <Property name="text" type="java.lang.String" value="textFieldSearchOption1"/>
       </Properties>
+    </Component>
+    <Component class="com.toedter.calendar.JMonthChooser" name="jMonthChooser1">
+      <Events>
+        <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="jMonthChooser1PropertyChange"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

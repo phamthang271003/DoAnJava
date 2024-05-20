@@ -1,31 +1,32 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package Restaurant.View.Form.Manager;
-
-
-import Restaurant.Controller.Service.ServiceStaffWarehouse;
-import Restaurant.Model.Modelngredient;
 import Restaurant.View.Component.Dashboard.SearchOptinEvent;
 import Restaurant.View.Component.Dashboard.SearchOption;
 import Restaurant.View.Component.Manager.SimpleFormManager;
+import Restaurant.View.Dialog.frm_AddNewPersional;
+import Restaurant.View.Dialog.frm_EditPersional;
 import com.formdev.flatlaf.FlatClientProperties;
 import javax.swing.table.DefaultTableModel;
+
+
+import java.util.Date;
+
+import javax.swing.JOptionPane;
+
+
+import Restaurant.Controller.Service.ServicePersional;
+import Restaurant.Model.ModelPersional;
 
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
-/**
- *
- * @author quangthang
- */
+
 public class Table_PersonnelInfo extends SimpleFormManager {
 
-    private ServiceStaffWarehouse service;
-    private ArrayList<Modelngredient> list;
+    private ServicePersional service;
+    private ArrayList<ModelPersional> list;
     DecimalFormat df;
 
     /**
@@ -33,7 +34,7 @@ public class Table_PersonnelInfo extends SimpleFormManager {
      */
     public Table_PersonnelInfo() {
         initComponents();
-        service = new ServiceStaffWarehouse();
+        service = new ServicePersional();
         df = new DecimalFormat("#,###");
         initTable();
         //Search
@@ -74,10 +75,11 @@ public class Table_PersonnelInfo extends SimpleFormManager {
 
         public void initTable() {
                  DefaultTableModel model = (DefaultTableModel) table.getModel();
+               
             try {
-                list = service.MenuIngr();
-                for (Modelngredient data : list) {
-                    model.addRow(new Object[]{data.getiD_Ingr(), data.getNameIngre(), df.format(data.getPrice()) + "đ", data.getUnit()});
+                list = service.listEmp();
+                for (ModelPersional data : list) {
+                    model.addRow(new Object[]{data.getiD_Emp(), data.getNameEmp(), data.getDate(), data.getphoneNumber(),data.getPos(),data.getStatus()});
                 }
             } catch (SQLException ex) {
                 ex.printStackTrace();
@@ -109,11 +111,11 @@ public class Table_PersonnelInfo extends SimpleFormManager {
 
             },
             new String [] {
-                "Ma NL", "Tên nguyên liệu", "Đơn giá", "Đơn vị tính"
+                "Ma NV", "Tên NV", "Ngày vào làm", "SDT", "Vị trí", "Tình trạng"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -123,11 +125,26 @@ public class Table_PersonnelInfo extends SimpleFormManager {
         table.setRowHeight(40);
         scroll.setViewportView(table);
 
-        uWPButton1.setText("uWPButton1");
+        uWPButton1.setText("Thêm");
+        uWPButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                uWPButton1ActionPerformed(evt);
+            }
+        });
 
-        uWPButton2.setText("uWPButton2");
+        uWPButton2.setText("Xóa");
+        uWPButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                uWPButton2ActionPerformed(evt);
+            }
+        });
 
-        uWPButton3.setText("uWPButton3");
+        uWPButton3.setText("Sửa");
+        uWPButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                uWPButton3ActionPerformed(evt);
+            }
+        });
 
         txt.setText("textFieldSearchOption1");
 
@@ -174,6 +191,67 @@ public class Table_PersonnelInfo extends SimpleFormManager {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void uWPButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uWPButton1ActionPerformed
+       frm_AddNewPersional newfrm = new frm_AddNewPersional(this); // Truyền form cha (Table_PersonnelInfo) vào form con (frm_AddNewPersional)
+           newfrm.setVisible(true);
+    }//GEN-LAST:event_uWPButton1ActionPerformed
+
+    private void uWPButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uWPButton2ActionPerformed
+            // Lấy ra index của dòng được chọn
+            int selectedRow = table.getSelectedRow();
+            if (selectedRow != -1) { // Kiểm tra xem có dòng nào được chọn không
+            // Lấy ra ID của nhân viên cần xóa
+            int employeeID = (int) table.getValueAt(selectedRow, 0); // Giả sử ID của nhân viên là cột đầu tiên trong bảng
+
+            // Thực hiện xóa nhân viên từ cơ sở dữ liệu
+            try {
+                service.deleteEmployee(employeeID); // Gọi phương thức xóa nhân viên từ Service
+                // Xóa dòng được chọn từ bảng
+                DefaultTableModel model = (DefaultTableModel) table.getModel();
+                model.removeRow(selectedRow);
+
+                // Hiển thị thông báo xóa thành công
+                JOptionPane.showMessageDialog(this, "Xóa nhân viên thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            } catch (SQLException ex) {
+                // Xử lý lỗi nếu có
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Lỗi khi xóa nhân viên!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            // Hiển thị thông báo nếu không có dòng nào được chọn
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn nhân viên cần xóa!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_uWPButton2ActionPerformed
+
+    private void uWPButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uWPButton3ActionPerformed
+       
+                // Lấy ra index của dòng được chọn
+        int selectedRow = table.getSelectedRow();
+        if (selectedRow != -1) { // Kiểm tra xem có dòng nào được chọn không
+            // Lấy ra thông tin của dòng được chọn
+            int employeeID = (int) table.getValueAt(selectedRow, 0); // ID của nhân viên
+            String nameEmp = (String) table.getValueAt(selectedRow, 1); // Tên nhân viên
+            Date dateOfWork = (Date) table.getValueAt(selectedRow, 2); // Ngày vào làm
+            String phoneNumber = (String) table.getValueAt(selectedRow, 3); // Số điện thoại
+            String position = (String) table.getValueAt(selectedRow, 4); // Vị trí làm việc
+            String status = (String) table.getValueAt(selectedRow, 5); // Trạng thái
+
+            // Mở form sửa với thông tin của dòng được chọn
+            frm_EditPersional editForm = new frm_EditPersional(this);
+            editForm.setData(employeeID, nameEmp, dateOfWork, phoneNumber, position, status);
+            editForm.setVisible(true);
+        } else {
+            // Hiển thị thông báo nếu không có dòng nào được chọn
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn nhân viên cần sửa!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_uWPButton3ActionPerformed
+
+    public void refreshData() {
+    DefaultTableModel model = (DefaultTableModel) table.getModel();
+    model.setRowCount(0); // Xóa hết các dòng hiện tại trong bảng
+    initTable(); // Load lại dữ liệu mới
+}
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
