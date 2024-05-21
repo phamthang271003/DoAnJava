@@ -17,7 +17,7 @@ public class ServicePersional {
      }
      
      
-    public void addNewPersional(String nameEmp, Date dateofwork, String phoneNumber, String position, String status) throws SQLException {
+    public void addNewPersional(String nameEmp, Date dateofwork, String phoneNumber, String position,int ID_Manager, String status) throws SQLException {
     String sqlSelectLastID = "SELECT TOP 1 ID_Emp FROM Employee ORDER BY ID_Emp DESC";
     PreparedStatement pSelect = con.prepareStatement(sqlSelectLastID);
     ResultSet r = pSelect.executeQuery();
@@ -30,14 +30,15 @@ public class ServicePersional {
     
     int newID = lastID + 1;
 
-    String sql = "INSERT INTO Employee (ID_Emp, Name, DateOfWork, PhoneNumber, Position, Status) VALUES (?, ?, ?, ?, ?, ?)";
+    String sql = "INSERT INTO Employee (ID_Emp, Name, DateOfWork, PhoneNumber, Position,ID_Manager, Status) VALUES (?, ?, ?, ?, ?, ?,?)";
     PreparedStatement p = con.prepareStatement(sql);
     p.setInt(1, newID);
     p.setString(2, nameEmp);
     p.setDate(3, new java.sql.Date(dateofwork.getTime()));
     p.setString(4, phoneNumber);
     p.setString(5, position);
-    p.setString(6, status);
+    p.setInt(6, ID_Manager);
+    p.setString(7, status);
     p.executeUpdate();
     p.close();
 }
@@ -77,9 +78,9 @@ public class ServicePersional {
         statement.executeUpdate();
     }
 }
-    public void updateEmployee(int employeeID, String nameEmp, Date dateOfWork, String phoneNumber, String position, String status) throws SQLException {
+    public void updateEmployee(int employeeID, String nameEmp, Date dateOfWork, String phoneNumber, String position,int ID_Manager, String status) throws SQLException {
     
-    String query = "UPDATE Employee SET Name = ?, DateOfWork = ?, PhoneNumber = ?, Position = ?, Status = ? WHERE ID_Emp = ?";
+    String query = "UPDATE Employee SET Name = ?, DateOfWork = ?, PhoneNumber = ?, Position = ?,ID_Manager = ?, Status = ? WHERE ID_Emp = ?";
     
     
     try (PreparedStatement statement = con.prepareStatement(query)) {
@@ -87,8 +88,9 @@ public class ServicePersional {
         statement.setDate(2, new java.sql.Date(dateOfWork.getTime()));
         statement.setString(3, phoneNumber);
         statement.setString(4, position);
-        statement.setString(5, status);
-        statement.setInt(6, employeeID);
+        statement.setInt(5, ID_Manager);
+        statement.setString(6, status);
+        statement.setInt(7, employeeID);
         
         // Thực hiện truy vấn cập nhật
         statement.executeUpdate();

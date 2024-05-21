@@ -1,6 +1,7 @@
 
 package Restaurant.View.Dialog;
 
+import Restaurant.Controller.Service.AppData;
 import Restaurant.Controller.Service.ServicePersional;
 import Restaurant.View.Form.Manager.Table_PersonnelInfo;
 import java.util.Date;
@@ -198,7 +199,8 @@ public class frm_EditPersional extends javax.swing.JFrame {
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
 
-      String nameEmp = txtTen.getText();
+    int ID_Manager = AppData.getInstance().getSharedData();
+    String nameEmp = txtTen.getText();
     Date dateOfWork = jDateChooser1.getDate();
     String phoneNumber = txtSDT.getText();
     String position = (String) cboViTri.getSelectedItem();
@@ -206,7 +208,7 @@ public class frm_EditPersional extends javax.swing.JFrame {
     
     try {
         // Gọi phương thức từ ServicePersional để cập nhật dữ liệu
-        service.updateEmployee(employeeID, nameEmp, dateOfWork, phoneNumber, position, status);
+        service.updateEmployee(employeeID, nameEmp, dateOfWork, phoneNumber, position,ID_Manager, status);
         
         // Hiển thị thông báo cập nhật thành công
         JOptionPane.showMessageDialog(this, "Cập nhật thông tin nhân viên thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);

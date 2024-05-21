@@ -1,5 +1,6 @@
 
 package Restaurant.View.Form.Manager;
+import Restaurant.Controller.Service.AppData;
 import Restaurant.View.Component.Dashboard.SearchOptinEvent;
 import Restaurant.View.Component.Dashboard.SearchOption;
 import Restaurant.View.Component.Manager.SimpleFormManager;
@@ -16,6 +17,7 @@ import javax.swing.JOptionPane;
 
 import Restaurant.Controller.Service.ServicePersional;
 import Restaurant.Model.ModelPersional;
+import Restaurant.View.Component.Login.PanelLoginAndRegister;
 
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -28,6 +30,7 @@ public class Table_PersonnelInfo extends SimpleFormManager {
     private ServicePersional service;
     private ArrayList<ModelPersional> list;
     DecimalFormat df;
+    private PanelLoginAndRegister panel;
 
     /**
      * Creates new form Table
@@ -192,7 +195,8 @@ public class Table_PersonnelInfo extends SimpleFormManager {
     }// </editor-fold>//GEN-END:initComponents
 
     private void uWPButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uWPButton1ActionPerformed
-       frm_AddNewPersional newfrm = new frm_AddNewPersional(this); // Truyền form cha (Table_PersonnelInfo) vào form con (frm_AddNewPersional)
+
+        frm_AddNewPersional newfrm = new frm_AddNewPersional(this); // Truyền form cha (Table_PersonnelInfo) vào form con (frm_AddNewPersional)
            newfrm.setVisible(true);
     }//GEN-LAST:event_uWPButton1ActionPerformed
 

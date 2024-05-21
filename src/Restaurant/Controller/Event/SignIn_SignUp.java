@@ -4,6 +4,7 @@
  */
 package Restaurant.Controller.Event;
 
+import Restaurant.Controller.Service.AppData;
 import Restaurant.Controller.Service.ServiceSignInUp;
 import Restaurant.View.Component.Login.PanelCover;
 import Restaurant.View.Component.Login.PanelLoginAndRegister;
@@ -15,6 +16,9 @@ import Restaurant.View.Swing.Login.MyPasswordField;
 import Restaurant.View.Swing.Login.MyTextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -26,6 +30,7 @@ public class SignIn_SignUp implements ActionListener {
     private PanelLoginAndRegister panel;
     private ServiceSignInUp service;
 
+    private int MaNV;
     // Constructor mặc định
     public SignIn_SignUp(PanelLoginAndRegister panel, ServiceSignInUp service) {
         this.panel = panel;
@@ -55,8 +60,10 @@ public class SignIn_SignUp implements ActionListener {
             // Hiển thị thông báo tùy thuộc vào kết quả đăng nhập
             if (loginSuccess) {
                 if (checkRole == 1) {
+                    
                     Main_Staff staff = new Main_Staff();
                     JOptionPane.showMessageDialog(panel, "Đăng nhập thành công ! Chào mừng bạn nhân viên");
+                    
                     staff.setVisible(true);
                     panel.getTopLevelAncestor().setVisible(false);
                 } else if (checkRole == 2) {
@@ -65,7 +72,16 @@ public class SignIn_SignUp implements ActionListener {
                     WHStaff.setVisible(true);
                     panel.getTopLevelAncestor().setVisible(false);
                 } else if (checkRole == 3) {
+                    
                     JOptionPane.showMessageDialog(panel, "Đăng nhập thành công ! Chào mừng bạn quản lý");
+                    try {
+                        int tmp = service.LayMaNV(email);
+                          AppData.getInstance().setSharedData(tmp);
+                  
+                    } catch (SQLException ex) {
+                        Logger.getLogger(SignIn_SignUp.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    //JOptionPane.showMessageDialog(panel, "KQ" + AppData.getInstance().getSharedData());
                     Main_Manager manager = new Main_Manager();
                     manager.setVisible(true);
                     panel.getTopLevelAncestor().setVisible(false);
