@@ -67,6 +67,42 @@ public class ServicePersional {
         return list;
     }
     
+    
+    public ArrayList<ModelPersional> listEmp2(int maNV) throws SQLException {
+    ArrayList<ModelPersional> list = new ArrayList<>();
+    String sql = "SELECT ID_Emp, Name, DateOfWork, PhoneNumber, Position, Status FROM [Employee] WHERE ID_Emp = ?";
+    PreparedStatement p = null;
+    ResultSet r = null;
+    
+    try {
+        p = con.prepareStatement(sql);
+        p.setInt(1, maNV); // Truyền tham số maNV vào câu lệnh SQL
+        r = p.executeQuery();
+        
+        while (r.next()) {
+            int iD_Emp = r.getInt(1);  // Mã nhân viên
+            String nameEmp = r.getString(2); // Tên nhân viên
+            Date dateofwork = r.getDate(3); // Ngày vào làm
+            String phoneNumber = r.getString(4); // Số điện thoại
+            String position = r.getString(5); // Vị trí làm việc
+            String status = r.getString(6); // Tình trạng làm việc
+
+            ModelPersional data = new ModelPersional(iD_Emp, nameEmp, dateofwork, phoneNumber, position, status);
+            list.add(data);
+        }
+    } finally {
+        if (r != null) {
+            r.close();
+        }
+        if (p != null) {
+            p.close();
+        }
+    }
+    
+    return list;
+}
+
+    
     public void deleteEmployee(int employeeID) throws SQLException {
     // Chuỗi truy vấn SQL để xóa nhân viên từ bảng Employee với điều kiện là ID_Emp
     String query = "DELETE FROM Employee WHERE ID_Emp = ?";

@@ -3,10 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/GitHub/DoAnJava/src/Restaurant/View/Dialog/frm_EditPersional.java</file>
             <file>file:/C:/GitHub/DoAnJava/src/Restaurant/View/MainFrame/Main_Manager.java</file>
+            <file>file:/C:/GitHub/DoAnJava/src/Restaurant/View/Form/Manager/Table_PersonnelInfo.java</file>
+            <file>file:/C:/GitHub/DoAnJava/src/Restaurant/View/Dialog/frmReceiptInfo.java</file>
+            <file>file:/C:/GitHub/DoAnJava/src/Restaurant/View/Dialog/MS_ConfirmReserve.java</file>
             <file>file:/C:/GitHub/DoAnJava/src/Restaurant/View/Form/Main/Main.java</file>
             <file>file:/C:/GitHub/DoAnJava/src/Restaurant/Controller/Connection/DatabaseConnection.java</file>
+            <file>file:/C:/GitHub/DoAnJava/src/Restaurant/View/Form/Manager/Table_receipt.java</file>
             <file>file:/C:/GitHub/DoAnJava/src/Restaurant/View/Form/Main/MainForm.java</file>
+            <file>file:/C:/GitHub/DoAnJava/src/Restaurant/View/Form/Manager/Table_menuInfo.java</file>
+            <file>file:/C:/GitHub/DoAnJava/src/Restaurant/View/Dialog/frm_AddNewPersional.java</file>
         </group>
     </open-files>
 </project-private>
