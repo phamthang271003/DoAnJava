@@ -25,6 +25,8 @@
                       <Component id="uWPButton2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="uWPButton3" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                      <Component id="uWPButton4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="txt" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -56,6 +58,7 @@
                       <Component id="uWPButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="uWPButton2" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="uWPButton3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="uWPButton4" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="txt" alignment="1" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -128,6 +131,14 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="textFieldSearchOption1"/>
       </Properties>
+    </Component>
+    <Component class="Restaurant.View.Component.Dashboard.UWPButton" name="uWPButton4">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Th&#xea;m nguy&#xea;n li&#x1ec7;u"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="uWPButton4ActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

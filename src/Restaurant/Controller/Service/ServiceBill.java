@@ -33,7 +33,7 @@ public class ServiceBill {
     // Lấy danh sách thực phẩm theo ID của loại thực phẩm
     public ArrayList<ModelBill> listBill()  throws SQLException {
         ArrayList<ModelBill> list = new ArrayList<>();
-        String sql = "SELECT ID_Bill,TableName, DateCheckIn,Discount,TotalPrice, Bill.Status   FROM [Bill], [Table] where [Bill].ID_Table = [Table].ID_Table;";
+        String sql = "SELECT ID_Bill,TableName, DateCheckIn,TotalPrice, Bill.Status   FROM [Bill], [Table] where [Bill].ID_Table = [Table].ID_Table;";
         PreparedStatement p = con.prepareStatement(sql);
         ResultSet r = p.executeQuery(); 
              while (r.next()) {
@@ -41,10 +41,10 @@ public class ServiceBill {
                     String Name = r.getString(2);
                     Date DateChekIn = r.getDate(3);
                     
-                    double Discount = r.getDouble(4);
-                    double TotalPrice = r.getDouble(5);
-                    String Status = r.getString(6);
-                    ModelBill data = new ModelBill(ID_Bill, Name, DateChekIn,Discount,TotalPrice,Status);
+                    //double Discount = r.getDouble(4);
+                    double TotalPrice = r.getDouble(4);
+                    String Status = r.getString(5);
+                    ModelBill data = new ModelBill(ID_Bill, Name, DateChekIn,TotalPrice,Status);
                     list.add(data);
                 }
         r.close();
@@ -62,7 +62,7 @@ public class ServiceBill {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     String formattedDate = today.format(formatter);
     
-    String sql = "SELECT ID_Bill,TableName, DateCheckIn,Discount,TotalPrice, Bill.Status   FROM [Bill], [Table]  where [Bill].ID_Table = [Table].ID_Table  and DateCheckIn = ?";
+    String sql = "SELECT ID_Bill,TableName, DateCheckIn,TotalPrice, Bill.Status   FROM [Bill], [Table]  where [Bill].ID_Table = [Table].ID_Table  and DateCheckIn = ?";
     PreparedStatement p = con.prepareStatement(sql);
     
     // Sử dụng java.sql.Date để đặt giá trị tham số trong câu truy vấn
@@ -73,11 +73,9 @@ public class ServiceBill {
         int ID_Bill = r.getInt(1);  // Mã kho
         String NameTable = r.getString(2);         
         Date DateChekIn = r.getDate(3);   // Ngày nhập
-        
-        double Discount = r.getDouble(4);
-        double TotalPrice = r.getDouble(5);
-        String Status = r.getString(6);
-        ModelBill data = new ModelBill(ID_Bill, NameTable, DateChekIn,Discount,TotalPrice,Status);
+        double TotalPrice = r.getDouble(4);
+        String Status = r.getString(5);
+        ModelBill data = new ModelBill(ID_Bill, NameTable, DateChekIn,TotalPrice,Status);
         list.add(data);
     }
     r.close();

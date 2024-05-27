@@ -1,14 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package Restaurant.View.Form.Manager;
 
-
+import Restaurant.View.Dialog.FormFoodIngredient;
 import Restaurant.Controller.Service.ServiceMenu;
-import Restaurant.Controller.Service.ServiceStaffWarehouse;
+
 import Restaurant.Model.ModelIDFood;
-import Restaurant.Model.Modelngredient;
+
 import Restaurant.View.Component.Dashboard.SearchOptinEvent;
 import Restaurant.View.Component.Dashboard.SearchOption;
 import Restaurant.View.Component.Manager.SimpleFormManager;
@@ -106,6 +103,7 @@ public class Table_menuInfo extends SimpleFormManager {
         uWPButton2 = new Restaurant.View.Component.Dashboard.UWPButton();
         uWPButton3 = new Restaurant.View.Component.Dashboard.UWPButton();
         txt = new Restaurant.View.Component.Dashboard.TextFieldSearchOption();
+        uWPButton4 = new Restaurant.View.Component.Dashboard.UWPButton();
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
@@ -152,6 +150,13 @@ public class Table_menuInfo extends SimpleFormManager {
 
         txt.setText("textFieldSearchOption1");
 
+        uWPButton4.setText("Thêm nguyên liệu");
+        uWPButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                uWPButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -165,6 +170,8 @@ public class Table_menuInfo extends SimpleFormManager {
                         .addComponent(uWPButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(uWPButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addComponent(uWPButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -187,7 +194,8 @@ public class Table_menuInfo extends SimpleFormManager {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(uWPButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(uWPButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(uWPButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(uWPButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(uWPButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(txt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -250,6 +258,28 @@ public class Table_menuInfo extends SimpleFormManager {
             }
     }//GEN-LAST:event_uWPButton2ActionPerformed
 
+    private void uWPButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uWPButton4ActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = table.getSelectedRow();
+    if (selectedRow != -1) { // Kiểm tra xem có dòng nào được chọn không
+        // Lấy ra thông tin của dòng được chọn
+        int ID_Food = (int) table.getValueAt(selectedRow, 0); // ID 
+        String FoodName = (String) table.getValueAt(selectedRow, 1); // Tên mon
+      
+
+        // Mở form sửa với thông tin của dòng được chọn
+       FormFoodIngredient newForm = new FormFoodIngredient(ID_Food, FoodName);
+        
+        newForm.setVisible(true);
+    } else {
+        // Hiển thị thông báo nếu không có dòng nào được chọn
+        JOptionPane.showMessageDialog(this, "Vui lòng chọn nguyeen liệu !!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+    }
+        
+        
+        
+    }//GEN-LAST:event_uWPButton4ActionPerformed
+
     public void refreshData() {
     DefaultTableModel model = (DefaultTableModel) table.getModel();
     model.setRowCount(0); // Xóa hết các dòng hiện tại trong bảng
@@ -264,5 +294,6 @@ public class Table_menuInfo extends SimpleFormManager {
     private Restaurant.View.Component.Dashboard.UWPButton uWPButton1;
     private Restaurant.View.Component.Dashboard.UWPButton uWPButton2;
     private Restaurant.View.Component.Dashboard.UWPButton uWPButton3;
+    private Restaurant.View.Component.Dashboard.UWPButton uWPButton4;
     // End of variables declaration//GEN-END:variables
 }

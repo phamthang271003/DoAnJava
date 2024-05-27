@@ -7,15 +7,13 @@ public class ModelBill {
        private int ID_Bill;
     private String Table;
     private Date DateChekIn ;
-    private double Discount;
     private double TotalPrice;
     private String Status;
 
-    public ModelBill(int ID_Bill,String Table,Date DateChekIn,double Discount,double TotalPrice,String Status) {
+    public ModelBill(int ID_Bill,String Table,Date DateChekIn,double TotalPrice,String Status) {
         this.ID_Bill = ID_Bill ;
         this.Table = Table;
         this.DateChekIn = DateChekIn;
-        this.Discount = Discount;
         this.TotalPrice = TotalPrice;
         this.Status= Status;
        
@@ -45,14 +43,6 @@ public class ModelBill {
         this.DateChekIn = DateChekIn;
     }
 
-   
-    public double getDiscount() {
-        return Discount;
-    }
-
-    public void setDiscount(double Discount) {
-        this.Discount = Discount;
-    }
      public double getTotalPrice() {
         return TotalPrice;
     }

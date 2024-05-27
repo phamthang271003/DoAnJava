@@ -79,7 +79,7 @@ public class Table_BillInfo extends SimpleFormManager {
             try {
                 list = service.listBill();
                 for (ModelBill data : list) {
-                    model.addRow(new Object[]{data.getID_Bill(), data.getTable() , data.getDateChekIn(),data.getDiscount()  , df.format(data.getTotalPrice()) + "đ", data.getStatus()});
+                    model.addRow(new Object[]{data.getID_Bill(), data.getTable() , data.getDateChekIn(), df.format(data.getTotalPrice()) + "đ", data.getStatus()});
                 }
             } catch (SQLException ex) {
                 ex.printStackTrace();
@@ -111,11 +111,11 @@ public class Table_BillInfo extends SimpleFormManager {
 
             },
             new String [] {
-                "ID", "Tên bàn", "Ngày đặt", "Giảm giá", "Tổng tiền", "Trạng thái"
+                "ID", "Tên bàn", "Ngày đặt", "Tổng tiền", "Trạng thái"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, true
+                false, false, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -239,7 +239,7 @@ public class Table_BillInfo extends SimpleFormManager {
 
         for (ModelBill receipt : receiptList) {
             // Thêm dòng mới vào bảng với dữ liệu từ mỗi ModelReceipt trong danh sách
-            model.addRow(new Object[]{receipt.getID_Bill(), receipt.getTable() , receipt.getDateChekIn() ,receipt.getDiscount()  , df.format(receipt.getTotalPrice()) + "đ", receipt.getStatus()});
+            model.addRow(new Object[]{receipt.getID_Bill(), receipt.getTable() , receipt.getDateChekIn() , df.format(receipt.getTotalPrice()) + "đ", receipt.getStatus()});
         }
    }
 

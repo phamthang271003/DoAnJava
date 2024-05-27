@@ -164,6 +164,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Th&#xea;m m&#xf3;n"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThemActionPerformed"/>
+      </Events>
     </Component>
     <Component class="Restaurant.View.Component.Dashboard.UWPButton" name="btnXoa">
       <Properties>
@@ -174,6 +177,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Thanh to&#xe1;n"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThanhToanActionPerformed"/>
+      </Events>
     </Component>
     <Component class="Restaurant.View.Component.Dashboard.TextFieldSearchOption" name="txt">
       <Properties>

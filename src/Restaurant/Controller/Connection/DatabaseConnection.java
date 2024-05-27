@@ -32,7 +32,7 @@ public class DatabaseConnection {
 
     public void connectToDatabase() {
         String strServer = "MSI\\SQLEXPRESS";
-        String strDatabase = "QLNH";
+        String strDatabase = "QLNHfinal";
         String userName = "sa";
         String passWord = "123";
         try {

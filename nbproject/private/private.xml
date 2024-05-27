@@ -11,6 +11,12 @@
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/E:/GitHub/DoAnJava/src/Restaurant/View/MainFrame/Main_Staff.java</file>
+            <file>file:/E:/GitHub/DoAnJava/src/Restaurant/Controller/Connection/DatabaseConnection.java</file>
+            <file>file:/E:/GitHub/DoAnJava/src/Restaurant/View/MainFrame/Main_Manager.java</file>
+            <file>file:/E:/GitHub/DoAnJava/src/Restaurant/View/Form/Manager/Table_BillInfo.java</file>
+            <file>file:/E:/GitHub/DoAnJava/src/Restaurant/Controller/Service/ServiceClient.java</file>
+        </group>
     </open-files>
 </project-private>
