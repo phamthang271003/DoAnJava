@@ -1,12 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package Restaurant.View.Form.Manager;
-
-
 import Restaurant.Controller.Service.ServiceReceipt;
-import Restaurant.Model.ModelReceipt;
 import Restaurant.Model.ModelReceipt1;
 import Restaurant.View.Component.Dashboard.SearchOptinEvent;
 import Restaurant.View.Component.Dashboard.SearchOption;
@@ -22,10 +16,6 @@ import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author quangthang
- */
 public class Table_receipt extends SimpleFormManager {
 
     private ServiceReceipt service;
@@ -40,7 +30,7 @@ public class Table_receipt extends SimpleFormManager {
         service = new ServiceReceipt();
         df = new DecimalFormat("#,###");
         initTable();
-        //Search
+       
         txt.addEventOptionSelected(new SearchOptinEvent() {
             @Override
             public void optionSelected(SearchOption option, int index) {
@@ -67,14 +57,6 @@ public class Table_receipt extends SimpleFormManager {
         //testData();
     }
 
-//    private void testData() {
-//   
-//        model.addRow(new Object[]{1, "Thit ga", "40,000đ", "Kg"});
-//        model.addRow(new Object[]{2, "Thit heo", "50,000đ", "Kg"});
-//        model.addRow(new Object[]{3, "Thit bo", "80,000đ", "Kg"});
-//        model.addRow(new Object[]{4, "Tom", "100,000đ", "Kg"});
-//        model.addRow(new Object[]{5, "Ca hoi", "500,000đ", "Kg"});
-//    }
 
         public void initTable() {
                  DefaultTableModel model = (DefaultTableModel) table.getModel();
@@ -114,7 +96,7 @@ public class Table_receipt extends SimpleFormManager {
 
             },
             new String [] {
-                "Ma NL", "Tên nguyên liệu", "Đơn giá", "Đơn vị tính"
+                "Mã Kho", "Mã NV", "Ngày Nhập", "Tổng tiền"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -216,18 +198,16 @@ public class Table_receipt extends SimpleFormManager {
     private void uWPButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uWPButton2ActionPerformed
         
         try {
-            // Lọc dữ liệu và cập nhật bảng
+           
             ArrayList<ModelReceipt1> receiptList = service.receiptToDay();
             if (receiptList != null && !receiptList.isEmpty()) {
-                
-                //JOptionPane.showMessageDialog(this, "Lọc thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 updateTable(receiptList);
             } else {
-                // Nếu không có dữ liệu phù hợp, hiển thị thông báo
+                
                 JOptionPane.showMessageDialog(this, "Không có dữ liệu được tìm thấy cho hôm nay!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (SQLException ex) {
-            // Xử lý lỗi nếu có
+            
             ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Lỗi khi lọc dữ liệu!", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
@@ -243,11 +223,9 @@ public class Table_receipt extends SimpleFormManager {
                 // Lọc dữ liệu và cập nhật bảng
                 ArrayList<ModelReceipt1> receiptList = service.receiptOfMonth(month);
                 if (receiptList != null && !receiptList.isEmpty()) {
-                    // Nếu có dữ liệu phù hợp, hiển thị thông báo và cập nhật bảng
-                    //JOptionPane.showMessageDialog(this, "Lọc thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                     updateTable(receiptList);
                 } else {
-                    // Nếu không có dữ liệu phù hợp, hiển thị thông báo
+                    
                     JOptionPane.showMessageDialog(this, "Không có dữ liệu được tìm thấy cho tháng này!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 }
             } catch (SQLException ex) {
@@ -260,23 +238,23 @@ public class Table_receipt extends SimpleFormManager {
 
     private void uWPButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uWPButton3ActionPerformed
             int selectedRow = table.getSelectedRow();
-            if (selectedRow != -1) { // Kiểm tra xem có hàng nào được chọn không
-            int receiptID = (int) table.getValueAt(selectedRow, 0); // Lấy ID của hóa đơn được chọn      
+            if (selectedRow != -1) { 
+            int receiptID = (int) table.getValueAt(selectedRow, 0);       
             System.out.println(receiptID);
             frmReceiptInfo newfrm = new frmReceiptInfo(receiptID);
             newfrm.setVisible(true);
-            //JOptionPane.showMessageDialog(this,"" + receiptID);
+            
         } else {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn một hóa đơn để xem chi tiết.", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một dòng để xem chi tiết.", "Thông báo", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_uWPButton3ActionPerformed
 
     private void updateTable(ArrayList<ModelReceipt1> receiptList) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
-        model.setRowCount(0); // Xóa hết các dòng hiện tại trong bảng
+        model.setRowCount(0); 
 
         for (ModelReceipt1 receipt : receiptList) {
-            // Thêm dòng mới vào bảng với dữ liệu từ mỗi ModelReceipt trong danh sách
+            
             model.addRow(new Object[]{receipt.getID_Rec(), receipt.getID_Emp(), receipt.getDay(), df.format(receipt.getPrice()) + "đ", receipt});
         }
 }

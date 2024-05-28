@@ -1,6 +1,7 @@
 
 package Restaurant.View.Dialog;
 
+import Restaurant.Controller.Service.AppData;
 import Restaurant.Controller.Service.ServicePersional;
 import Restaurant.View.Form.Manager.Table_PersonnelInfo;
 import java.util.Date;
@@ -197,6 +198,7 @@ public class frm_AddNewPersional extends javax.swing.JFrame {
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
 
+    int ID_Manager = AppData.getInstance().getSharedData();
     String nameEmp = txtTen.getText();
     Date dateofwork = jDateChooser1.getDate();
     String phoneNumber = txtSDT.getText();
@@ -204,9 +206,8 @@ public class frm_AddNewPersional extends javax.swing.JFrame {
     String status = (String) cboLam.getSelectedItem();
 
      try {
-        service.addNewPersional(nameEmp, dateofwork, phoneNumber, position, status);
+        service.addNewPersional(nameEmp, dateofwork, phoneNumber, position,ID_Manager, status);
         JOptionPane.showMessageDialog(this, "Thêm nhân viên thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-        
           refreshParentData(); 
           this.dispose();
     } catch (SQLException ex) {

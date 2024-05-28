@@ -1,5 +1,6 @@
 
 package Restaurant.View.Form.Manager;
+import Restaurant.Controller.Service.AppData;
 import Restaurant.View.Component.Dashboard.SearchOptinEvent;
 import Restaurant.View.Component.Dashboard.SearchOption;
 import Restaurant.View.Component.Manager.SimpleFormManager;
@@ -16,6 +17,8 @@ import javax.swing.JOptionPane;
 
 import Restaurant.Controller.Service.ServicePersional;
 import Restaurant.Model.ModelPersional;
+import Restaurant.View.Component.Login.PanelLoginAndRegister;
+
 
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -28,6 +31,7 @@ public class Table_PersonnelInfo extends SimpleFormManager {
     private ServicePersional service;
     private ArrayList<ModelPersional> list;
     DecimalFormat df;
+    private PanelLoginAndRegister panel;
 
     /**
      * Creates new form Table
@@ -192,64 +196,52 @@ public class Table_PersonnelInfo extends SimpleFormManager {
     }// </editor-fold>//GEN-END:initComponents
 
     private void uWPButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uWPButton1ActionPerformed
-       frm_AddNewPersional newfrm = new frm_AddNewPersional(this); // Truyền form cha (Table_PersonnelInfo) vào form con (frm_AddNewPersional)
-           newfrm.setVisible(true);
+        frm_AddNewPersional newfrm = new frm_AddNewPersional(this);
+        newfrm.setVisible(true);
     }//GEN-LAST:event_uWPButton1ActionPerformed
 
     private void uWPButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uWPButton2ActionPerformed
-            // Lấy ra index của dòng được chọn
             int selectedRow = table.getSelectedRow();
-            if (selectedRow != -1) { // Kiểm tra xem có dòng nào được chọn không
-            // Lấy ra ID của nhân viên cần xóa
-            int employeeID = (int) table.getValueAt(selectedRow, 0); // Giả sử ID của nhân viên là cột đầu tiên trong bảng
-
-            // Thực hiện xóa nhân viên từ cơ sở dữ liệu
+            if (selectedRow != -1) {             
+            int employeeID = (int) table.getValueAt(selectedRow, 0);             
             try {
-                service.deleteEmployee(employeeID); // Gọi phương thức xóa nhân viên từ Service
-                // Xóa dòng được chọn từ bảng
+                service.deleteEmployee(employeeID);               
                 DefaultTableModel model = (DefaultTableModel) table.getModel();
                 model.removeRow(selectedRow);
-
-                // Hiển thị thông báo xóa thành công
+                refreshData();
                 JOptionPane.showMessageDialog(this, "Xóa nhân viên thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             } catch (SQLException ex) {
-                // Xử lý lỗi nếu có
                 ex.printStackTrace();
                 JOptionPane.showMessageDialog(this, "Lỗi khi xóa nhân viên!", "Lỗi", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            // Hiển thị thông báo nếu không có dòng nào được chọn
             JOptionPane.showMessageDialog(this, "Vui lòng chọn nhân viên cần xóa!", "Thông báo", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_uWPButton2ActionPerformed
 
     private void uWPButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uWPButton3ActionPerformed
-       
-                // Lấy ra index của dòng được chọn
         int selectedRow = table.getSelectedRow();
-        if (selectedRow != -1) { // Kiểm tra xem có dòng nào được chọn không
-            // Lấy ra thông tin của dòng được chọn
+        if (selectedRow != -1) {
             int employeeID = (int) table.getValueAt(selectedRow, 0); // ID của nhân viên
             String nameEmp = (String) table.getValueAt(selectedRow, 1); // Tên nhân viên
             Date dateOfWork = (Date) table.getValueAt(selectedRow, 2); // Ngày vào làm
             String phoneNumber = (String) table.getValueAt(selectedRow, 3); // Số điện thoại
             String position = (String) table.getValueAt(selectedRow, 4); // Vị trí làm việc
             String status = (String) table.getValueAt(selectedRow, 5); // Trạng thái
-
-            // Mở form sửa với thông tin của dòng được chọn
+            
+            //Mo form de chinh sua thong tin
             frm_EditPersional editForm = new frm_EditPersional(this);
             editForm.setData(employeeID, nameEmp, dateOfWork, phoneNumber, position, status);
             editForm.setVisible(true);
         } else {
-            // Hiển thị thông báo nếu không có dòng nào được chọn
             JOptionPane.showMessageDialog(this, "Vui lòng chọn nhân viên cần sửa!", "Thông báo", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_uWPButton3ActionPerformed
 
     public void refreshData() {
-    DefaultTableModel model = (DefaultTableModel) table.getModel();
-    model.setRowCount(0); // Xóa hết các dòng hiện tại trong bảng
-    initTable(); // Load lại dữ liệu mới
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0); // Xóa hết các dòng hiện tại trong bảng
+        initTable(); // Load lại dữ liệu mới
 }
     
 

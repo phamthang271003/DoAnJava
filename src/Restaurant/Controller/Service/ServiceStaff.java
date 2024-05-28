@@ -26,8 +26,8 @@ public class ServiceStaff {
         con = DatabaseConnection.getInstance().getConnection();
     }
     
-    public void checkStatusFood() {
-        String sqlSelect = "SELECT f.ID_Food, f.FoodName, fi.ID_Ingr, fi.QuantityIngredient, i.QuantityInStock " +
+   public void checkStatusFood() {
+        String sqlSelect = "SELECT f.ID_Food, f.FoodName, fi.ID_Ingr, fi.QuantityIngredient, i.QuantityInkitchen " +
                            "FROM Food f " +
                            "LEFT JOIN FoodIngredient fi ON f.ID_Food = fi.ID_Food " +
                            "LEFT JOIN Ingredient i ON fi.ID_Ingr = i.ID_Ingr";
@@ -41,10 +41,10 @@ public class ServiceStaff {
             while (resultSet.next()) {
                 int ID_Food = resultSet.getInt("ID_Food");
                 double QuantityIngredient = resultSet.getInt("QuantityIngredient");
-                double QuantityInStock = resultSet.getInt("QuantityInStock");
+                double QuantityInkitchen = resultSet.getInt("QuantityInkitchen");
 
                 // Kiểm tra xem nguyên liệu còn đủ hay không
-                if (QuantityIngredient / 1000 > QuantityInStock) {
+                if (QuantityIngredient / 1000 > QuantityInkitchen) {
                     // Nếu không đủ, cập nhật thuộc tính Status cho món ăn hết hàng
                     statementUpdate.setInt(1, ID_Food);
                     statementUpdate.executeUpdate();
@@ -55,9 +55,11 @@ public class ServiceStaff {
         }
     }
 
-    public void deleteIngreOrderFood(ArrayList<String[]> list) {
-        String sqlSelect = "SELECT ID_Ingr, QuantityInStock FROM Ingredient WHERE ID_Ingr = ?";
-        String sqlUpdate = "UPDATE Ingredient SET QuantityInStock = ? WHERE ID_Ingr = ?";
+
+
+     public void deleteIngreOrderFood(ArrayList<String[]> list) {
+        String sqlSelect = "SELECT ID_Ingr, QuantityInkitchen FROM Ingredient WHERE ID_Ingr = ?";
+        String sqlUpdate = "UPDATE Ingredient SET QuantityInkitchen = ? WHERE ID_Ingr = ?";
 
         try (PreparedStatement statementSelect = con.prepareStatement(sqlSelect);
              PreparedStatement statementUpdate = con.prepareStatement(sqlUpdate)) {
@@ -70,15 +72,15 @@ public class ServiceStaff {
                 ResultSet resultSet = statementSelect.executeQuery();
 
                 if (resultSet.next()) {
-                    double currentQuantityInStock = resultSet.getDouble("QuantityInStock");
+                    double currentQuantityInkitchen = resultSet.getDouble("QuantityInkitchen");
                     double quantityToRemove = Double.parseDouble(ingredient[2]) / 1000.0; // Chuyển đổi về đơn vị kg
 
                     // Cập nhật lại lượng nguyên liệu còn lại trong kho
-                    double newQuantityInStock = currentQuantityInStock - quantityToRemove;
+                    double newQuantityInkitchen = currentQuantityInkitchen - quantityToRemove;
 
                     // Đảm bảo lượng nguyên liệu không âm
-                    if (newQuantityInStock >= 0) {
-                        statementUpdate.setDouble(1, newQuantityInStock);
+                    if (newQuantityInkitchen >= 0) {
+                        statementUpdate.setDouble(1, newQuantityInkitchen);
                         statementUpdate.setInt(2, ID_Ingr);
                         statementUpdate.executeUpdate();
                     } else {

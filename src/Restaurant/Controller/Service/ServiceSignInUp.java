@@ -105,7 +105,23 @@ public class ServiceSignInUp {
         }
         return 0;
     }
-    
+    public int LayMaNV(String email) throws SQLException
+    {
+        String sql="SELECT ID_Emp FROM Employee,[User] WHERE Employee.ID_User = [User].ID_User and Email=?";
+        int ID =0;
+        try(PreparedStatement statement=con.prepareStatement(sql))
+        {
+            statement.setString(1, Email);
+            ResultSet r=statement.executeQuery();
+            while(r.next())
+            {
+                ID=r.getInt("ID_Emp");
+            
+                
+            }
+            return ID;
+    }
+    }
     public boolean checkLogin(String Email,String Password,String EmailName)
     {
 String sql="SELECT * FROM [User] WHERE Email = ? AND Password = ?";
