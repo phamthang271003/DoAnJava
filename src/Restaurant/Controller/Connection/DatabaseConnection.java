@@ -33,6 +33,7 @@ public class DatabaseConnection {
     public void connectToDatabase() {
         String strServer = "LAPTOP-5KVBJE6O\\SQLEXPRESS";
         String strDatabase = "QLNH";
+
         String userName = "sa";
         String passWord = "123";
         try {

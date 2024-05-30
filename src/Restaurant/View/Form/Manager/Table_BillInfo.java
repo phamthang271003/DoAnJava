@@ -230,9 +230,9 @@ public class Table_BillInfo extends SimpleFormManager {
         for (ModelBill receipt : receiptList) {
             // Thêm dòng mới vào bảng với dữ liệu từ mỗi ModelReceipt trong danh sách
             model.addRow(new Object[]{receipt.getID_Bill(), receipt.getTable() , receipt.getDateChekIn()  , df.format(receipt.getTotalPrice()) + "đ", receipt.getStatus()});
-        }
-   }
 
+   }
+   }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane scroll;
@@ -243,3 +243,4 @@ public class Table_BillInfo extends SimpleFormManager {
     private Restaurant.View.Component.Dashboard.UWPButton uWPButton3;
     // End of variables declaration//GEN-END:variables
 }
+

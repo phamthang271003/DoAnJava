@@ -39,7 +39,11 @@ public class ServiceBill {
              while (r.next()) {
                     int ID_Bill = r.getInt(1);
                     String Name = r.getString(2);
+
                     Date DateChekIn = r.getDate(3);                 
+
+                    
+                    //double Discount = r.getDouble(4);
                     double TotalPrice = r.getDouble(4);
                     String Status = r.getString(5);
                     ModelBill data = new ModelBill(ID_Bill, Name, DateChekIn,TotalPrice,Status);
